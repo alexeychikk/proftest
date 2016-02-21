@@ -1,4 +1,4 @@
-import app from './';
+var app = require('./server/app');
 import mongoose from 'mongoose';
 
 after(function(done) {

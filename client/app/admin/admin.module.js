@@ -1,6 +1,11 @@
 'use strict';
 
-angular.module('proftestApp.admin', [
-  'proftestApp.auth',
-  'ngRoute'
-]);
+(function () {
+
+  angular.module('proftestApp.admin', [
+    'proftestApp.auth',
+    'ngRoute'
+  ]);
+
+})();
+

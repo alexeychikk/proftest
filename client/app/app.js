@@ -1,20 +1,24 @@
 'use strict';
 
-angular.module('proftestApp', [
-  'proftestApp.auth',
-  'proftestApp.admin',
-  'proftestApp.constants',
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ngRoute',
-  'validation.match'
-])
-  .config(function($routeProvider, $locationProvider) {
-    $routeProvider
-      .otherwise({
-        redirectTo: '/'
-      });
+(function () {
 
-    $locationProvider.html5Mode(true);
-  });
+  angular.module('proftestApp', [
+      'proftestApp.auth',
+      'proftestApp.admin',
+      'proftestApp.constants',
+      'ngCookies',
+      'ngResource',
+      'ngSanitize',
+      'ngRoute',
+      'validation.match'
+    ])
+    .config(($routeProvider, $locationProvider) => {
+      $routeProvider
+        .otherwise({
+          redirectTo: '/'
+        });
+
+      $locationProvider.html5Mode(true);
+    });
+
+})();

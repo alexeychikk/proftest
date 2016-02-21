@@ -1,8 +1,12 @@
 'use strict';
 
-angular.module('proftestApp')
-  .controller('OauthButtonsCtrl', function($window) {
-    this.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
-    };
-  });
+(function () {
+
+  angular.module('proftestApp')
+    .controller('OauthButtonsCtrl', function ($window) {
+      this.loginOauth = (provider) => {
+        $window.location.href = '/auth/' + provider;
+      };
+    });
+
+})();

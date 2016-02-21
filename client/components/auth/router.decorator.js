@@ -1,37 +1,38 @@
 'use strict';
 
-(function() {
+(function () {
 
-angular.module('proftestApp.auth')
-  .run(function($rootScope, $location, Auth) {
-    // Redirect to login if route requires auth and the user is not logged in, or doesn't have required role
-    $rootScope.$on('$routeChangeStart', function(event, next) {
-      if (!next.authenticate) {
-        return;
-      }
+  angular.module('proftestApp.auth')
+    .run(($rootScope, $location, Auth) => {
 
-      if (typeof next.authenticate === 'string') {
-        Auth.hasRole(next.authenticate, _.noop).then(has => {
-          if (has) {
-            return;
-          }
+      // Redirect to login if route requires auth and the user is not logged in, or doesn't have required role
+      $rootScope.$on('$routeChangeStart', (event, next) => {
+        if (!next.authenticate) {
+          return;
+        }
 
-          event.preventDefault();
-          return Auth.isLoggedIn(_.noop).then(is => {
-            $location.path(is ? '/' : '/login');
+        if (typeof next.authenticate === 'string') {
+          Auth.hasRole(next.authenticate, _.noop).then(has => {
+            if (has) {
+              return;
+            }
+
+            event.preventDefault();
+            return Auth.isLoggedIn(_.noop).then(is => {
+              $location.path(is ? '/' : '/login');
+            });
           });
-        });
-      } else {
-        Auth.isLoggedIn(_.noop).then(is => {
-          if (is) {
-            return;
-          }
+        } else {
+          Auth.isLoggedIn(_.noop).then(is => {
+            if (is) {
+              return;
+            }
 
-          event.preventDefault();
-          $location.path('/');
-        });
-      }
+            event.preventDefault();
+            $location.path('/');
+          });
+        }
+      });
     });
-  });
 
 })();

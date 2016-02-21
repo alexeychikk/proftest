@@ -1,24 +1,28 @@
 'use strict';
 
-describe('Controller: OauthButtonsCtrl', function() {
+(function () {
 
-  // load the controller's module
-  beforeEach(module('proftestApp'));
+  describe('Controller: OauthButtonsCtrl', () => {
 
-  var OauthButtonsCtrl, $window;
+    // load the controller's module
+    beforeEach(module('proftestApp'));
 
-  // Initialize the controller and a mock $window
-  beforeEach(inject(function($controller) {
-    $window = {
-      location: {}
-    };
+    var OauthButtonsCtrl, $window;
 
-    OauthButtonsCtrl = $controller('OauthButtonsCtrl', {
-      $window: $window
+    // Initialize the controller and a mock $window
+    beforeEach(inject(($controller) => {
+      $window = {
+        location: {}
+      };
+
+      OauthButtonsCtrl = $controller('OauthButtonsCtrl', {
+        $window: $window
+      });
+    }));
+
+    it('should attach loginOauth', () => {
+      expect(OauthButtonsCtrl.loginOauth).toEqual(jasmine.any(Function));
     });
-  }));
-
-  it('should attach loginOauth', function() {
-    expect(OauthButtonsCtrl.loginOauth).toEqual(jasmine.any(Function));
   });
-});
+
+})();

@@ -1,12 +1,19 @@
 'use strict';
 
-angular.module('proftestApp')
-  .directive('footer', function() {
-    return {
-      templateUrl: 'components/footer/footer.html',
-      restrict: 'E',
-      link: function(scope, element) {
-        element.addClass('footer');
-      }
-    };
-  });
+(function () {
+
+  angular.module('proftestApp')
+    .directive('footer', () => {
+
+      return {
+        templateUrl: 'components/footer/footer.html',
+        restrict: 'E',
+        link: (scope, element) => {
+          element.addClass('footer');
+        }
+      };
+
+    });
+
+})();
+

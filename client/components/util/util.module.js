@@ -1,3 +1,6 @@
 'use strict';
+(function () {
 
-angular.module('proftestApp.util', []);
+  angular.module('proftestApp.util', []);
+
+})();
