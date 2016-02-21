@@ -17,7 +17,10 @@
   "trailing": true,
   "smarttabs": true,
   "ignoreDelimiters": [
-    { "start": "start-non-standard", "end": "end-non-standard" }
+    {
+      "start": "start-non-standard",
+      "end": "end-non-standard"
+    }
   ],
   "globals": {
     "jQuery": true,

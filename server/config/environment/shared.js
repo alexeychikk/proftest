@@ -1,6 +1,6 @@
 'use strict';
 
 exports = module.exports = {
-  // List of user roles
-  userRoles: ['guest', 'user', 'admin']
+    // List of user roles
+    userRoles: ['guest', 'user', 'admin']
 };
