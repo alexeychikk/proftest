@@ -179,6 +179,17 @@ gulp.task('env:all', () => {
         vars: localConfig
     });
 });
+gulp.task('env:dist', () => {
+  let localConfig;
+  try {
+    localConfig = require(`./${serverPath}/config/local.env.dist`);
+  } catch (e) {
+    localConfig = {};
+  }
+  plugins.env({
+    vars: localConfig
+  });
+});
 gulp.task('env:test', () => {
     plugins.env({
         vars: {NODE_ENV: 'test'}
@@ -350,6 +361,7 @@ gulp.task('watch', () => {
 
 gulp.task('serve', cb => {
     runSequence(['clean:tmp', 'constant'],
+        'env:all',
         ['lint:scripts', 'inject'],
         ['wiredep:client'],
         ['transpile:client', 'styles'],
@@ -361,7 +373,7 @@ gulp.task('serve', cb => {
 gulp.task('serve:dist', cb => {
     runSequence(
         'build',
-        'env:all',
+        'env:dist',
         'env:prod',
         ['start:server:prod', 'start:client'],
         cb);
