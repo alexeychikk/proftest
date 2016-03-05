@@ -1,5 +1,3 @@
-'use strict';
-
 (function () {
 
     describe('Controller: MainController', () => {

@@ -1,5 +1,3 @@
-'use strict';
-
 (function () {
 
     describe('Directive: oauthButtons', () => {

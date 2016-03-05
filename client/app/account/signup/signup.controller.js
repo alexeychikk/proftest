@@ -1,5 +1,3 @@
-'use strict';
-
 (function () {
 
     class SignupController {
@@ -41,7 +39,7 @@
         }
     }
 
-    angular.module('proftestApp')
+    angular.module('proftestApp.account')
         .controller('SignupController', SignupController);
 
 })();

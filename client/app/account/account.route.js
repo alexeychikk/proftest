@@ -1,5 +1,3 @@
-'use strict';
-
 (function () {
 
     angular.module('proftestApp')
@@ -27,19 +25,18 @@
                     controller: 'SignupController',
                     controllerAs: 'vm'
                 })
-                .when('/settings', {
+                .when('/:id', {
+                    templateUrl: 'app/account/account.html',
+                    controller: 'AccountController',
+                    controllerAs: 'vm',
+                    authenticate: true
+                })
+                .when('/:id/settings', {
                     templateUrl: 'app/account/settings/settings.html',
                     controller: 'SettingsController',
                     controllerAs: 'vm',
                     authenticate: true
                 });
         })
-        .run(($rootScope) => {
-            $rootScope.$on('$routeChangeStart', function (event, next, current) {
-                if (next.name === 'logout' && current && current.originalPath && !current.authenticate) {
-                    next.referrer = current.originalPath;
-                }
-            });
-        });
 
 })();

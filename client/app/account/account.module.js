@@ -1,9 +1,8 @@
 (function () {
 
-    angular.module('proftestApp.admin', [
+    angular.module('proftestApp.account', [
         'proftestApp.auth',
         'ngRoute'
     ]);
 
 })();
-

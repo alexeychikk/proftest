@@ -1,5 +1,3 @@
-'use strict';
-
 (function () {
 
     class SettingsController {
@@ -27,7 +25,7 @@
         }
     }
 
-    angular.module('proftestApp')
+    angular.module('proftestApp.account')
         .controller('SettingsController', SettingsController);
 
 })();
