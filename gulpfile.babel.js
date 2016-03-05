@@ -213,7 +213,7 @@ gulp.task('inject', cb => {
 gulp.task('inject:js', () => {
     return gulp.src(paths.client.mainView)
         .pipe(plugins.inject(
-            gulp.src(_.union(paths.client.scripts, [`!${clientPath}/**/*.{spec,mock}.js`, `!${clientPath}/app/app.js`]), {read: false})
+            gulp.src(_.union(paths.client.scripts, [`!${clientPath}/**/*.{spec,mock}.js`, `!${clientPath}/app/app.module.js`]), {read: false})
                 .pipe(plugins.sort(sortModulesFirst)),
             {
                 starttag: '<!-- injector:js -->',
@@ -465,7 +465,7 @@ gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**
 gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant'], () => {
     var manifest = gulp.src(`${paths.dist}/${clientPath}/assets/rev-manifest.json`);
 
-    var appFilter = plugins.filter('**/app.js');
+    var appFilter = plugins.filter('**/app.module.js');
     var jsFilter = plugins.filter('**/*.js');
     var cssFilter = plugins.filter('**/*.css');
     var htmlBlock = plugins.filter(['**/*.!(html)']);
@@ -474,7 +474,7 @@ gulp.task('build:client', ['transpile:client', 'styles', 'html', 'constant'], ()
         .pipe(plugins.useref())
         .pipe(appFilter)
         .pipe(plugins.addSrc.append('.tmp/templates.js'))
-        .pipe(plugins.concat('app/app.js'))
+        .pipe(plugins.concat('app/app.module.js'))
         .pipe(appFilter.restore())
         .pipe(jsFilter)
         .pipe(plugins.ngAnnotate())

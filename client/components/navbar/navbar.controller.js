@@ -1,14 +1,6 @@
 (function () {
 
     class NavbarController {
-        //start-non-standard
-        menu = [{
-            'title': 'Home',
-            'link': '/'
-        }];
-
-        isCollapsed = true;
-        //end-non-standard
 
         constructor($location, Auth) {
             this.$location = $location;
@@ -17,9 +9,6 @@
             this.getCurrentUser = Auth.getCurrentUser;
         }
 
-        isActive(route) {
-            return route === this.$location.path();
-        }
     }
 
     angular.module('proftestApp')

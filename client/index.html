@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <base href="/">
-    <title></title>
+    <title>ProfTest</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -36,7 +36,7 @@
 <!-- Add your site or application content here -->
 <navbar></navbar>
 <div ng-view=""></div>
-<footer></footer>
+<my-footer></my-footer>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
@@ -75,21 +75,28 @@
 <script src="bower_components/angular-material/angular-material.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
-<!-- build:js(.tmp) app/app.js -->
-<script src="app/app.js"></script>
+<!-- build:js(.tmp) app/app.module.js -->
+<script src="app/app.module.js"></script>
 <!-- injector:js -->
+<script src="app/account/account.module.js"></script>
 <script src="app/admin/admin.module.js"></script>
+<script src="app/test/test.module.js"></script>
 <script src="components/auth/auth.module.js"></script>
 <script src="components/util/util.module.js"></script>
-<script src="app/account/account.js"></script>
+<script src="app/account/account.controller.js"></script>
+<script src="app/account/account.route.js"></script>
+<script src="app/account/account.run.js"></script>
 <script src="app/account/login/login.controller.js"></script>
 <script src="app/account/settings/settings.controller.js"></script>
 <script src="app/account/signup/signup.controller.js"></script>
 <script src="app/admin/admin.controller.js"></script>
 <script src="app/admin/admin.router.js"></script>
 <script src="app/app.constant.js"></script>
+<script src="app/app.route.js"></script>
 <script src="app/main/main.controller.js"></script>
 <script src="app/main/main.router.js"></script>
+<script src="app/test/test.controller.js"></script>
+<script src="app/test/test.route.js"></script>
 <script src="components/auth/auth.service.js"></script>
 <script src="components/auth/interceptor.service.js"></script>
 <script src="components/auth/router.decorator.js"></script>

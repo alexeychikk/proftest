@@ -6,6 +6,7 @@
         'proftestApp.admin',
         'proftestApp.constants',
         'proftestApp.test',
+        'ngMaterial',
         'ngCookies',
         'ngResource',
         'ngSanitize',

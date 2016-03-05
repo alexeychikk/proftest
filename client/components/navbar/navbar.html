@@ -1,32 +1,26 @@
-<div class="navbar navbar-default navbar-static-top" ng-controller="NavbarController">
-    <div class="container">
-        <div class="navbar-header">
-            <button class="navbar-toggle" type="button" ng-click="nav.isCollapsed = !nav.isCollapsed">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/" class="navbar-brand">proftest</a>
-        </div>
-        <div collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-            <ul class="nav navbar-nav">
-                <li ng-repeat="item in nav.menu" ng-class="{active: nav.isActive(item.link)}">
-                    <a ng-href="{{item.link}}">{{item.title}}</a>
-                </li>
-                <li ng-show="nav.isAdmin()" ng-class="{active: nav.isActive('/admin')}"><a href="/admin">Admin</a></li>
-            </ul>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>
+            <span>ProfTest</span>
+        </h2>
+        <span flex></span>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-hide="nav.isLoggedIn()" ng-class="{active: nav.isActive('/signup')}"><a href="/signup">Sign
-                    up</a></li>
-                <li ng-hide="nav.isLoggedIn()" ng-class="{active: nav.isActive('/login')}"><a href="/login">Login</a>
-                </li>
-                <li ng-show="nav.isLoggedIn()"><p class="navbar-text">Hello {{ nav.getCurrentUser().name }}</p></li>
-                <li ng-show="nav.isLoggedIn()" ng-class="{active: nav.isActive('/settings')}"><a href="/settings"><span
-                        class="glyphicon glyphicon-cog"></span></a></li>
-                <li ng-show="nav.isLoggedIn()"><a href="/logout">Logout</a></li>
-            </ul>
+        <div ng-if="isLoggedIn()" layout="row" layout-align="end center">
+            <a layout="row" layout-align="center center" ng-href="/users/{{getCurrentUser()._id}}">
+                <img class="avatar" ng-if="getCurrentUser().avatar" alt="{{getCurrentUser().firstName}}"
+                     ng-src="/avatars/{{getCurrentUser().avatar}}"
+                     ng-class="{admin: isAdmin()}">
+                <i class="mdi mdi-account-circle mdi-36" ng-if="!getCurrentUser().avatar"></i>
+                <h6 class="nickname" ng-class="{admin: isAdmin()}">{{getCurrentUser().firstName}}</h6>
+            </a>
+            <a ng-if="isAdmin()" class="admin-panel" href="/admin" hide>
+                <md-tooltip>Админпанель</md-tooltip>
+                <i class="mdi mdi-account-star mdi-24"></i>
+            </a>
+            <a class="md-mini logout-button" href="/logout" aria-label="logout-btn">
+                <md-tooltip>Выйти</md-tooltip>
+                <i class="mdi mdi-exit-to-app mdi-24"></i>
+            </a>
         </div>
     </div>
-</div>
+</md-toolbar>
