@@ -14,6 +14,18 @@
                     controller: 'password'
                 }
             },
+            putAnswers: {
+                method: 'PUT',
+                params: {
+                    controller: 'answers'
+                }
+            },
+            getStats: {
+                method: 'GET',
+                params: {
+                    id: 'stats'
+                }
+            },
             get: {
                 method: 'GET',
                 params: {
