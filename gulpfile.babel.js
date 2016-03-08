@@ -416,12 +416,9 @@ gulp.task('wiredep:client', () => {
     return gulp.src(paths.client.mainView)
         .pipe(wiredep({
             exclude: [
-                /bootstrap-sass-official/,
-                /bootstrap.js/,
                 /json3/,
                 /es5-shim/,
-                /bootstrap.css/,
-                /font-awesome.css/
+				/materialdesignicons.css/
             ],
             ignorePath: clientPath
         }))
@@ -432,12 +429,9 @@ gulp.task('wiredep:test', () => {
     return gulp.src(paths.karma)
         .pipe(wiredep({
             exclude: [
-                /bootstrap-sass-official/,
-                /bootstrap.js/,
                 '/json3/',
                 '/es5-shim/',
-                /bootstrap.css/,
-                /font-awesome.css/
+				/materialdesignicons.css/
             ],
             devDependencies: true
         }))

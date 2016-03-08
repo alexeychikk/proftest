@@ -6,22 +6,22 @@
 
         constructor($http) {
             this.$http = $http;
-            this.awesomeThings = [];
+            this.awesomeTests = [];
 
-            $http.get('/api/things').then(response => {
-                this.awesomeThings = response.data;
+            $http.get('/api/tests').then(response => {
+                this.awesomeTests = response.data;
             });
         }
 
-        addThing() {
-            if (this.newThing) {
-                this.$http.post('/api/things', {name: this.newThing});
-                this.newThing = '';
+        addTest() {
+            if (this.newTest) {
+                this.$http.post('/api/tests', {name: this.newTest});
+                this.newTest = '';
             }
         }
 
-        deleteThing(thing) {
-            this.$http.delete('/api/things/' + thing._id);
+        deleteTest(test) {
+            this.$http.delete('/api/tests/' + test._id);
         }
     }
 

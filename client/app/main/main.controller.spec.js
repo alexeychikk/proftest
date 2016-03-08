@@ -14,7 +14,7 @@
         // Initialize the controller and a mock scope
         beforeEach(inject((_$httpBackend_, $controller, $rootScope) => {
             $httpBackend = _$httpBackend_;
-            $httpBackend.expectGET('/api/things')
+            $httpBackend.expectGET('/api/tests')
                 .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
 
             scope = $rootScope.$new();
@@ -23,9 +23,9 @@
             });
         }));
 
-        it('should attach a list of things to the controller', () => {
+        it('should attach a list of tests to the controller', () => {
             $httpBackend.flush();
-            expect(MainController.awesomeThings.length).toBe(4);
+            expect(MainController.awesomeTests.length).toBe(4);
         });
     });
 

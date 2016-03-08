@@ -7,20 +7,34 @@ import {Schema} from 'mongoose';
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var UserSchema = new Schema({
-    name: String,
-    email: {
-        type: String,
-        lowercase: true
-    },
-    role: {
-        type: String,
-        default: 'user'
-    },
-    password: String,
-    provider: String,
-    salt: String,
-    facebook: {},
-    github: {}
+	firstName: String,
+	lastName: String,
+	email: {
+		type: String,
+		lowercase: true
+	},
+	birthDate: Date,
+	regDate: Date,
+	country: String,
+	city: String,
+	education: String,
+	work: String,
+	gender: String,
+	role: {
+		type: String,
+		default: 'user'
+	},
+	password: String,
+	provider: String,
+	salt: String,
+	facebook: {},
+	vk: {},
+	tests: [{
+		_id: Schema.Types.ObjectId,
+		passingDate: Date,
+		answers: {},
+		result: {}
+	}]
 });
 
 /**
