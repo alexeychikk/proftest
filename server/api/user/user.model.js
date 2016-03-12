@@ -14,7 +14,7 @@ var UserSchema = new Schema({
 		lowercase: true
 	},
 	birthDate: Date,
-	regDate: Date,
+	regDate: { type: Date, default: Date.now },
 	country: String,
 	city: String,
 	education: String,
@@ -31,7 +31,7 @@ var UserSchema = new Schema({
 	vk: {},
 	tests: [{
 		_id: Schema.Types.ObjectId,
-		passingDate: Date,
+		passingDate: { type: Date, default: Date.now },
 		answers: {},
 		result: {}
 	}]

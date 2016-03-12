@@ -9,7 +9,10 @@ var TestSchema = new mongoose.Schema({
 	shortDesc: String,
 	longDesc: String,
 	instruction: String,
-	creationDate: Date,
+	creationDate: {
+		type: Date,
+		default: Date.now
+	},
 	content: {},
 	func: String
 });
