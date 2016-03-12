@@ -3,15 +3,15 @@
     angular.module('proftestApp.test')
         .config(($routeProvider) => {
             $routeProvider
-                .when('/test//:id', {
+                .when('/test/:id', {
                     templateUrl: 'app/test/about.html',
                     controller: 'TestController',
                     controllerAs: 'vm'
                 })
-                .when('/test//:id/:counter', {
+                .when('/test/:id/:counter', {
                     templateUrl: 'app/test/question.html'
                 })
-                .when('/test//:id/result', {
+                .when('/test/:id/result', {
                     templateUrl: 'app/test/result.html'
                 });
         });

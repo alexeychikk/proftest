@@ -2,8 +2,9 @@
 
     class AccountController {
 
-        constructor() {
-
+        constructor(Auth) {
+            this.isAdmin = Auth.isAdmin;
+            this.getCurrentUser = Auth.getCurrentUser;
         }
     }
 
