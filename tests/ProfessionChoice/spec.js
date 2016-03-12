@@ -1,17 +1,17 @@
-let functionInput = {
-	'0': { //category index
-		'0': [5, 8 /* selected variants keys */], //block index
-		'1': [6],
+let functionInput = [
+	[ //category
+		[5, 8 /* selected variants keys */], //block index
+		[6],
 		//...
-		'23': [7, 4, 9]
-	},
-	'1': {
-		'0': [5, 8],
-		'1': [6],
+		[7, 4, 9]
+	],
+	[
+		[5, 8],
+		[6],
 		//...
-		'23': [7, 4, 9]
-	}
-};
+		[7, 4, 9]
+	]
+];
 
 let functionResult = {
 	"interests": { //minimum 2 keys
