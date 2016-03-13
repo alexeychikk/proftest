@@ -8,11 +8,11 @@
             this.Test = Test;
             this.testsShort = {};
 
-            //this.Test.get({
-            //    params: {fields: ['_id', 'name', 'icon', 'type', 'shortDesc']}
-            //}).$promise.then(response => {
-            //    this.testsShort = response.data;
-            //});
+            this.Test.query({
+                params: {fields: '_id name icon type shortDesc'}
+            }).$promise.then(response => {
+                this.testsShort = response.data;
+            });
         }
     }
 
