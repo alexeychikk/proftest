@@ -306,11 +306,8 @@ module.exports = {
 			"Транспорт, уличное движение, доставка",
 			"Юриспруденция и общественная безопасность",
 			"Правовое и общественное управление"
-		]
-	},
-	func: function (answers) {
-		let res = { interests: {}, skills: {}, result: [] };
-		const map = [
+		],
+		map: [
 			[[1, 3, 6, 5],	[2, 8, 7]],
 			[[3, 6, 5],		[6, 4, 8, 7]],
 			[[1, 2, 3, 5],	[6, 2, 9, 8]],
@@ -333,7 +330,10 @@ module.exports = {
 			[[2, 3, 6, 5], 	[2, 3, 5, 7]],
 			[[2, 3, 5, 8], 	[6, 3, 9, 5]],
 			[[2, 3, 6, 8], 	[2, 3, 9, 5]]
-		];
+		]
+	},
+	func: function (answers) {
+		let res = { interests: {}, skills: {}, result: [] };
 
 		function categoryMaxes(catName) {
 			let counts = {}, max1 = [], max2 = [], max;
@@ -357,8 +357,8 @@ module.exports = {
 		categoryMaxes('skills');
 
 		let temp = [];
-		for (let i = 0; i < map.length; i++) {
-			let interests = map[i][0], skills = map[i][1];
+		for (let i = 0; i < this.content.map.length; i++) {
+			let interests = this.content.map[i][0], skills = this.content.map[i][1];
 			temp.push({index: 0, count: 0});
 			temp[i].index = i;
 			for (let inter of interests)
@@ -367,7 +367,6 @@ module.exports = {
 				if (res.skills[skill]) temp[i].count++;
 		}
 		res.result = temp.sort((el1, el2) => el2.count - el1.count);
-		console.log(res);
 		return res;
 	}
 };
