@@ -16,14 +16,16 @@ Test.find({}).removeAsync()
 User.find({}).removeAsync()
 	.then(() => {
 		User.createAsync({
+			firstName: 'Test',
+			lastName: 'User',
 			provider: 'local',
-			name: 'Test User',
 			email: 'test@example.com',
 			password: 'test'
 		}, {
+			firstName: 'Admin',
+			lastName: 'Loh',
 			provider: 'local',
 			role: 'admin',
-			name: 'Admin',
 			email: 'admin@example.com',
 			password: 'admin'
 		})

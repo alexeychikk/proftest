@@ -19,12 +19,29 @@ function handleError(res, statusCode) {
     };
 }
 
+function parseFields(fields) {
+	if (fields) {
+		fields = JSON.parse(fields);
+		var include = fields[Object.keys(fields)[0]];
+		if (include) {
+			delete fields.salt;
+			delete fields.password;
+		} else {
+			fields.salt = false;
+			fields.password = false;
+		}
+		return fields;
+	}
+}
+
 /**
  * Get list of users
  * restriction: 'admin'
  */
 export function index(req, res) {
-    User.findAsync({}, (req.query.fields || '') + ' -salt -password')
+	req.query.fields = parseFields(req.query.fields);
+
+    User.findAsync({}, req.query.fields)
         .then(users => {
             res.status(200).json(users);
         })
@@ -53,8 +70,9 @@ export function create(req, res, next) {
  */
 export function show(req, res, next) {
     var userId = req.params.id;
+	req.query.fields = parseFields(req.query.fields);
 
-    User.findByIdAsync(userId, (req.query.fields || '') + ' -salt -password')
+    User.findByIdAsync(userId, req.query.fields)
         .then(user => {
             if (!user) {
                 return res.status(404).end();
@@ -104,8 +122,9 @@ export function changePassword(req, res, next) {
  */
 export function me(req, res, next) {
     var userId = req.user._id;
+	req.query.fields = parseFields(req.query.fields);
 
-    User.findOneAsync({_id: userId}, (req.query.fields || '') + ' -salt -password')
+    User.findByIdAsync(userId, req.query.fields)
         .then(user => { // don't ever give out the password or salt
             if (!user) {
                 return res.status(401).end();
