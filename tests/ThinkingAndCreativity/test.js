@@ -117,20 +117,8 @@ module.exports = {
             "Меня привлекает работа художника-оформителя.",
             "Не люблю ходить одним и тем же путем."
         ],
-        thinkingTypes: {
-            objective: "Предметное мышление",
-            symbolic: "Символическое мышление",
-            sign: "Знаковое мышление",
-            figurative: "Образное мышление",
-            creativity: "Креативность"
-        },
-        description: {
-            objective: objective,
-            symbolic: symbolic,
-            sign: sign,
-            figurative: figurative,
-            creativity: creativity
-        },
+        thinkingTypes: ["Предметное мышление", "Символическое мышление", "Знаковое мышление", "Образное мышление", "Креативность"],
+        description: [objective, symbolic,  sign, figurative, creativity],
         levels: {
             low: "низкий",
             medium: "средний",
@@ -138,6 +126,23 @@ module.exports = {
         }
     },
     func: function (answers) {
-        console.log(answers);
+        let answersSums = [0, 0, 0, 0, 0],
+            result = [];
+
+        for (let i = 0; i < answers.length; i++) {
+            answersSums[i % 5] += answers[i] ? 1 : 0;
+        }
+
+        for (let score of answersSums) {
+            let level;
+
+            if (score <= 5) level = 'low';
+            else if (score <= 9) level = 'medium';
+            else level = 'high';
+
+            result.push({score, level});
+        }
+
+        return result;
     }
 };
