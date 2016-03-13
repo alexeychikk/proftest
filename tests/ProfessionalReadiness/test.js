@@ -1,6 +1,6 @@
 module.exports = {
     name: "Опросник профессиональной готовности",
-    type: "",
+    type: require('../types').PROF_READINESS,
     shortDesc: "",
     longDesc: "",
     instruction: "Внимательно прочтите высказывание. Затем ответьте на три нижеприведенных вопроса.",

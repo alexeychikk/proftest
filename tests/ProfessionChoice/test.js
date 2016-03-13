@@ -1,6 +1,6 @@
 module.exports = {
 	name: "Системный выбор профессии",
-	type: "",
+	type: require('../types').SYSTEM_PROF_CHOICE,
 	shortDesc: "",
 	longDesc: "",
 	instruction: "Выберите утверждения, которые наиболее вам соответствуют",
@@ -306,9 +306,67 @@ module.exports = {
 			"Транспорт, уличное движение, доставка",
 			"Юриспруденция и общественная безопасность",
 			"Правовое и общественное управление"
+		],
+		map: [
+			[[1, 3, 6, 5],	[2, 8, 7]],
+			[[3, 6, 5],		[6, 4, 8, 7]],
+			[[1, 2, 3, 5],	[6, 2, 9, 8]],
+			[[2, 3, 5], 	[2, 5, 1, 7]],
+			[[5, 4, 7, 8], 	[4, 8, 1]],
+			[[2, 3, 5], 	[2, 9, 7]],
+			[[1, 2, 3], 	[6, 2, 9]],
+			[[2, 3, 6, 5], 	[2, 8, 1, 7]],
+			[[1, 2, 3, 5], 	[6, 2, 9, 7]],
+			[[2, 6, 4, 8], 	[9, 4, 8, 1]],
+			[[4, 7, 8], 	[4, 5, 8, 1]],
+			[[1, 5, 8], 	[3, 9, 5, 8]],
+			[[6, 5, 8], 	[5, 8, 1, 7]],
+			[[2, 3, 8], 	[2, 3, 5]],
+			[[3, 6, 4, 8], 	[2, 3, 5]],
+			[[4, 8], 		[3, 4, 5]],
+			[[4, 7, 8], 	[3, 4, 5]],
+			[[4, 8], 		[3, 9, 5]],
+			[[2, 4, 7, 8], 	[3, 4, 5]],
+			[[2, 3, 6, 5], 	[2, 3, 5, 7]],
+			[[2, 3, 5, 8], 	[6, 3, 9, 5]],
+			[[2, 3, 6, 8], 	[2, 3, 9, 5]]
 		]
 	},
 	func: function (answers) {
-		console.log(answers);
+		let res = { interests: {}, skills: {}, result: [] };
+
+		function categoryMaxes(catName) {
+			let counts = {}, max1 = [], max2 = [], max;
+			for (let block of answers[catName]) {
+				for (let opt of block) {
+					if (counts[opt]) counts[opt]++;
+					else counts[opt] = 1;
+					if (!max1.length || counts[opt] == counts[max1[0]]) max1.push(opt);
+					else if (counts[opt] > counts[max1[0]]) max1 = [opt];
+					else if (!max2.length || counts[opt] == counts[max2[0]]) max2.push(opt);
+					else if (counts[opt] > counts[max2[0]]) max2 = [opt];
+				}
+			}
+			max = max1.length > 1 ? max1 : max1.concat(max2);
+			for (let key of max) {
+				res[catName][key] = counts[key];
+			}
+		}
+
+		categoryMaxes('interests');
+		categoryMaxes('skills');
+
+		let temp = [];
+		for (let i = 0; i < this.content.map.length; i++) {
+			let interests = this.content.map[i][0], skills = this.content.map[i][1];
+			temp.push({index: 0, count: 0});
+			temp[i].index = i;
+			for (let inter of interests)
+				if (res.interests[inter]) temp[i].count++;
+			for (let skill of skills)
+				if (res.skills[skill]) temp[i].count++;
+		}
+		res.result = temp.sort((el1, el2) => el2.count - el1.count);
+		return res;
 	}
 };

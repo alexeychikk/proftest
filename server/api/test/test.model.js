@@ -6,6 +6,7 @@ var TestSchema = new mongoose.Schema({
 	name: String,
 	icon: String,
 	type: String,
+	userNeeded: Boolean,
 	shortDesc: String,
 	longDesc: String,
 	instruction: String,

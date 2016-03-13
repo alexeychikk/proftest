@@ -19,7 +19,12 @@ var UserSchema = new Schema({
 	city: String,
 	education: String,
 	work: String,
-	gender: String,
+	gender: {
+		type: String,
+		uppercase: true,
+		enum: ['M', 'F'],
+		default: 'M'
+	},
 	role: {
 		type: String,
 		default: 'user'
@@ -60,6 +65,18 @@ UserSchema
             'role': this.role
         };
     });
+
+UserSchema
+	.virtual('age')
+	.get(function () {
+		var today = new Date();
+		var age = today.getFullYear() - this.birthDate.getFullYear();
+		var m = today.getMonth() - this.birthDate.getMonth();
+		if (m < 0 || (m === 0 && today.getDate() < this.birthDate.getDate())) {
+			age--;
+		}
+		return age;
+	});
 
 /**
  * Validations

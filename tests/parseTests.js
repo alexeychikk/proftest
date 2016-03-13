@@ -8,7 +8,7 @@ function getDirectories(srcpath) {
 }
 
 function parseTest(test) {
-	return test.func ? Object.assign({}, test, { func: test.func.toString()}) : test;
+	return test.func ? Object.assign({}, test, { func: `(function() { return ${test.func.toString()} ;})();`}) : test;
 }
 
 export default function parseTests() {
