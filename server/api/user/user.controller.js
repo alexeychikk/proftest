@@ -24,7 +24,7 @@ function handleError(res, statusCode) {
  * restriction: 'admin'
  */
 export function index(req, res) {
-    User.findAsync({}, '-salt -password')
+    User.findAsync({}, (req.query.fields || '') + ' -salt -password')
         .then(users => {
             res.status(200).json(users);
         })
@@ -54,12 +54,12 @@ export function create(req, res, next) {
 export function show(req, res, next) {
     var userId = req.params.id;
 
-    User.findByIdAsync(userId)
+    User.findByIdAsync(userId, (req.query.fields || '') + ' -salt -password')
         .then(user => {
             if (!user) {
                 return res.status(404).end();
             }
-            res.json(user.profile);
+            res.json(user);
         })
         .catch(err => next(err));
 }
@@ -105,7 +105,7 @@ export function changePassword(req, res, next) {
 export function me(req, res, next) {
     var userId = req.user._id;
 
-    User.findOneAsync({_id: userId}, '-salt -password')
+    User.findOneAsync({_id: userId}, (req.query.fields || '') + ' -salt -password')
         .then(user => { // don't ever give out the password or salt
             if (!user) {
                 return res.status(401).end();

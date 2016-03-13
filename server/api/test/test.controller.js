@@ -61,14 +61,14 @@ function handleError(res, statusCode) {
 
 // Gets a list of Tests
 export function index(req, res) {
-    Test.findAsync()
+    Test.findAsync({}, req.query.fields)
         .then(respondWithResult(res))
         .catch(handleError(res));
 }
 
 // Gets a single Test from the DB
 export function show(req, res) {
-    Test.findByIdAsync(req.params.id)
+    Test.findByIdAsync(req.params.id, req.query.fields)
         .then(handleEntityNotFound(res))
         .then(respondWithResult(res))
         .catch(handleError(res));
