@@ -1,6 +1,6 @@
 module.exports = {
 	name: "Подростковый вариант теста Кеттелла 12-18 лет",
-	type: "",
+	type: require('../types').TEENAGE_KETTEL,
 	shortDesc: "",
 	longDesc: "",
 	instruction: "Вам предлагается ответить на ряд вопросов, цель которых – выяснить особенности Вашего характера, " +

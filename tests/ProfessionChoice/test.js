@@ -1,6 +1,6 @@
 module.exports = {
 	name: "Системный выбор профессии",
-	type: "",
+	type: require('../types').SYSTEM_PROF_CHOICE,
 	shortDesc: "",
 	longDesc: "",
 	instruction: "Выберите утверждения, которые наиболее вам соответствуют",
