@@ -6,12 +6,13 @@
 'use strict';
 import Test from '../api/test/test.model.js';
 import User from '../api/user/user.model';
-import parseTests from '../../tests/parseTests';
+import Tests from '../../tests';
 
 Test.find({}).removeAsync()
 	.then(() => {
-		Test.create(parseTests());
+		Test.create(Tests.parseAll());
 	})
+	.then(Tests.load.bind(Tests))
 	.then(() => {
 		console.log('finished populating tests');
 	});
@@ -33,7 +34,7 @@ User.find({}).removeAsync()
 			role: 'admin',
 			email: 'admin@example.com',
 			password: 'admin',
-			birthDate: new Date('1990-05-01'),
+			birthDate: new Date('1998-01-01'),
 			gender: 'F'
 		})
 			.then(() => {

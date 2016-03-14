@@ -5,6 +5,7 @@ import { UserSchema } from './user.model';
 import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
+import Tests from '../../../tests';
 
 function validationError(res, statusCode) {
     statusCode = statusCode || 422;
@@ -83,6 +84,10 @@ export function show(req, res, next) {
         .catch(err => next(err));
 }
 
+export function stats(req, res, next) {
+	//TODO: users stas for admins
+}
+
 /**
  * Deletes a user
  * restriction: 'admin'
@@ -140,6 +145,36 @@ export function update(req, res, next) {
 
 	User.updateAsync({_id: userId}, req.body, {runValidators: true, multi: false}).then(() => {
 		res.status(204).end();
+	}).catch(validationError(res));
+}
+
+/**
+ * Pass test with answers. Example:
+ *
+ *             $http.get('/api/tests').then(response => {
+                this.awesomeTests = response.data;
+				let testId = this.awesomeTests.find(t => t.type === 'TEENAGE_KETTEL')._id;
+				$http.put('/api/users/me/answers', {testId, answers: [
+					0, 0, 1, 0, 0, 0, 1, 1, 2, 0, 0, 0, 0, 2, 0, 1, 1, 0, 1, 0,
+					0, 0, 1, 0, 1, 0, 0, 1, 1, 2, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1,
+					0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 2, 2, 1, 0, 0, 0, 1, 1, 0,
+					1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0,
+					2, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 2, 1, 1, 0, 0, 0, 0, 0, 1,
+					1, 1, 1, 0, 1, 2, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,
+					0, 1, 1, 0, 2, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 2
+				]}).then(response => console.log(response.data));
+            });
+ */
+export function answers(req, res, next) {
+	try {
+		var result = Tests.pass(req.body, req.user);
+	} catch (err) {
+		return res.status(422).json(err);
+	}
+	User.updateAsync({_id: req.user._id}, {
+		$push: {"tests": {_id: req.body.testId, answers: req.body.answers, result} }
+	}, {runValidators: true, multi: false}).then(() => {
+		res.status(200).json(result);
 	}).catch(validationError(res));
 }
 

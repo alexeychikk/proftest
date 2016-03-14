@@ -38,7 +38,7 @@ const paths = {
         bower: `${clientPath}/bower_components/`
     },
     server: {
-        scripts: [`${serverPath}/**/!(*.spec|*.integration).js`],
+        scripts: [`${serverPath}/**/!(*.spec|*.integration).js`, 'tests/**/*'],
         json: [`${serverPath}/**/*.json`],
         test: {
             integration: [`${serverPath}/**/*.integration.js`, 'mocha.global.js'],

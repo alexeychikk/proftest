@@ -65,11 +65,11 @@ var UserSchema = new Schema({
 		type: String,
 		required: true
 	},
-	salt: String,
+	salt: String, //auto generated
 	facebook: {},
 	vk: {},
 	tests: [{
-		_id: Schema.Types.ObjectId,
+		_id: { type: Schema.Types.ObjectId, ref: 'Test'},
 		passingDate: { type: Date, default: Date.now },
 		answers: {},
 		result: {}
