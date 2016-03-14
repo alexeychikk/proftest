@@ -7,18 +7,36 @@ import {Schema} from 'mongoose';
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var UserSchema = new Schema({
-	firstName: String,
-	lastName: String,
+	firstName: {
+		type: String,
+		canUpdate: true
+	},
+	lastName: {
+		type: String,
+		canUpdate: true
+	},
 	email: {
 		type: String,
 		lowercase: true
 	},
 	birthDate: Date,
 	regDate: { type: Date, default: Date.now },
-	country: String,
-	city: String,
-	education: String,
-	work: String,
+	country: {
+		type: String,
+		canUpdate: true
+	},
+	city: {
+		type: String,
+		canUpdate: true
+	},
+	education: {
+		type: String,
+		canUpdate: true
+	},
+	work: {
+		type: String,
+		canUpdate: true
+	},
 	gender: {
 		type: String,
 		uppercase: true,
@@ -254,4 +272,5 @@ UserSchema.methods = {
     }
 };
 
+export { UserSchema };
 export default mongoose.model('User', UserSchema);

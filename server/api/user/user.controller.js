@@ -1,6 +1,7 @@
 'use strict';
 
 import User from './user.model';
+import { UserSchema } from './user.model';
 import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
@@ -31,7 +32,7 @@ function parseFields(fields) {
 			fields.password = false;
 		}
 		return fields;
-	}
+	} else return { salt: false, password: false };
 }
 
 /**
@@ -115,6 +116,31 @@ export function changePassword(req, res, next) {
                 return res.status(403).end();
             }
         });
+}
+
+/**
+ * Update user info. Example:
+ *
+ * 			$http.get('/api/users/me').then(response => {
+				$http.put(`/api/users/${response.data._id}`, {firstName: 'Loh', lastName: 'Ivanovich'})
+					.then(response => console.log(response));
+			});
+ */
+export function update(req, res, next) {
+	var canUpdate = (req.user._id == req.params.id) || req.user.role == 'admin';
+	if (!canUpdate) {
+		return res.status(403).send('Forbidden');
+	}
+
+	for (var i in req.body) {
+		var field = UserSchema.tree[i];
+		if (!(field && field.canUpdate)) return res.status(422).send(`Field "${i}" can not be updated!`);
+	}
+	var userId = req.params.id;
+
+	User.updateAsync({_id: userId}, req.body, {runValidators: true, multi: false}).then(() => {
+		res.status(204).end();
+	}).catch(validationError(res));
 }
 
 /**
