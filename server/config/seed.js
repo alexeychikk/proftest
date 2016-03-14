@@ -11,6 +11,9 @@ import parseTests from '../../tests/parseTests';
 Test.find({}).removeAsync()
 	.then(() => {
 		Test.create(parseTests());
+	})
+	.then(() => {
+		console.log('finished populating tests');
 	});
 
 User.find({}).removeAsync()
@@ -20,14 +23,18 @@ User.find({}).removeAsync()
 			lastName: 'User',
 			provider: 'local',
 			email: 'test@example.com',
-			password: 'test'
+			password: 'test',
+			birthDate: new Date('1995-13-02'),
+			gender: 'M'
 		}, {
 			firstName: 'Admin',
 			lastName: 'Loh',
 			provider: 'local',
 			role: 'admin',
 			email: 'admin@example.com',
-			password: 'admin'
+			password: 'admin',
+			birthDate: new Date('1990-05-01'),
+			gender: 'F'
 		})
 			.then(() => {
 				console.log('finished populating users');

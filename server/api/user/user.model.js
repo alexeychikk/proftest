@@ -9,18 +9,29 @@ const authTypes = ['github', 'twitter', 'facebook', 'google'];
 var UserSchema = new Schema({
 	firstName: {
 		type: String,
+		required: true,
+		maxlength: 32,
 		canUpdate: true
 	},
 	lastName: {
 		type: String,
+		required: true,
+		maxlength: 32,
 		canUpdate: true
 	},
-	email: {
+	email: { //see path validate
 		type: String,
 		lowercase: true
 	},
-	birthDate: Date,
-	regDate: { type: Date, default: Date.now },
+	birthDate: {
+		type: Date,
+		required: true
+	},
+	regDate: {
+		type: Date,
+		required: true,
+		default: Date.now
+	},
 	country: {
 		type: String,
 		canUpdate: true
@@ -39,16 +50,21 @@ var UserSchema = new Schema({
 	},
 	gender: {
 		type: String,
+		required: true,
 		uppercase: true,
 		enum: ['M', 'F'],
 		default: 'M'
 	},
 	role: {
 		type: String,
+		required: true,
 		default: 'user'
 	},
-	password: String,
-	provider: String,
+	password: String, //see path validate
+	provider: {
+		type: String,
+		required: true
+	},
 	salt: String,
 	facebook: {},
 	vk: {},
