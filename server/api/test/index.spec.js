@@ -13,7 +13,6 @@ var testCtrlStub = {
 var routerStub = {
     get: sinon.spy(),
     put: sinon.spy(),
-    patch: sinon.spy(),
     post: sinon.spy(),
     delete: sinon.spy()
 };
@@ -68,16 +67,6 @@ describe('Test API Router:', function () {
 
         it('should route to test.controller.update', function () {
             routerStub.put
-                .withArgs('/:id', 'testCtrl.update')
-                .should.have.been.calledOnce;
-        });
-
-    });
-
-    describe('PATCH /api/tests/:id', function () {
-
-        it('should route to test.controller.update', function () {
-            routerStub.patch
                 .withArgs('/:id', 'testCtrl.update')
                 .should.have.been.calledOnce;
         });

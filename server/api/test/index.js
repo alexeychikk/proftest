@@ -1,20 +1,20 @@
 'use strict';
 
-var express = require('express');
-var controller = require('./test.controller.js');
+import {Router} from 'express';
+import * as controller from './test.controller';
+import * as auth from '../../auth/auth.service';
 
-var router = express.Router();
+var router = new Router();
 
 //CREATE
-router.post('/', controller.create);
+router.post('/', auth.hasRole('admin'), controller.create);
 //READ
-router.get('/', controller.index);
-router.get('/:id', controller.show);
-router.get('/:id/stats', controller.stats);
+router.get('/', auth.isAuthenticated(), controller.index);
+router.get('/:id', auth.isAuthenticated(), controller.show);
+router.get('/:id/stats', auth.hasRole('admin'), controller.stats);
 //UPDATE
-router.put('/:id', controller.update);
-router.patch('/:id', controller.update);
+router.put('/:id', auth.hasRole('admin'), controller.update);
 //DELETE
-router.delete('/:id', controller.destroy);
+router.delete('/:id', auth.hasRole('admin'), controller.destroy);
 
 module.exports = router;
