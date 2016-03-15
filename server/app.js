@@ -22,7 +22,7 @@ mongoose.connection.on('error', function (err) {
 if (config.seedDB) {
     require('./config/seed');
 }
-else Tests.load();
+else Tests.loadAll();
 
 
 // Setup server
