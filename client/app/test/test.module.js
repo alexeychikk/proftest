@@ -2,6 +2,8 @@
 
 (function () {
 
-    angular.module('proftestApp.test', []);
+    angular.module('proftestApp.test', [
+        'proftestApp.constants'
+    ]);
 
 })();

@@ -22,6 +22,13 @@
                     controller: 'answers'
                 }
             },
+            putMyAnswers: {
+                method: 'PUT',
+                params: {
+                    id: 'me',
+                    controller: 'answers'
+                }
+            },
             getStats: {
                 method: 'GET',
                 params: {
@@ -33,6 +40,9 @@
                 params: {
                     id: 'me'
                 }
+            },
+            getOne: {
+                method: 'GET'
             }
         });
 

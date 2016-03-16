@@ -1,4 +1,4 @@
-let functionInput = [
+let functionInput = [ // a = 2, б = 1, в = 0
     {
         skill: 1,
         attitude: 2,

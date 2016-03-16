@@ -12,9 +12,6 @@
                 })
                 .when('/test/:id/:counter', {
                     templateUrl: 'app/test/question.html'
-                })
-                .when('/test/:id/result', {
-                    templateUrl: 'app/test/result.html'
                 });
         });
 

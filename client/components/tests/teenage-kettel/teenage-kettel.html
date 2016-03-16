@@ -1,0 +1,5 @@
+<div>
+    <h2 ng-bind="vm.getCurrentQuestion().name"></h2>
+    <button ng-click="vm.answer(index)" ng-bind="value"  aria-label="answer{{index}}"
+            ng-repeat="(index, value) in vm.getCurrentQuestion().variants"></button>
+</div>
