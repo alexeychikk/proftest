@@ -78,7 +78,7 @@ export function show(req, res) {
 // Creates a new Test in the DB
 export function create(req, res) {
     Test.createAsync(req.body)
-		.then(Tests.load.bind(Tests))
+		.then(Tests.load)
         .then(respondWithResult(res, 201))
         .catch(handleError(res));
 }
@@ -91,7 +91,7 @@ export function update(req, res) {
     Test.findByIdAsync(req.params.id)
         .then(handleEntityNotFound(res))
         .then(saveUpdates(req.body))
-		.then(Tests.load.bind(Tests))
+		.then(Tests.load)
         .then(respondWithResult(res))
         .catch(handleError(res));
 }

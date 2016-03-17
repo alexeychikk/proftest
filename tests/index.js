@@ -12,6 +12,10 @@ class Tests {
 	constructor() {
 		if (Tests.instance) return Tests.instance;
 		Tests.instance = this;
+
+		Object.getOwnPropertyNames(Tests.prototype).filter(func => func !== 'constructor').forEach(funcName => {
+			this[funcName] = this[funcName].bind(this);
+		});
 	}
 
 	parse(test) {

@@ -12,7 +12,7 @@ Test.find({}).removeAsync()
 	.then(() => {
 		Test.create(Tests.parseAll());
 	})
-	.then(Tests.loadAll.bind(Tests))
+	.then(Tests.loadAll)
 	.then(() => {
 		console.log('finished populating tests');
 	});
