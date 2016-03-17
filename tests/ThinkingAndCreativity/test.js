@@ -143,6 +143,6 @@ module.exports = {
             result.push({score, level});
         }
 
-        return result;
+        return {result};
     }
 };

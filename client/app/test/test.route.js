@@ -10,8 +10,10 @@
                     controller: 'TestController',
                     controllerAs: 'vm'
                 })
-                .when('/test/:id/:category?/:question?', {
-                    templateUrl: 'app/test/question.html'
+                .when('/test/:id/:question/:category?', {
+                    templateUrl: 'app/test/question.html',
+					controller: 'QuestionController',
+					controllerAs: 'vm'
                 });
         });
 

@@ -2,7 +2,7 @@
 
 (function () {
     angular.module('proftestApp.test')
-        .directive('psychogeometrical', 'User', (User) => {
+        .directive('psychogeometrical', ['User', (User) => {
 
             return {
                 restrict: 'E',
@@ -15,7 +15,7 @@
                 }
             };
 
-        });
+        }]);
 
 })();
 
