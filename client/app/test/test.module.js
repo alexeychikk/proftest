@@ -3,7 +3,8 @@
 (function () {
 
     angular.module('proftestApp.test', [
-        'proftestApp.constants'
+        'proftestApp.constants',
+		'LocalStorageModule'
     ]);
 
 })();

@@ -2,7 +2,7 @@
     <h2 ng-bind="vm.getCurrentStatement()"></h2>
     <div ng-repeat="question in vm.data.questions">
         <h3 ng-bind="question.name"></h3>
-        <button ng-click="vm.answer(question.variants.length - index - 1)" ng-bind="value"
-                ng-repeat="(index, value) in question.variants"  aria-label="answer{{value}}"></button>
+        <button ng-click="vm.answer(question.type, question.variants.length - index - 1)" ng-bind="value"
+                ng-repeat="value in question.variants"  aria-label="answer{{value}}"></button>
     </div>
 </div>
