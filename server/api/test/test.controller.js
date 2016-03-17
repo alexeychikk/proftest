@@ -12,6 +12,18 @@
 import _ from 'lodash';
 import Test from './test.model.js';
 import Tests from '../../../tests';
+let upload = require('../../config/multer').single('icon');
+
+function uploadIcon(req, res) {
+	return function(test) {
+		return new Promise((resolve, reject) => {
+			upload(req, res, function(err) {
+				if (err) reject(err);
+				else resolve(test);
+			});
+		});
+	};
+}
 
 function respondWithResult(res, statusCode) {
     statusCode = statusCode || 200;
@@ -79,6 +91,7 @@ export function show(req, res) {
 export function create(req, res) {
     Test.createAsync(req.body)
 		.then(Tests.load)
+		.then(uploadIcon(req, res))
         .then(respondWithResult(res, 201))
         .catch(handleError(res));
 }
@@ -92,6 +105,7 @@ export function update(req, res) {
         .then(handleEntityNotFound(res))
         .then(saveUpdates(req.body))
 		.then(Tests.load)
+		.then(uploadIcon(req, res))
         .then(respondWithResult(res))
         .catch(handleError(res));
 }
