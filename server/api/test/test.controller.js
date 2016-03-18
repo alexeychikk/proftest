@@ -12,7 +12,8 @@
 import _ from 'lodash';
 import Test from './test.model.js';
 import Tests from '../../../tests';
-let uploadIcon = require('../../config/multer')('icon');
+import upload from '../../config/multer';
+let uploadIcon = upload('icon');
 
 function respondWithResult(res, statusCode) {
     statusCode = statusCode || 200;

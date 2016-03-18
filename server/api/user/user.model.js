@@ -3,6 +3,8 @@
 import crypto from 'crypto';
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
 import {Schema} from 'mongoose';
+import {preRemoveHook} from '../../config/multer';
+let preRemoveAvatar = preRemoveHook('avatar');
 
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
@@ -191,6 +193,9 @@ UserSchema
             });
         });
     });
+
+UserSchema
+	.pre('remove', preRemoveAvatar);
 
 /**
  * Methods

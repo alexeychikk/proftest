@@ -1,6 +1,8 @@
 'use strict';
 
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+import {preRemoveHook} from '../../config/multer';
+let preRemoveIcon = preRemoveHook('icon');
 
 var TestSchema = new mongoose.Schema({
 	name: {
@@ -30,5 +32,8 @@ var TestSchema = new mongoose.Schema({
 	},
 	func: String
 });
+
+TestSchema
+	.pre('remove', preRemoveIcon);
 
 export default mongoose.model('Test', TestSchema);

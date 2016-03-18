@@ -6,7 +6,8 @@ import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import Tests from '../../../tests';
-let uploadAvatar = require('../../config/multer')('avatar');
+import upload from '../../config/multer';
+let uploadAvatar = upload('avatar');
 
 function validationError(res, statusCode) {
     statusCode = statusCode || 422;

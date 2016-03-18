@@ -19,7 +19,7 @@ let upload = multer({
 		filename: function (req, file, cb) {
 			let ext = '.' + mime.extension(file.mimetype);
 			let filename = randomstring.generate() + ext;
-			while (fs.existsSync(config.resources + file.destination + '/' + filename)) {
+			while (fs.existsSync(file.destination + '/' + filename)) {
 				filename = randomstring.generate() + ext;
 			}
 			cb(null, filename);
@@ -33,7 +33,7 @@ let upload = multer({
 	}
 });
 
-module.exports = function(fieldname) {
+export default function(fieldname) {
 	let uploadSingle = upload.single(fieldname);
 	return function (req, res) {
 		return function(entity) {
@@ -56,3 +56,21 @@ module.exports = function(fieldname) {
 		};
 	}
 };
+
+export function deleteResource(entity, fieldname) {
+	return new Promise((resolve, reject) => {
+		let path = config.resources + fieldnameDir[fieldname] + '/' + entity[fieldname];
+		if (fs.existsSync(path)) fs.unlink(path, err => {
+			if (err) reject(err);
+			else resolve();
+		});
+		else resolve();
+	});
+}
+
+export function preRemoveHook(fieldname) {
+	return function(next) {
+		if (this[fieldname]) deleteResource(this, fieldname).then(() => next()).catch(err => next(err));
+		else next();
+	};
+}

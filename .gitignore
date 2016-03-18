@@ -11,4 +11,4 @@ dist
 npm-debug.log
 coverage
 data
-resources
+/resources
