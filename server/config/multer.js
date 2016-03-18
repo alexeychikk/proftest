@@ -1,6 +1,7 @@
 let fs = require('fs');
 let multer = require('multer');
 let randomstring = require('randomstring');
+let mime = require('mime');
 import config from '../config/environment';
 
 const fieldnameDir = {
@@ -8,7 +9,7 @@ const fieldnameDir = {
 	'icon': '/icons'
 };
 
-module.exports = multer({
+let upload = multer({
 	storage: multer.diskStorage({
 		destination: function (req, file, cb) {
 			let dir = fieldnameDir[file.fieldname];
@@ -16,9 +17,10 @@ module.exports = multer({
 			else cb(new Error('File fieldname does not match any acceptable one!'));
 		},
 		filename: function (req, file, cb) {
-			let filename = randomstring.generate() + '.jpg';
+			let ext = '.' + mime.extension(file.mimetype);
+			let filename = randomstring.generate() + ext;
 			while (fs.existsSync(config.resources + file.destination + '/' + filename)) {
-				filename = randomstring.generate() + '.jpg';
+				filename = randomstring.generate() + ext;
 			}
 			cb(null, filename);
 		}
@@ -30,3 +32,27 @@ module.exports = multer({
 		else cb(null, true);
 	}
 });
+
+module.exports = function(fieldname) {
+	let uploadSingle = upload.single(fieldname);
+	return function (req, res) {
+		return function(entity) {
+			return new Promise((resolve, reject) => {
+				uploadSingle(req, res, function(err) {
+					if (err) reject(err);
+					else {
+						if (req.file && req.file.filename) {
+							if (entity[fieldname]) {
+								let oldFileName = req.file.destination + '/' + entity[fieldname];
+								if (fs.existsSync(oldFileName)) fs.unlink(oldFileName);
+							}
+							entity[fieldname] = req.file.filename;
+							return entity.saveAsync().spread(ent => resolve(ent)).catch(err => reject(err));
+						}
+						resolve(entity);
+					}
+				});
+			});
+		};
+	}
+};

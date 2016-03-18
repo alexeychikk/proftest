@@ -7,6 +7,7 @@ import {Schema} from 'mongoose';
 const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var UserSchema = new Schema({
+	avatar: String,
 	firstName: {
 		type: String,
 		required: true,
