@@ -19,29 +19,26 @@
 
 			});
 
-	controller.$inject = ['$scope', 'User', 'localStorageService', '$route'];
-	function controller($scope, User, localStorageService, $route) {
+	controller.$inject = ['$scope', 'User', 'localStorageService'];
+	function controller($scope, User, localStorageService) {
 		let vm = this,
 			testKey = vm.id,
-			questionIndexKey = 'questionIndex',
+			questionIndexKey = testKey + 'questionIndex',
 			answers = JSON.parse(localStorageService.get(testKey)) || [];
 
 		vm.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
-		$route.updateParams({ question: vm.currentQuestionIndex });
 
 		vm.getCurrentQuestion = () => vm.data.questions[vm.currentQuestionIndex];
 
 		vm.nextQuestion = () => {
 			vm.currentQuestionIndex++;
 			localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
-			$route.updateParams({ question: vm.currentQuestionIndex });
 			return vm.currentQuestionIndex;
 		};
 
 		vm.prevQuestion = () => {
 			vm.currentQuestionIndex--;
 			localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
-			$route.updateParams({ question: vm.currentQuestionIndex });
 			return vm.currentQuestionIndex;
 		};
 
@@ -57,9 +54,6 @@
 					answers: answers
 				}).$promise.then((resp) => {
 					localStorageService.remove(testKey, questionIndexKey);
-					$route.updateParams({
-						question: 'result'
-					});
 					vm.result = resp;
 				})
 			}

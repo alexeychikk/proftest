@@ -23,7 +23,9 @@
 				this.test.longDesc = response.longDesc;
 				this.test.instruction = response.instruction;
 
-				localStorageService.clearAll();
+				localStorageService.remove(this.$routeParams.id);
+				localStorageService.remove(this.$routeParams.id + 'questionIndex');
+				localStorageService.remove(this.$routeParams.id + 'categoryIndex');
 			});
 		}
 	}
