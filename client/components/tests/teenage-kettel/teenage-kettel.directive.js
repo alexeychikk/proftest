@@ -6,7 +6,7 @@
 
             return {
                 restrict: 'E',
-                templateUrl: 'components/tests/teenage-kettle/teenage-kettle.html',
+                templateUrl: 'components/tests/teenage-kettel/teenage-kettel.html',
                 scope: {
                     id: '@testId',
                     data: '=data'

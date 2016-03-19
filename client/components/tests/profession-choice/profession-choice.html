@@ -1,8 +1,8 @@
 <div>
     <h2 ng-bind="vm.getCurrentCategory().name"></h2>
-    <div ng-repeat="question in vm.getCurrentQuestion()">
+    <div>
         <md-checkbox ng-model="vm.answersBlock[key]" aria-label="answer{{key}}"
-                     ng-bind="value" ng-repeat="(key, value) in question"></md-checkbox>
+                     ng-repeat="(key, value) in vm.getCurrentQuestion()">{{value}}</md-checkbox>
     </div>
     <button ng-click="vm.answer(vm.getAnswers())" ng-disabled="!vm.getAnswers().length">Next</button>
 </div>

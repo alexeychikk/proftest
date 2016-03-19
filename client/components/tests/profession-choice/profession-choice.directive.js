@@ -67,21 +67,24 @@
 
             localStorageService.set(testKey, JSON.stringify(answers));
 
+            vm.answersBlock = [];
             vm.nextQuestion();
 
-            if (!vm.getCurrentQuestion() && vm.currentCategoryIndex === 0) {
-                vm.currentCategoryIndex = 1;
-                vm.currentQuestionIndex = 0;
-                localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
-                localStorageService.set(categoryIndexKey, vm.currentCategoryIndex);
-            } else {
-                User.putMyAnswers({}, {
-                    testId: vm.id,
-                    answers: answers
-                }).$promise.then((resp) => {
-                    localStorageService.remove(testKey, questionIndexKey, categoryIndexKey);
-                    vm.result = resp.data;
-                })
+            if (!vm.getCurrentQuestion()) {
+                if (vm.currentCategoryIndex === 0) {
+                    vm.currentCategoryIndex = 1;
+                    vm.currentQuestionIndex = 0;
+                    localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
+                    localStorageService.set(categoryIndexKey, vm.currentCategoryIndex);
+                } else {
+                    User.putMyAnswers({}, {
+                        testId: vm.id,
+                        answers: answers
+                    }).$promise.then((resp) => {
+                        localStorageService.remove(testKey, questionIndexKey, categoryIndexKey);
+                        vm.result = resp.data;
+                    })
+                }
             }
         };
     }
