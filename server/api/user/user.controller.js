@@ -60,7 +60,7 @@ export function create(req, res, next) {
     newUser.provider = 'local';
     newUser.role = 'user';
     newUser.saveAsync()
-        .spread(function (user) {
+        .spread(uploadAvatar(req, res)).then(function (user) {
             var token = jwt.sign({_id: user._id}, config.secrets.session, {
                 expiresIn: 60 * 60 * 5
             });
@@ -134,8 +134,9 @@ export function changePassword(req, res, next) {
 			});
  */
 export function update(req, res, next) {
-	var canUpdate = (req.user._id == req.params.id) || req.user.role == 'admin';
-	if (!canUpdate) {
+	var userId = ((req.user._id == req.params.id || req.path == '/me') && req.user._id)
+		|| ((req.user.role == 'admin') && req.params.id);
+	if (!userId) {
 		return res.status(403).send('Forbidden');
 	}
 
@@ -143,11 +144,12 @@ export function update(req, res, next) {
 		var field = UserSchema.tree[i];
 		if (!(field && field.canUpdate)) return res.status(422).send(`Field "${i}" can not be updated!`);
 	}
-	var userId = req.params.id;
 
-	User.updateAsync({_id: userId}, req.body, {runValidators: true, multi: false}).then(() => {
-		res.status(204).end();
-	}).catch(validationError(res));
+	User.findByIdAndUpdateAsync(userId, req.body, {runValidators: true, new: true})
+		.then(uploadAvatar(req, res))
+		.then(user => {
+			res.status(200).json(user);
+		}).catch(validationError(res));
 }
 
 /**

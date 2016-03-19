@@ -15,6 +15,7 @@ router.get('/:id', auth.isAuthenticated(), controller.show);
 router.get('/stats', auth.hasRole('admin'), controller.stats);
 //UPDATE
 router.put('/:id', auth.isAuthenticated(), controller.update);
+router.put('/me', auth.isAuthenticated(), controller.update);
 router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
 router.put('/:id/answers', auth.isAuthenticated(), controller.answers);
 router.put('/me/answers', auth.isAuthenticated(), controller.answers);
