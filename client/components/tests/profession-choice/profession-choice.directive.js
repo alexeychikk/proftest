@@ -1,95 +1,88 @@
 "use strict";
 
 (function () {
-	angular.module('proftestApp.test')
-		.directive('professionChoice',
-			['User', 'localStorageService', '$route', (User, localStorageService, $route) => {
+    angular.module('proftestApp.test')
+        .directive('professionChoice', () => {
 
-				return {
-					restrict: 'E',
-					scope: {
-						id: '@testId',
-						data: '=data'
-					},
-					controller: ($scope, element, attrs) => {
-						let testKey = $scope.id,
-							questionIndexKey = 'questionIndex',
-							categoryIndexKey = 'categoryIndex',
-							answers = JSON.parse(localStorageService.get(testKey)) || {
-									interests: [],
-									skills: []
-								};
+            return {
+                restrict: 'E',
+                templateUrl: 'components/tests/profession-choice/profession-choice.html',
+                scope: {
+                    id: '@testId',
+                    data: '=data'
+                },
+                controllerAs: 'vm',
+                bindToController: true,
+                controller: controller
+            };
 
-						$scope.currentCategoryIndex = +localStorageService.get(categoryIndexKey) || 0;
-						$scope.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
-						$route.updateParams({
-							category: $scope.currentCategoryIndex,
-							question: $scope.currentQuestionIndex
-						});
 
-						$scope.answersBlock = [];
+        });
 
-						$scope.getCurrentCategory = () => $scope.data.categories[$scope.currentCategoryIndex];
-						$scope.getCurrentQuestion = () => $scope.getCurrentCategory().questions[$scope.currentQuestionIndex];
+    controller.$inject = ['$scope', 'User', 'localStorageService'];
+    function controller($scope, User, localStorageService) {
+        let vm = this,
+            testKey = vm.id,
+            questionIndexKey = testKey + 'questionIndex',
+            categoryIndexKey = testKey + 'categoryIndex',
+            answers = JSON.parse(localStorageService.get(testKey)) || {
+                    interests: [],
+                    skills: []
+                };
 
-						$scope.nextQuestion = () => {
-							$scope.currentQuestionIndex++;
-							localStorageService.set(questionIndexKey, $scope.currentQuestionIndex);
-							$route.updateParams({ question: $scope.currentQuestionIndex });
-							return $scope.currentQuestionIndex;
-						};
+        vm.currentCategoryIndex = +localStorageService.get(categoryIndexKey) || 0;
+        vm.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
 
-						$scope.prevQuestion = () => {
-							$scope.currentQuestionIndex--;
-							localStorageService.set(questionIndexKey, $scope.currentQuestionIndex);
-							$route.updateParams({ question: $scope.currentQuestionIndex });
-							return $scope.currentQuestionIndex;
-						};
+        vm.answersBlock = [];
 
-						$scope.getAnswers = () => {
-							let answers = [];
-							for (let key in $scope.answersBlock) {
-								if ($scope.answersBlock[key]) answers.push(key);
-							}
-							return answers;
-						};
+        vm.getCurrentCategory = () => vm.data.categories[vm.currentCategoryIndex];
+        vm.getCurrentQuestion = () => vm.getCurrentCategory().questions[vm.currentQuestionIndex];
 
-						$scope.answer = (values) => {
-							if ($scope.currentCategoryIndex === 0) {
-								answers.interests[$scope.currentQuestionIndex] = values;
-							} else {
-								answers.skills[$scope.currentQuestionIndex] = values;
-							}
+        vm.nextQuestion = () => {
+            vm.currentQuestionIndex++;
+            localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
+            return vm.currentQuestionIndex;
+        };
 
-							localStorageService.set(testKey, JSON.stringify(answers));
+        vm.prevQuestion = () => {
+            vm.currentQuestionIndex--;
+            localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
+            return vm.currentQuestionIndex;
+        };
 
-							$scope.nextQuestion();
+        vm.getAnswers = () => {
+            let answers = [];
+            for (let key in vm.answersBlock) {
+                if (vm.answersBlock[key]) answers.push(key);
+            }
+            return answers;
+        };
 
-							if (!$scope.getCurrentQuestion() && $scope.currentCategoryIndex === 0) {
-								$scope.currentCategoryIndex = 1;
-								$scope.currentQuestionIndex = 0;
-								localStorageService.set(questionIndexKey, $scope.currentQuestionIndex);
-								localStorageService.set(categoryIndexKey, $scope.currentCategoryIndex);
-								$route.updateParams({
-									category: $scope.currentCategoryIndex,
-									question: $scope.currentQuestionIndex
-								});
-							} else {
-								User.putMyAnswers({}, {
-									testId: $scope.id,
-									answers: answers
-								}).$promise.then((resp) => {
-									localStorageService.remove(testKey, questionIndexKey, categoryIndexKey);
-									$route.updateParams({
-										category: 'result',
-										question: undefined
-									});
-									$scope.result = resp.data;
-								})
-							}
-						};
-					}
-				};
+        vm.answer = (values) => {
+            if (vm.currentCategoryIndex === 0) {
+                answers.interests[vm.currentQuestionIndex] = values;
+            } else {
+                answers.skills[vm.currentQuestionIndex] = values;
+            }
 
-			}]);
+            localStorageService.set(testKey, JSON.stringify(answers));
+
+            vm.nextQuestion();
+
+            if (!vm.getCurrentQuestion() && vm.currentCategoryIndex === 0) {
+                vm.currentCategoryIndex = 1;
+                vm.currentQuestionIndex = 0;
+                localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
+                localStorageService.set(categoryIndexKey, vm.currentCategoryIndex);
+            } else {
+                User.putMyAnswers({}, {
+                    testId: vm.id,
+                    answers: answers
+                }).$promise.then((resp) => {
+                    localStorageService.remove(testKey, questionIndexKey, categoryIndexKey);
+                    vm.result = resp.data;
+                })
+            }
+        };
+    }
 })();

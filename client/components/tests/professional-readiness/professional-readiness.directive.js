@@ -1,66 +1,65 @@
 "use strict";
 
 (function () {
-	angular.module('proftestApp.test')
-		.directive('professionalReadiness',
-			['User', 'localStorageService', '$route', (User, localStorageService, $route) => {
+    angular.module('proftestApp.test')
+        .directive('professionalReadiness', () => {
 
-				return {
-					restrict: 'E',
-					scope: {
-						id: '@testId',
-						data: '=data'
-					},
-					controller: ($scope, element, attrs) => {
-						let testKey = $scope.id,
-							statementIndexKey = 'questionIndex',
-							answers = JSON.parse(localStorageService.get(testKey)) || [];
+            return {
+                restrict: 'E',
+                templateUrl: 'components/tests/professional-readiness/professional-readiness.html',
+                scope: {
+                    id: '@testId',
+                    data: '=data'
+                },
+                controllerAs: 'vm',
+                bindToController: true,
+                controller: controller
+            };
 
-						$scope.currentStatementIndex = +localStorageService.get(statementIndexKey) || 0;
-						$route.updateParams({ question: $scope.currentQuestionIndex });
 
-						$scope.getCurrentStatement = () => $scope.data.statement[$scope.currentStatementIndex];
+        });
 
-						$scope.nextQuestion = () => {
-							$scope.currentStatementIndex++;
-							localStorageService.set(statementIndexKey, $scope.currentStatementIndex);
-							$route.updateParams({ question: $scope.currentQuestionIndex });
-							return $scope.currentStatementIndex;
-						};
+    controller.$inject = ['$scope', 'User', 'localStorageService'];
+    function controller($scope, User, localStorageService) {
+        let vm = this,
+            testKey = vm.id,
+            statementIndexKey = testKey + 'questionIndex',
+            answers = JSON.parse(localStorageService.get(testKey)) || [];
 
-						$scope.prevQuestion = () => {
-							$scope.currentStatementIndex--;
-							localStorageService.set(statementIndexKey, $scope.currentStatementIndex);
-							$route.updateParams({ question: $scope.currentQuestionIndex });
-							return $scope.currentStatementIndex;
-						};
+        vm.currentStatementIndex = +localStorageService.get(statementIndexKey) || 0;
 
-						$scope.answer = (type, value) => {
-							answers[$scope.currentStatementIndex] = answers[$scope.currentStatementIndex] || {};
-							answers[$scope.currentStatementIndex][type] = value;
+        vm.getCurrentStatement = () => vm.data.statement[vm.currentStatementIndex];
 
-							if (Object.keys(answers[$scope.currentStatementIndex]).length === 3) {
-								$scope.nextQuestion();
-								localStorageService.set(testKey, JSON.stringify(answers));
-							}
+        vm.nextQuestion = () => {
+            vm.currentStatementIndex++;
+            localStorageService.set(statementIndexKey, vm.currentStatementIndex);
+            return vm.currentStatementIndex;
+        };
 
-							if (!$scope.getCurrentStatement()) {
-								User.putMyAnswers({}, {
-									testId: $scope.id,
-									answers: answers
-								}).$promise.then((resp) => {
-									localStorageService.remove(testKey, statementIndexKey);
-									$route.updateParams({
-										question: 'result'
-									});
-									$scope.result = resp.data;
-								})
-							}
-						};
-					}
-				};
+        vm.prevQuestion = () => {
+            vm.currentStatementIndex--;
+            localStorageService.set(statementIndexKey, vm.currentStatementIndex);
+            return vm.currentStatementIndex;
+        };
 
-			}]);
+        vm.answer = (type, value) => {
+            answers[vm.currentStatementIndex] = answers[vm.currentStatementIndex] || {};
+            answers[vm.currentStatementIndex][type] = value;
 
+            if (Object.keys(answers[vm.currentStatementIndex]).length === 3) {
+                vm.nextQuestion();
+                localStorageService.set(testKey, JSON.stringify(answers));
+            }
+
+            if (!vm.getCurrentStatement()) {
+                User.putMyAnswers({}, {
+                    testId: vm.id,
+                    answers: answers
+                }).$promise.then((resp) => {
+                    localStorageService.remove(testKey, statementIndexKey);
+                    vm.result = resp.data;
+                })
+            }
+        };
+    }
 })();
-

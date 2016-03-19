@@ -1,63 +1,62 @@
 "use strict";
 
 (function () {
-	angular.module('proftestApp.test')
-		.directive('teenageKettel',
-			['User', 'localStorageService', '$route', (User, localStorageService, $route) => {
+    angular.module('proftestApp.test')
+        .directive('teenageKettel', () => {
 
-				return {
-					restrict: 'E',
-					scope: {
-						id: '@testId',
-						data: '=data'
-					},
-					controller: ($scope, element, attrs) => {
-						let testKey = $scope.id,
-							questionIndexKey = 'questionIndex',
-							answers = JSON.parse(localStorageService.get(testKey)) || [];
+            return {
+                restrict: 'E',
+                templateUrl: 'components/tests/teenage-kettle/teenage-kettle.html',
+                scope: {
+                    id: '@testId',
+                    data: '=data'
+                },
+                controllerAs: 'vm',
+                bindToController: true,
+                controller: controller
+            };
 
-						$scope.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
-						$route.updateParams({ question: $scope.currentQuestionIndex });
 
-						$scope.getCurrentQuestion = () => $scope.data.questions[$scope.currentQuestionIndex];
+        });
 
-						$scope.nextQuestion = () => {
-							$scope.currentQuestionIndex++;
-							localStorageService.set(questionIndexKey, $scope.currentQuestionIndex);
-							$route.updateParams({ question: $scope.currentQuestionIndex });
-							return $scope.currentQuestionIndex;
-						};
+    controller.$inject = ['$scope', 'User', 'localStorageService'];
+    function controller($scope, User, localStorageService) {
+        let vm = this,
+            testKey = vm.id,
+            questionIndexKey = testKey + 'questionIndex',
+            answers = JSON.parse(localStorageService.get(testKey)) || [];
 
-						$scope.prevQuestion = () => {
-							$scope.currentQuestionIndex--;
-							localStorageService.set(questionIndexKey, $scope.currentQuestionIndex);
-							$route.updateParams({ question: $scope.currentQuestionIndex });
-							return $scope.currentQuestionIndex;
-						};
+        vm.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
 
-						$scope.answer = (value) => {
-							answers[$scope.currentQuestionIndex] = value;
-							localStorageService.set(testKey, JSON.stringify(answers));
+        vm.getCurrentQuestion = () => vm.data.questions[vm.currentQuestionIndex];
 
-							$scope.nextQuestion();
+        vm.nextQuestion = () => {
+            vm.currentQuestionIndex++;
+            localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
+            return vm.currentQuestionIndex;
+        };
 
-							if (!$scope.getCurrentQuestion()) {
-								User.putMyAnswers({}, {
-									testId: $scope.id,
-									answers: answers
-								}).$promise.then((resp) => {
-									localStorageService.remove(testKey, questionIndexKey);
-									$route.updateParams({
-										question: 'result'
-									});
-									$scope.result = resp.data;
-								})
-							}
-						};
-					}
-				};
+        vm.prevQuestion = () => {
+            vm.currentQuestionIndex--;
+            localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
+            return vm.currentQuestionIndex;
+        };
 
-			}]);
+        vm.answer = (value) => {
+            answers[vm.currentQuestionIndex] = value;
+            localStorageService.set(testKey, JSON.stringify(answers));
 
+            vm.nextQuestion();
+
+            if (!vm.getCurrentQuestion()) {
+                User.putMyAnswers({}, {
+                    testId: vm.id,
+                    answers: answers
+                }).$promise.then((resp) => {
+                    localStorageService.remove(testKey, questionIndexKey);
+                    vm.result = resp;
+                })
+            }
+        };
+    }
 })();
-
