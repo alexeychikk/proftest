@@ -336,16 +336,23 @@ module.exports = {
 		let res = { interests: {}, skills: {}, result: [] };
 
 		function categoryMaxes(catName) {
-			let counts = {}, max1 = [], max2 = [], max;
+			let counts = {};
 			for (let block of answers[catName]) {
 				for (let opt of block) {
 					if (counts[opt]) counts[opt]++;
 					else counts[opt] = 1;
-					if (!max1.length || counts[opt] == counts[max1[0]]) max1.push(opt);
-					else if (counts[opt] > counts[max1[0]]) max1 = [opt];
-					else if (!max2.length || counts[opt] == counts[max2[0]]) max2.push(opt);
-					else if (counts[opt] > counts[max2[0]]) max2 = [opt];
 				}
+			}
+			let max1 = [], max2 = [], max;
+			for (let i in counts) {
+				let count = counts[i];
+				if (!max1.length || count == counts[max1[0]]) max1.push(i);
+				else if (count > counts[max1[0]]) {
+					max2 = max1;
+					max1 = [i];
+				}
+				else if (!max2.length || count == counts[max2[0]]) max2.push(i);
+				else if (count > counts[max2[0]]) max2 = [i];
 			}
 			max = max1.length > 1 ? max1 : max1.concat(max2);
 			for (let key of max) {
