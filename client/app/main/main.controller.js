@@ -6,7 +6,7 @@
 
         constructor(Test, $location, Auth) {
             this.Test = Test;
-            this.location = $location;
+            this.$location = $location;
             this.getCurrentUser = Auth.getCurrentUser;
             this.testsShort = {};
 

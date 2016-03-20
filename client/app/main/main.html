@@ -1,26 +1,29 @@
-<div class="main-wrap" flex layout="row" layout-padding layout-align="center center">
-	<div flex="15"></div>
-	<div flex>
-		<md-grid-list md-cols="1" md-cols-gt-md="2" md-gutter="5px" md-row-height="16:11">
-			<md-grid-tile flex md-colspan-gt-md="{{test.shortDesc ? 2 : 1}}" ng-repeat="test in vm.testsShort">
-				<md-card flex>
-					<md-card-header><span class="md-headline" ng-bind="test.name"></span></md-card-header>
-					<md-card-title layout="row"  ng-class="{'layout-align-center-center': !test.shortDesc}">
-						<md-card-title-text ng-if="test.shortDesc">
-							<span class="md-subhead" ng-bind="test.shortDesc"></span>
-						</md-card-title-text>
-						<md-card-title-media>
-							<div class="md-media-lg"><img ng-src="{{test.icon}}" alt="test_avatar"></div>
-						</md-card-title-media>
-					</md-card-title>
-					<md-card-actions layout="row" layout-align="end center">
-						<md-button ng-click="vm.location.path('/' + vm.getCurrentUser()._id)"
-								   ng-if="vm.isTestPassed(test._id)">Посмотреть результат</md-button>
-						<md-button class="md-primary" ng-click="vm.location.path('/test/' + test._id + '/about')">Начать</md-button>
-					</md-card-actions>
-				</md-card>
-			</md-grid-tile>
-		</md-grid-list>
-	</div>
-	<div flex="15"></div>
+<div class="background" flex layout="row" layout-padding>
+    <div flex="15"></div>
+    <div flex>
+        <md-grid-list md-cols="1" md-cols-gt-md="2" md-gutter="5px" md-row-height="16:11">
+            <md-grid-tile flex md-colspan-gt-md="{{test.shortDesc ? 2 : 1}}" ng-repeat="test in vm.testsShort">
+                <md-card flex>
+                    <md-card-header><span class="md-headline" ng-bind="test.name"></span></md-card-header>
+                    <md-card-title layout="row" ng-class="{'layout-align-center-center': !test.shortDesc}">
+                        <md-card-title-text ng-if="test.shortDesc">
+                            <span class="md-subhead" ng-bind="test.shortDesc"></span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-lg"><img ng-src="{{test.icon}}" alt="test_avatar"></div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button ng-click="vm.$location.path('/' + vm.getCurrentUser()._id)"
+                                   ng-if="vm.isTestPassed(test._id)">Посмотреть результат
+                        </md-button>
+                        <md-button class="md-primary" ng-click="vm.$location.path('/test/' + test._id + '/about')">
+                            Инструкция
+                        </md-button>
+                    </md-card-actions>
+                </md-card>
+            </md-grid-tile>
+        </md-grid-list>
+    </div>
+    <div flex="15"></div>
 </div>
