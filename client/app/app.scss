@@ -2,6 +2,9 @@
  * App-wide Styles
  */
 
+$background-dark: #F5F5F5;
+$background-light: #FAFAFA;
+
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
@@ -19,6 +22,7 @@
 // Component styles are injected through grunt
 // injector
 @import 'account/account';
+@import 'account/login/login';
 @import 'account/signup/signup';
 @import 'admin/admin';
 @import 'main/main';
@@ -54,4 +58,21 @@
 .absolute-messages {
   position: absolute !important;
   margin-top: 28px;
+}
+
+.link {
+  color: rgba(65, 131, 196, .87);
+  text-decoration: none;
+
+  &.small { font-size: 12px; }
+  &.medium { font-size: 14px; }
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.icon-button {
+  width: 36px;
+  min-width: 0 !important;
 }

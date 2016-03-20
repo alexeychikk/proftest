@@ -1,4 +1,4 @@
-<div layout="row">
+<div layout="row" class="signup-page">
 	<div flex="15" flex-md="5" hide-sm></div>
 	<div flex>
 		<form name="form" class="signup-form" ng-submit="vm.register(form)" novalidate>
@@ -9,24 +9,24 @@
 					<oauth-buttons classes="groupX right" type="vk" layout="row"></oauth-buttons>
 				</section>
 				<div class="md-body-2">ИЛИ</div>
-				<div layout="column" layout-fill>
-					<div layout="row">
-						<md-input-container flex>
-							<label>Имя</label>
-							<input name="firstName" ng-model="vm.user.firstName" md-maxlength="32" required>
-							<div ng-messages="form.firstName.$error" class="absolute-messages">
-								<div ng-message="required">Обязательное поле</div>
-							</div>
-						</md-input-container>
-						<md-input-container flex>
-							<label>Фамилия</label>
-							<input name="lastName" ng-model="vm.user.lastName" md-maxlength="32" required>
-							<div ng-messages="form.lastName.$error" class="absolute-messages">
-								<div ng-message="required">Обязательное поле</div>
-							</div>
-						</md-input-container>
-					</div>
-					<div layout="row" layout-align="start start">
+				<md-card>
+					<md-card-content layout="column" layout-fill>
+						<div layout="row">
+							<md-input-container flex>
+								<label>Имя</label>
+								<input name="firstName" ng-model="vm.user.firstName" md-maxlength="32" required>
+								<div ng-messages="form.firstName.$error" class="absolute-messages">
+									<div ng-message="required">Обязательное поле</div>
+								</div>
+							</md-input-container>
+							<md-input-container flex>
+								<label>Фамилия</label>
+								<input name="lastName" ng-model="vm.user.lastName" md-maxlength="32" required>
+								<div ng-messages="form.lastName.$error" class="absolute-messages">
+									<div ng-message="required">Обязательное поле</div>
+								</div>
+							</md-input-container>
+						</div>
 						<md-input-container flex>
 							<label>E-mail</label>
 							<input type="email" name="email" ng-model="vm.user.email" md-maxlength="128" required
@@ -37,48 +37,50 @@
 								<div ng-message="mongoose">Такой email уже зарегистрирован</div>
 							</div>
 						</md-input-container>
-						<md-input-container>
-							<label>Дата рождения</label>
-							<input type="date" name="birthDate" ng-model="vm.user.birthDate" required>
-							<div ng-messages="form.birthDate.$error" class="absolute-messages">
-								<div ng-message="required">Обязательное поле</div>
-							</div>
-						</md-input-container>
-						<md-input-container class="form-gender">
-							<label>Пол</label>
-							<md-select name="gender" ng-model="vm.user.gender" required>
-								<md-option value="M">Мужской</md-option>
-								<md-option value="F">Женский</md-option>
-							</md-select>
-							<div ng-messages="form.gender.$error">
-								<div ng-message="required">Обязательное поле</div>
-							</div>
-						</md-input-container>
-					</div>
-					<div layout="row">
-						<md-input-container flex>
-							<label>Пароль</label>
-							<input name="password" type="password" ng-model="vm.user.password" md-maxlength="64" required>
-							<div ng-messages="form.password.$error" class="absolute-messages">
-								<div ng-message="required">Обязательное поле</div>
-							</div>
-						</md-input-container>
-						<md-input-container flex>
-							<label>Повторите пароль</label>
-							<input name="confirmPassword" type="password" ng-model="vm.user.confirmPassword" md-maxlength="64"
-								   match="vm.user.password" match-ignore-empty="true" required>
-							<div ng-messages="form.confirmPassword.$error" class="absolute-messages">
-								<div ng-message="required">Обязательное поле</div>
-								<div ng-message="match">Пароли не совпадают</div>
-							</div>
-						</md-input-container>
-					</div>
-					<div layout="row" layout-align="center center">
-						<md-button class="md-raised md-primary" type="submit" aria-label="reg-btn">
-							Зарегистрироваться
-						</md-button>
-					</div>
-				</div>
+						<div layout="row" layout-align="start start">
+							<md-input-container flex>
+								<label>Дата рождения</label>
+								<input type="date" name="birthDate" ng-model="vm.user.birthDate" required>
+								<div ng-messages="form.birthDate.$error" class="absolute-messages">
+									<div ng-message="required">Обязательное поле</div>
+								</div>
+							</md-input-container>
+							<md-input-container class="form-gender" flex>
+								<label>Пол</label>
+								<md-select name="gender" ng-model="vm.user.gender" required>
+									<md-option value="M">Мужской</md-option>
+									<md-option value="F">Женский</md-option>
+								</md-select>
+								<div ng-messages="form.gender.$error">
+									<div ng-message="required">Обязательное поле</div>
+								</div>
+							</md-input-container>
+						</div>
+						<div layout="row">
+							<md-input-container flex>
+								<label>Пароль</label>
+								<input name="password" type="password" ng-model="vm.user.password" md-maxlength="64" required>
+								<div ng-messages="form.password.$error" class="absolute-messages">
+									<div ng-message="required">Обязательное поле</div>
+								</div>
+							</md-input-container>
+							<md-input-container flex>
+								<label>Повторите пароль</label>
+								<input name="confirmPassword" type="password" ng-model="vm.user.confirmPassword" md-maxlength="64"
+									   match="vm.user.password" match-ignore-empty="true" required>
+								<div ng-messages="form.confirmPassword.$error" class="absolute-messages">
+									<div ng-message="required">Обязательное поле</div>
+									<div ng-message="match">Пароли не совпадают</div>
+								</div>
+							</md-input-container>
+						</div>
+						<div layout="row" layout-align="center center">
+							<md-button class="md-raised md-primary" type="submit" aria-label="reg-btn">
+								Зарегистрироваться
+							</md-button>
+						</div>
+					</md-card-content>
+				</md-card>
 			</div>
 		</form>
 	</div>

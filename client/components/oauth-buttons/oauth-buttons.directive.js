@@ -11,6 +11,7 @@
                 controllerAs: 'OauthButtons',
                 scope: {
 					type: '@',
+					size: '@?',
 					classes: '@?'
                 }
             };

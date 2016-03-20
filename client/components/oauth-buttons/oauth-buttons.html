@@ -2,10 +2,10 @@
 		ng-click="OauthButtons.loginOauth(this.type)" ng-switch="this.type">
 	<div layout="row" layout-align="center center" flex ng-switch-when="facebook">
 		<i class="mdi mdi-24px mdi-facebook-box"></i>
-		<span>&nbsp;Facebook</span>
+		<span ng-if="this.size != 'small'">&nbsp;Facebook</span>
 	</div>
 	<div layout="row" layout-align="center center" flex ng-switch-when="vk">
 		<i class="mdi mdi-24px mdi-vk-box"></i>
-		<span>&nbsp;ВКонтакте</span>
+		<span ng-if="this.size != 'small'">&nbsp;ВКонтакте</span>
 	</div>
 </md-button>

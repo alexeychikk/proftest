@@ -25,6 +25,7 @@
                         this.$location.path('/');
                     })
                     .catch(err => {
+						form[err.field].$setValidity('mongoose', false);
                         this.errors.other = err.message;
                     });
             }

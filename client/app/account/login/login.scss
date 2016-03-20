@@ -1,0 +1,44 @@
+$login-form-max-width: 340px;
+
+.login-page {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  background-color: $background-dark;
+
+  .md-headline {
+	margin-bottom: 8px;
+  }
+}
+
+.login-form {
+  padding-top: 8px;
+  width: $login-form-max-width;
+  max-width: $login-form-max-width;
+}
+
+.password-input {
+  margin-top: 8px;
+  height: 32px !important;
+  min-height: 0 !important;
+  margin-bottom: 4px;
+}
+
+.login-button {
+  width: 100%;
+  margin-left: 0 !important;
+}
+
+.last-auth-button {
+  margin-right: 0 !important;
+}
+
+.login-actions {
+  margin-top: 8px;
+}
+
+.no-account {
+  width: $login-form-max-width;
+  max-width: $login-form-max-width;
+  background-color: $background-light;
+  border-radius: 4px !important;
+}
