@@ -96,8 +96,8 @@
 <script src="app/app.route.js"></script>
 <script src="app/main/main.controller.js"></script>
 <script src="app/main/main.router.js"></script>
+<script src="app/test/about.controller.js"></script>
 <script src="app/test/question.controller.js"></script>
-<script src="app/test/test.controller.js"></script>
 <script src="app/test/test.route.js"></script>
 <script src="components/auth/auth.service.js"></script>
 <script src="components/auth/interceptor.service.js"></script>
@@ -118,5 +118,18 @@
 <script src="components/util/util.service.js"></script>
 <!-- endinjector -->
 <!-- endbuild -->
+<script type="text/javascript">
+	WebFontConfig = {
+		google: { families: [ 'Roboto:400,500,700:latin,cyrillic-ext,cyrillic' ] }
+	};
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+				'://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})(); </script>
 </body>
 </html>

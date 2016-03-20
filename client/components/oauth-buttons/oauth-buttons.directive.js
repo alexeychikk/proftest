@@ -10,7 +10,8 @@
                 controller: 'OauthButtonsCtrl',
                 controllerAs: 'OauthButtons',
                 scope: {
-                    classes: '@'
+					type: '@',
+					classes: '@?'
                 }
             };
         });

@@ -18,8 +18,40 @@
 
 // Component styles are injected through grunt
 // injector
+@import 'account/account';
+@import 'account/signup/signup';
 @import 'admin/admin';
 @import 'main/main';
 @import '../components/footer/footer';
 @import '../components/oauth-buttons/oauth-buttons';
 // endinjector
+
+.groupX {
+  font-size: 16px;
+  margin: 20px 0;
+  padding: 3px 15px 3px 15px;
+  text-transform: none;
+  font-weight: 400;
+  min-width:100px;
+}
+.groupX.md-button.left {
+  border-radius: 10px 0 0 10px;
+}
+.groupX.md-button.middle {
+  border-radius: 0;
+  border-left: 2px solid #1A237E;
+  border-right: 2px solid #1A237E;
+}
+.groupX.md-button.right {
+  border-radius: 0 10px 10px 0;
+}
+.groupX.md-button:not([disabled]):hover {
+  background-color: #E8EAF6 !important;
+  color: #283593;
+  transition: 0.3s;
+}
+
+.absolute-messages {
+  position: absolute !important;
+  margin-top: 28px;
+}

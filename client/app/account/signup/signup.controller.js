@@ -18,11 +18,7 @@
             this.submitted = true;
 
             if (form.$valid) {
-                this.Auth.createUser({
-                        name: this.user.name,
-                        email: this.user.email,
-                        password: this.user.password
-                    })
+                this.Auth.createUser(this.user)
                     .then(() => {
                         // Account created, redirect to home
                         this.$location.path('/');

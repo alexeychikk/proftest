@@ -1,94 +1,86 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1>Sign up</h1>
-        </div>
-        <div class="col-sm-12">
-            <form class="form" name="form" ng-submit="vm.register(form)" novalidate>
-
-                <div class="form-group" ng-class="{ 'has-success': form.name.$valid && vm.submitted,
-                                            'has-error': form.name.$invalid && vm.submitted }">
-                    <label>Name</label>
-
-                    <input type="text" name="name" class="form-control" ng-model="vm.user.name"
-                           required/>
-
-                    <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
-                        A name is required
-                    </p>
-                </div>
-
-                <div class="form-group" ng-class="{ 'has-success': form.email.$valid && vm.submitted,
-                                            'has-error': form.email.$invalid && vm.submitted }">
-                    <label>Email</label>
-
-                    <input type="email" name="email" class="form-control" ng-model="vm.user.email"
-                           required
-                           mongoose-error/>
-
-                    <p class="help-block" ng-show="form.email.$error.email && vm.submitted">
-                        Doesn't look like a valid email.
-                    </p>
-
-                    <p class="help-block" ng-show="form.email.$error.required && vm.submitted">
-                        What's your email address?
-                    </p>
-
-                    <p class="help-block" ng-show="form.email.$error.mongoose">
-                        {{ vm.errors.email }}
-                    </p>
-                </div>
-
-                <div class="form-group" ng-class="{ 'has-success': form.password.$valid && vm.submitted,
-                                            'has-error': form.password.$invalid && vm.submitted }">
-                    <label>Password</label>
-
-                    <input type="password" name="password" class="form-control" ng-model="vm.user.password"
-                           ng-minlength="3"
-                           required
-                           mongoose-error/>
-
-                    <p class="help-block"
-                       ng-show="(form.password.$error.minlength || form.password.$error.required) && vm.submitted">
-                        Password must be at least 3 characters.
-                    </p>
-
-                    <p class="help-block" ng-show="form.password.$error.mongoose">
-                        {{ vm.errors.password }}
-                    </p>
-                </div>
-
-                <div class="form-group" ng-class="{ 'has-success': form.confirmPassword.$valid && vm.submitted,
-                                            'has-error': form.confirmPassword.$invalid && vm.submitted }">
-                    <label>Confirm Password</label>
-                    <input type="password" name="confirmPassword" class="form-control"
-                           ng-model="vm.user.confirmPassword"
-                           match="vm.user.password"
-                           ng-minlength="3" required/>
-
-                    <p class="help-block"
-                       ng-show="form.confirmPassword.$error.match && vm.submitted">
-                        Passwords must match.
-                    </p>
-                </div>
-
-                <div>
-                    <button class="btn btn-inverse btn-lg btn-register" type="submit">
-                        Sign up
-                    </button>
-                    <a class="btn btn-default btn-lg btn-login" href="/login">
-                        Login
-                    </a>
-                </div>
-
-                <hr/>
-                <div class="row">
-                    <div class="col-sm-4 col-md-3">
-                        <oauth-buttons classes="btn-block"></oauth-buttons>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <hr>
+<div layout="row">
+	<div flex="15" flex-md="5" hide-sm></div>
+	<div flex>
+		<form name="form" class="signup-form" ng-submit="vm.register(form)" novalidate>
+			<div layout="column" layout-align="start center">
+				<div class="md-title">Войти через</div>
+				<section layout="row" layout-sm="column" layout-align="center center">
+					<oauth-buttons classes="groupX left" type="facebook" layout="row"></oauth-buttons>
+					<oauth-buttons classes="groupX right" type="vk" layout="row"></oauth-buttons>
+				</section>
+				<div class="md-body-2">ИЛИ</div>
+				<div layout="column" layout-fill>
+					<div layout="row">
+						<md-input-container flex>
+							<label>Имя</label>
+							<input name="firstName" ng-model="vm.user.firstName" md-maxlength="32" required>
+							<div ng-messages="form.firstName.$error" class="absolute-messages">
+								<div ng-message="required">Обязательное поле</div>
+							</div>
+						</md-input-container>
+						<md-input-container flex>
+							<label>Фамилия</label>
+							<input name="lastName" ng-model="vm.user.lastName" md-maxlength="32" required>
+							<div ng-messages="form.lastName.$error" class="absolute-messages">
+								<div ng-message="required">Обязательное поле</div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row" layout-align="start start">
+						<md-input-container flex>
+							<label>E-mail</label>
+							<input type="email" name="email" ng-model="vm.user.email" md-maxlength="128" required
+								   mongoose-error>
+							<div ng-messages="form.email.$error" class="absolute-messages">
+								<div ng-message="required">Обязательное поле</div>
+								<div ng-message="email">Неверный формат email! Пример: example@gmail.com</div>
+								<div ng-message="mongoose">Такой email уже зарегистрирован</div>
+							</div>
+						</md-input-container>
+						<md-input-container>
+							<label>Дата рождения</label>
+							<input type="date" name="birthDate" ng-model="vm.user.birthDate" required>
+							<div ng-messages="form.birthDate.$error" class="absolute-messages">
+								<div ng-message="required">Обязательное поле</div>
+							</div>
+						</md-input-container>
+						<md-input-container class="form-gender">
+							<label>Пол</label>
+							<md-select name="gender" ng-model="vm.user.gender" required>
+								<md-option value="M">Мужской</md-option>
+								<md-option value="F">Женский</md-option>
+							</md-select>
+							<div ng-messages="form.gender.$error">
+								<div ng-message="required">Обязательное поле</div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row">
+						<md-input-container flex>
+							<label>Пароль</label>
+							<input name="password" type="password" ng-model="vm.user.password" md-maxlength="64" required>
+							<div ng-messages="form.password.$error" class="absolute-messages">
+								<div ng-message="required">Обязательное поле</div>
+							</div>
+						</md-input-container>
+						<md-input-container flex>
+							<label>Повторите пароль</label>
+							<input name="confirmPassword" type="password" ng-model="vm.user.confirmPassword" md-maxlength="64"
+								   match="vm.user.password" match-ignore-empty="true" required>
+							<div ng-messages="form.confirmPassword.$error" class="absolute-messages">
+								<div ng-message="required">Обязательное поле</div>
+								<div ng-message="match">Пароли не совпадают</div>
+							</div>
+						</md-input-container>
+					</div>
+					<div layout="row" layout-align="center center">
+						<md-button class="md-raised md-primary" type="submit" aria-label="reg-btn">
+							Зарегистрироваться
+						</md-button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div flex="15" flex-md="5" hide-sm></div>
 </div>

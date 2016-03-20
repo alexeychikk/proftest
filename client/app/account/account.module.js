@@ -4,7 +4,9 @@
 
     angular.module('proftestApp.account', [
         'proftestApp.auth',
-        'ngRoute'
+        'ngRoute',
+		'ngMessages',
+		'validation.match'
     ]);
 
 })();
