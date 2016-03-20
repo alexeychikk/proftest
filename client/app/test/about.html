@@ -1,5 +1,22 @@
-<div>
-	<h2>Instruction for {{vm.test.name}}</h2>
-	<p ng-bind="vm.test.instruction"></p>
-	<a ng-href="/test/{{vm.test._id}}">Start</a>
+<div class="background" flex layout="row" layout-padding>
+    <div flex="15"></div>
+    <div flex>
+        <md-card flex>
+            <md-card-header class="card-header"  layout="row" layout-align="start center">
+                <md-card-avatar class="md-whiteframe-1dp" layout="row" layout-align="center center">
+                    <img ng-src="{{vm.test.icon}}"/>
+                </md-card-avatar>
+                <span class="md-headline">Инструкция для {{vm.test.name}}</span>
+            </md-card-header>
+            <md-card-content flex layout="column" layout-align="center start">
+                <p ng-bind="vm.test.instruction"></p>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-primary" ng-click="vm.$location.path('/test/' + vm.test._id)">
+                    Начать
+                </md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+    <div flex="15"></div>
 </div>
