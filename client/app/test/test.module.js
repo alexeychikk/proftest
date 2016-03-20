@@ -4,7 +4,8 @@
 
     angular.module('proftestApp.test', [
         'proftestApp.constants',
-		'LocalStorageModule'
+		'LocalStorageModule',
+        'ngRoute'
     ]);
 
 })();

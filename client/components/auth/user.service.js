@@ -5,7 +5,7 @@
     angular.module('proftestApp.auth')
         .factory('User', UserResource);
 
-    function UserResource($resource) {
+    function UserResource($resource, $rootScope) {
 
         return $resource('/api/users/:id/:controller', {
             id: '@_id'
@@ -27,6 +27,9 @@
                 params: {
                     id: 'me',
                     controller: 'answers'
+                },
+                interceptor: {
+                    response: (config) => $rootScope.currentUser = config.data
                 }
             },
             getStats: {

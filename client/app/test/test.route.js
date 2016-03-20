@@ -7,13 +7,15 @@
             $routeProvider
                 .when('/test/:id/about', {
                     templateUrl: 'app/test/about.html',
-                    controller: 'TestController',
-                    controllerAs: 'vm'
+                    controller: 'AboutController',
+                    controllerAs: 'vm',
+                    authenticate: 'user'
                 })
                 .when('/test/:id', {
                     templateUrl: 'app/test/question.html',
 					controller: 'QuestionController',
-					controllerAs: 'vm'
+					controllerAs: 'vm',
+                    authenticate: 'user'
                 });
         });
 

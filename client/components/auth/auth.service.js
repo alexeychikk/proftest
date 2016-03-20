@@ -5,14 +5,14 @@
     angular.module('proftestApp.auth')
         .factory('Auth', AuthService);
 
-    function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
+    function AuthService($location, $http, $cookies, $q, appConfig, Util, User, $rootScope) {
 
         var safeCb = Util.safeCb;
         var currentUser = {};
         var userRoles = appConfig.userRoles || [];
 
         if ($cookies.get('token') && $location.path() !== '/logout') {
-            currentUser = User.get();
+            $rootScope.currentUser = currentUser = User.get();
         }
 
         var Auth = {
@@ -131,6 +131,10 @@
                         safeCb(callback)({});
                         return {};
                     });
+            },
+
+            updateCurrentUser() {
+                return User.get((resp) => currentUser = resp).$promise;
             },
 
             /**
