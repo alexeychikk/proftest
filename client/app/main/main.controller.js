@@ -4,8 +4,10 @@
 
     class MainController {
 
-        constructor(Test) {
+        constructor(Test, $location, Auth) {
             this.Test = Test;
+            this.location = $location;
+            this.getCurrentUser = Auth.getCurrentUser;
             this.testsShort = {};
 
             this.Test.query({
@@ -13,6 +15,8 @@
             }).$promise.then(response => {
                 this.testsShort = response;
             });
+
+            this.isTestPassed = (id) => !!this.getCurrentUser().tests.find((test) => id === test._id);
         }
     }
 

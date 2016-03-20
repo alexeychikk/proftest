@@ -8,7 +8,8 @@
                 .when('/', {
                     templateUrl: 'app/main/main.html',
                     controller: 'MainController',
-                    controllerAs: 'vm'
+                    controllerAs: 'vm',
+                    authenticate: 'user'
                 });
         });
 

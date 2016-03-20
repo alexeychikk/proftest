@@ -1,6 +1,7 @@
 module.exports = {
 	name: "Системный выбор профессии",
 	type: require('../types').SYSTEM_PROF_CHOICE,
+	icon: 'assets/images/yeoman.png',
 	shortDesc: "",
 	longDesc: "",
 	instruction: "Выберите утверждения, которые наиболее вам соответствуют",
