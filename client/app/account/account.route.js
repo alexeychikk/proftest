@@ -29,13 +29,13 @@
                     controllerAs: 'vm',
 					authenticate: false
                 })
-                .when('/:id', {
+                .when('/user/:id', {
                     templateUrl: 'app/account/account.html',
                     controller: 'AccountController',
                     controllerAs: 'vm',
                     authenticate: true
                 })
-                .when('/:id/settings', {
+                .when('/user/:id/settings', {
                     templateUrl: 'app/account/settings/settings.html',
                     controller: 'SettingsController',
                     controllerAs: 'vm',

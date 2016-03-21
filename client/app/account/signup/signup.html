@@ -1,15 +1,25 @@
 <div layout="row" class="signup-page">
-	<div flex="15" flex-md="5" hide-sm></div>
+	<div flex-gt-md="15" flex-md="5" flex-sm="3" hide-xs></div>
 	<div flex>
-		<form name="form" class="signup-form" ng-submit="vm.register(form)" novalidate>
+		<form name="form" class="signup-form" ng-submit="vm.register()" novalidate>
 			<div layout="column" layout-align="start center">
-				<div class="md-title">Войти через</div>
-				<section layout="row" layout-sm="column" layout-align="center center">
-					<oauth-buttons classes="groupX left" type="facebook" layout="row"></oauth-buttons>
-					<oauth-buttons classes="groupX right" type="vk" layout="row"></oauth-buttons>
-				</section>
-				<div class="md-body-2">ИЛИ</div>
+				<div ng-if="!vm.socialReg" layout="column" layout-align="start center">
+					<div class="md-title">Войти через</div>
+					<section layout="row" layout-sm="column" layout-align="center center">
+						<oauth-buttons classes="groupX left" type="facebook" layout="row"></oauth-buttons>
+						<oauth-buttons classes="groupX right" type="vk" layout="row"></oauth-buttons>
+					</section>
+					<div class="md-body-2">ИЛИ</div>
+				</div>
 				<md-card>
+					<md-card-title>
+						<md-card-title-text ng-if="vm.socialReg" style="text-align: center;">
+							<span class="md-headline">Недостаточно информации</span>
+							<span class="md-subhead">Ваш социальный профиль содержит недостаточно информации <br>для прохождения тестов.
+								Пожалуйста, заполните необходимые поля.</span>
+						</md-card-title-text>
+						<md-divider></md-divider>
+					</md-card-title>
 					<md-card-content layout="column" layout-fill>
 						<div layout="row">
 							<md-input-container flex>
@@ -56,7 +66,7 @@
 								</div>
 							</md-input-container>
 						</div>
-						<div layout="row">
+						<div layout="row" ng-if="!vm.socialReg">
 							<md-input-container flex>
 								<label>Пароль</label>
 								<input name="password" type="password" ng-model="vm.user.password" md-maxlength="64" required>
@@ -75,8 +85,11 @@
 							</md-input-container>
 						</div>
 						<div layout="row" layout-align="center center">
-							<md-button class="md-raised md-primary" type="submit" aria-label="reg-btn">
+							<md-button ng-if="!vm.socialReg" class="md-raised md-primary" type="submit" aria-label="reg-btn">
 								Зарегистрироваться
+							</md-button>
+							<md-button ng-if="vm.socialReg" class="md-raised md-primary" ng-click="vm.complete()" aria-label="reg-btn">
+								Продолжить
 							</md-button>
 						</div>
 					</md-card-content>
@@ -84,5 +97,5 @@
 			</div>
 		</form>
 	</div>
-	<div flex="15" flex-md="5" hide-sm></div>
+	<div flex-gt-md="15" flex-md="5" flex-sm="3" hide-xs></div>
 </div>

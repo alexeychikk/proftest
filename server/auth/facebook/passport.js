@@ -7,8 +7,7 @@ export function setup(User, config) {
             clientSecret: config.facebook.clientSecret,
             callbackURL: config.facebook.callbackURL,
             profileFields: [
-                'displayName',
-                'emails'
+				'email', 'first_name', 'last_name', 'gender', 'birthday'
             ]
         },
         function (accessToken, refreshToken, profile, done) {
@@ -21,15 +20,18 @@ export function setup(User, config) {
                     }
 
                     user = new User({
-                        name: profile.displayName,
-                        email: profile.emails[0].value,
+						email: profile._json.email,
+                        firstName: profile._json.first_name,
+						lastName: profile._json.last_name,
+						gender: profile._json.gender[0],
+						birthDate: profile._json.birthday,
                         role: 'user',
                         provider: 'facebook',
                         facebook: profile._json
                     });
                     user.saveAsync()
-                        .then(user => done(null, user))
-                        .catch(err => done(err));
+                        .spread(user => done(null, user))
+                        .catch(err => done(Object.assign( {}, {errors: err.errors}, {user: user.toObject()} )));
                 })
                 .catch(err => done(err));
         }));

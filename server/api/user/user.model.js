@@ -55,8 +55,7 @@ var UserSchema = new Schema({
 		type: String,
 		required: true,
 		uppercase: true,
-		enum: ['M', 'F'],
-		default: 'M'
+		enum: ['M', 'F']
 	},
 	role: {
 		type: String,

@@ -46,6 +46,22 @@
                     });
             },
 
+			completeProvider(provider, user) {
+				return $http.post(`/auth/${provider}/complete`, user)
+					.then(res => {
+						$cookies.put('token', res.data.token);
+						currentUser = User.get();
+						return currentUser.$promise;
+					})
+					.then(user => {
+						return user;
+					})
+					.catch(err => {
+						Auth.logout();
+						return $q.reject(err.data);
+					});
+			},
+
             /**
              * Delete access token and user info
              */

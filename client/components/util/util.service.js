@@ -5,6 +5,9 @@
     angular.module('proftestApp.util')
         .factory('Util', ['$window', UtilService]);
 
+	let regexParamsMain = /(.+?)(\[(.+?)\])/;
+	let regexParamsFields = /\[(.+?)\]/;
+
     /**
      * The Util service is for thin, globally reusable, utility functions
      */
@@ -57,7 +60,35 @@
                         url.protocol === o.protocol;
                 });
                 return (origins.length >= 1);
-            }
+            },
+
+
+			parseRouteParams(params) {
+				var res = {};
+				for (let key in params) {
+					let regRes1 = regexParamsMain.exec(key);
+					if (regRes1) {
+						let str = regRes1[0], objStr = regRes1[1], fieldStr = regRes1[3];
+						res[objStr] = res[objStr] || {};
+						res[objStr][fieldStr] = res[objStr][fieldStr] || {};
+						let replaced = key.replace(str, '');
+						if (replaced.length) {
+							let obj = res[objStr][fieldStr];
+							do {
+								var regRes2 = regexParamsFields.exec(replaced);
+								var field2Str = regRes2[1];
+								obj[field2Str] = obj[field2Str] || {};
+								replaced = replaced.replace(regRes2[0], '');
+								if (replaced.length) obj = obj[field2Str];
+							} while (replaced.length);
+							obj[field2Str] = params[key];
+						}
+						else res[objStr][fieldStr] = params[str];
+					}
+					else res[key] = params[key];
+				}
+				return res;
+			}
         };
 
     }

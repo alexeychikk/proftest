@@ -56,17 +56,23 @@ export function index(req, res) {
  * Creates a new user
  */
 export function create(req, res, next) {
-    var newUser = new User(req.body);
-    newUser.provider = 'local';
-    newUser.role = 'user';
-    newUser.saveAsync()
-        .spread(uploadAvatar(req, res)).then(function (user) {
-            var token = jwt.sign({_id: user._id}, config.secrets.session, {
-                expiresIn: 60 * 60 * 5
-            });
-            res.json({token});
-        })
-        .catch(validationError(res));
+	createWithProvider('local')(req, res, next);
+}
+
+export function createWithProvider(provider) {
+	return function(req, res, next) {
+		var newUser = new User(req.body);
+		newUser.provider = provider;
+		newUser.role = 'user';
+		newUser.saveAsync()
+			.spread(uploadAvatar(req, res)).then(function (user) {
+				var token = jwt.sign({_id: user._id}, config.secrets.session, {
+					expiresIn: 60 * 60 * 5
+				});
+				res.json({token});
+			})
+			.catch(validationError(res));
+	};
 }
 
 /**

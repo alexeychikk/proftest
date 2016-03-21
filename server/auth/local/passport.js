@@ -12,6 +12,12 @@ function localAuthenticate(User, email, password, done) {
                     message: 'Этот email не зарегистрирован'
                 });
             }
+			if (user.provider != 'local') {
+				return done(null, false, {
+					field: 'email',
+					message: 'Этот email зарегистрирован через социальную сеть'
+				});
+			}
             user.authenticate(password, function (authError, authenticated) {
                 if (authError) {
                     return done(authError);
