@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+import User from '../user/user.model';
 import {preRemoveHook} from '../../config/multer';
 let preRemoveIcon = preRemoveHook('icon');
 
@@ -30,10 +31,17 @@ var TestSchema = new mongoose.Schema({
 		type: {},
 		required: true
 	},
-	func: String
+	func: String,
+	passCount: Number
 });
 
 TestSchema
 	.pre('remove', preRemoveIcon);
+
+TestSchema.methods = {
+	getPassCount() {
+		return User.countAsync({"tests._id": this._id});
+	}
+};
 
 export default mongoose.model('Test', TestSchema);

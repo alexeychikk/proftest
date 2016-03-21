@@ -15,29 +15,44 @@ Test.find({}).removeAsync()
 	.then(Tests.loadAll)
 	.then(() => {
 		console.log('finished populating tests');
-	});
+		Test.findOneAsync().then(test => {
 
-User.find({}).removeAsync()
-	.then(() => {
-		User.createAsync({
-			firstName: 'Test',
-			lastName: 'User',
-			provider: 'local',
-			email: 'test@example.com',
-			password: 'test',
-			birthDate: new Date('1995-13-02'),
-			gender: 'M'
-		}, {
-			firstName: 'Admin',
-			lastName: 'Loh',
-			provider: 'local',
-			role: 'admin',
-			email: 'admin@example.com',
-			password: 'admin',
-			birthDate: new Date('1998-01-01'),
-			gender: 'F'
-		})
-			.then(() => {
-				console.log('finished populating users');
-			});
+			User.find({}).removeAsync()
+				.then(() => {
+					User.createAsync({
+						firstName: 'Test',
+						lastName: 'User',
+						provider: 'local',
+						email: 'test@example.com',
+						password: 'test',
+						birthDate: new Date('1995-13-02'),
+						gender: 'M',
+						tests: [{
+							_id: test._id,
+							passingDate: new Date(),
+							answers: {bad: 'answer'},
+							result: {bad: 'result'}
+						}]
+					}, {
+						firstName: 'Admin',
+						lastName: 'Loh',
+						provider: 'local',
+						role: 'admin',
+						email: 'admin@example.com',
+						password: 'admin',
+						birthDate: new Date('1998-01-01'),
+						gender: 'F',
+						tests: [{
+							_id: test._id,
+							passingDate: new Date(),
+							answers: {bad: 'answer'},
+							result: {bad: 'result'}
+						}]
+					})
+						.then(() => {
+							console.log('finished populating users');
+						});
+				});
+
+		});
 	});

@@ -58,21 +58,47 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
     statusCode = statusCode || 500;
     return function (err) {
-        res.status(statusCode).send(err);
+        res.status(statusCode).json(err);
     };
+}
+
+function setPassCount(fields) {
+	return function(entities) {
+		return new Promise((resolve, reject) => {
+			if (!fields.passCount) return resolve(entities);
+			let isArray = _.isArray(entities);
+			if (!isArray) entities = [entities];
+			let counter = 0;
+			for (let i = 0; i < entities.length; i++) {
+				let entity = entities[i];
+				entity.getPassCount().then(count => {
+					counter++;
+					entity.passCount = count;
+					if (counter == entities.length) {
+						if (isArray) resolve(entities);
+						else resolve(entities[0]);
+					}
+				});
+			}
+		});
+	};
 }
 
 // Gets a list of Tests
 export function index(req, res) {
-    Test.findAsync({}, req.query.fields && JSON.parse(req.query.fields))
+	let fields = req.query.fields && JSON.parse(req.query.fields);
+    Test.findAsync({}, fields)
+		.then(setPassCount(fields))
         .then(respondWithResult(res))
         .catch(handleError(res));
 }
 
 // Gets a single Test from the DB
 export function show(req, res) {
-    Test.findByIdAsync(req.params.id, req.query.fields && JSON.parse(req.query.fields))
+	let fields = req.query.fields && JSON.parse(req.query.fields);
+    Test.findByIdAsync(req.params.id, fields)
         .then(handleEntityNotFound(res))
+		.then(setPassCount(fields))
         .then(respondWithResult(res))
         .catch(handleError(res));
 }
