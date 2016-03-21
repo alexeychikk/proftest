@@ -33,13 +33,13 @@
                     templateUrl: 'app/account/account.html',
                     controller: 'AccountController',
                     controllerAs: 'vm',
-                    authenticate: 'user'
+                    authenticate: true
                 })
                 .when('/user/:id/settings', {
                     templateUrl: 'app/account/settings/settings.html',
                     controller: 'SettingsController',
                     controllerAs: 'vm',
-                    authenticate: 'user'
+                    authenticate: true
                 });
         })
 

@@ -11,7 +11,7 @@
             this.testsShort = {};
 
             this.Test.query({
-                fields: {name: true, icon: true, type: true, shortDesc: true, passCount: true}
+                fields: {name: true, icon: true, type: true, shortDesc: true, longDesc: true, instruction: true}
             }).$promise.then(response => {
                 this.testsShort = response;
             });

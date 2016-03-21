@@ -1,15 +1,22 @@
-<div class="background" flex layout="row" layout-padding>
-    <div flex="15"></div>
-    <div flex>
+<div class="background" flex layout="row" layout-align="center center" layout-padding>
+    <div flex="50">
         <md-card flex>
             <md-card-header class="card-header"  layout="row" layout-align="start center">
                 <md-card-avatar class="md-whiteframe-1dp" layout="row" layout-align="center center">
                     <img ng-src="{{vm.test.icon}}"/>
                 </md-card-avatar>
-                <span class="md-headline">Инструкция для {{vm.test.name}}</span>
+                <span class="md-headline">{{vm.test.name}}</span>
             </md-card-header>
             <md-card-content flex layout="column" layout-align="center start">
-                <p ng-bind="vm.test.instruction"></p>
+                <md-content class="thin-scroll">
+					<md-subheader>{{vm.$routeParams.long ? 'Описание' : 'Инструкция'}}</md-subheader>
+					<p ng-bind="vm.$routeParams.long ? vm.test.longDesc : vm.test.instruction"></p>
+
+					<div ng-if="vm.$routeParams.long">
+						<md-subheader>Инструкция</md-subheader>
+						<p ng-bind="vm.test.instruction"></p>
+					</div>
+				</md-content>
             </md-card-content>
             <md-card-actions layout="row" layout-align="end center">
                 <md-button class="md-primary" ng-click="vm.$location.path('/test/' + vm.test._id)">
@@ -18,5 +25,4 @@
             </md-card-actions>
         </md-card>
     </div>
-    <div flex="15"></div>
 </div>
