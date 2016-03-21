@@ -8,7 +8,8 @@
                 .when('/login', {
                     templateUrl: 'app/account/login/login.html',
                     controller: 'LoginController',
-                    controllerAs: 'vm'
+                    controllerAs: 'vm',
+					authenticate: false
                 })
                 .when('/logout', {
                     name: 'logout',
@@ -25,7 +26,8 @@
                 .when('/signup', {
                     templateUrl: 'app/account/signup/signup.html',
                     controller: 'SignupController',
-                    controllerAs: 'vm'
+                    controllerAs: 'vm',
+					authenticate: false
                 })
                 .when('/:id', {
                     templateUrl: 'app/account/account.html',

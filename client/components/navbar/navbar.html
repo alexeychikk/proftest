@@ -1,10 +1,10 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
         <h2>
-            <span>ProfTest</span>
+            <a href="/">ProfTest</a>
         </h2>
         <span flex></span>
-
+		<a href="/login">Login</a>
         <div ng-if="isLoggedIn()" layout="row" layout-align="end center">
             <a layout="row" layout-align="center center" ng-href="/users/{{getCurrentUser()._id}}">
                 <img class="avatar" ng-if="getCurrentUser().avatar" alt="{{getCurrentUser().firstName}}"

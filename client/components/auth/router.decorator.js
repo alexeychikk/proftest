@@ -7,7 +7,7 @@
 
             // Redirect to login if route requires auth and the user is not logged in, or doesn't have required role
             $rootScope.$on('$routeChangeStart', (event, next) => {
-                if (!next.authenticate) {
+                if (next.authenticate == null) {
                     return;
                 }
 
@@ -24,7 +24,7 @@
                     });
                 } else {
                     Auth.isLoggedIn(_.noop).then(is => {
-                        if (is) {
+                        if (is && next.authenticate || !(is || next.authenticate)) {
                             return;
                         }
 
