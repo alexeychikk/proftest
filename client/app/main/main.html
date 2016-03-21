@@ -31,9 +31,8 @@
 							</md-button>
 						</span>
 						<md-button class="md-icon-button md-primary"
-								   ng-click="vm.$location.path('/test/' + test._id +
-								   (!test.shortDesc ? !test.longDesc ? '' : '/about?long=true' : '/about'))"
-								   aria-label="go">
+								   ng-click="vm.$location.path('/test/' + test._id + (test.shortDesc || test.longDesc ? '/about' : ''))"
+								   aria-label="pass">
 							<i class="mdi mdi-fast-forward mdi-24px"></i>
 							<md-tooltip>Пройти</md-tooltip>
 						</md-button>

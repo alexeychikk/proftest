@@ -19,10 +19,8 @@
 
         });
 
-    controller.$inject = ['$scope', 'User', 'localStorageService'];
-    function controller($scope, User, localStorageService) {
-        let vm = this,
-            testKey = vm.id,
-            answers = JSON.parse(localStorageService.get(testKey)) || [];
+    controller.$inject = ['$scope', 'User'];
+    function controller($scope, User) {
+        let vm = this;
     }
 })();

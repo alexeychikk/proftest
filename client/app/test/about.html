@@ -9,10 +9,10 @@
             </md-card-header>
             <md-card-content flex layout="column" layout-align="center start">
                 <md-content class="thin-scroll">
-					<md-subheader>{{vm.$routeParams.long ? 'Описание' : 'Инструкция'}}</md-subheader>
-					<p ng-bind="vm.$routeParams.long ? vm.test.longDesc : vm.test.instruction"></p>
+					<md-subheader>{{vm.test.longDesc ? 'Описание' : 'Инструкция'}}</md-subheader>
+					<p ng-bind="vm.test.longDesc ? vm.test.longDesc : vm.test.instruction"></p>
 
-					<div ng-if="vm.$routeParams.long">
+					<div ng-if="vm.test.longDesc">
 						<md-subheader>Инструкция</md-subheader>
 						<p ng-bind="vm.test.instruction"></p>
 					</div>
