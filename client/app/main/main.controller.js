@@ -4,10 +4,11 @@
 
     class MainController {
 
-        constructor(Test, $location, Auth) {
+        constructor(Test, $location, Auth, localStorageService) {
             this.Test = Test;
             this.$location = $location;
             this.getCurrentUser = Auth.getCurrentUser;
+			this.localStorageService = localStorageService;
             this.testsShort = {};
 
             this.Test.query({
@@ -17,6 +18,8 @@
             });
 
             this.isTestPassed = (id) => !!this.getCurrentUser().tests.find((test) => id === test._id);
+
+			this.localStorageService.clearAll();
         }
     }
 

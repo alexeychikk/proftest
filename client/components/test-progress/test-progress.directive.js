@@ -50,15 +50,18 @@
         angular.element(window).on('resize', getMaxCount);
 
         function getMaxCount(count) {
-            let result = reduceCount(count);
+            let result = reduceCount(vm.progress.questionsCount);
             vm.range = new Array(result.particle);
             vm.remainder = result.remainder;
+
+			if(!angular.isNumber(count)) $scope.$apply();
         }
 
         function reduceCount(count) {
-            vm.divider = Math.ceil(window.innerWidth / 146);
-            if (count > vm.divider) {
-                return {particle: Math.ceil(count / vm.divider), remainder: count % vm.divider};
+            vm.particle = Math.ceil(window.innerWidth / 250);
+            if (count > vm.particle) {
+				vm.divider = Math.round(count / vm.particle);
+                return {particle: vm.particle, remainder: count % vm.divider};
             } else {
                 return {particle: count};
             }
