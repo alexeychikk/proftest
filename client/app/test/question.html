@@ -1,16 +1,23 @@
-<div>
-    <profession-choice ng-if="vm.test.type === vm.testTypes.SYSTEM_PROF_CHOICE" test-id="{{vm.test._id}}"
-                       data="vm.test.content"></profession-choice>
+<div layout="column">
+    <test-progress progress="vm.progress"></test-progress>
+    <div layout="row">
+        <div flex="15"></div>
+        <div flex>
+            <profession-choice ng-if="vm.test.type === vm.testTypes.SYSTEM_PROF_CHOICE" test-id="{{vm.test._id}}"
+                               data="vm.test.content" index="vm.progress"></profession-choice>
 
-    <professional-readiness ng-if="vm.test.type === vm.testTypes.PROF_READINESS" test-id="{{vm.test._id}}"
-                            data="vm.test.content"></professional-readiness>
+            <professional-readiness ng-if="vm.test.type === vm.testTypes.PROF_READINESS" test-id="{{vm.test._id}}"
+                                    data="vm.test.content" index="vm.progress"></professional-readiness>
 
-    <psychogeometrical ng-if="vm.test.type === vm.testTypes.PSYCHOGEOMETRICAL" test-id="{{vm.test._id}}"
-                       data="vm.test.content"></psychogeometrical>
+            <psychogeometrical ng-if="vm.test.type === vm.testTypes.PSYCHOGEOMETRICAL" test-id="{{vm.test._id}}"
+                               data="vm.test.content"></psychogeometrical>
 
-    <teenage-kettel ng-if="vm.test.type === vm.testTypes.TEENAGE_KETTEL" test-id="{{vm.test._id}}"
-                    data="vm.test.content"></teenage-kettel>
+            <teenage-kettel ng-if="vm.test.type === vm.testTypes.TEENAGE_KETTEL" test-id="{{vm.test._id}}"
+                            data="vm.test.content" index="vm.progress"></teenage-kettel>
 
-    <thinking-creativity ng-if="vm.test.type === vm.testTypes.THINKING_CREATIVITY" test-id="{{vm.test._id}}"
-                         data="vm.test.content"></thinking-creativity>
+            <thinking-creativity ng-if="vm.test.type === vm.testTypes.THINKING_CREATIVITY" test-id="{{vm.test._id}}"
+                                 data="vm.test.content" index="vm.progress"></thinking-creativity>
+        </div>
+        <div flex="15"></div>
+    </div>
 </div>

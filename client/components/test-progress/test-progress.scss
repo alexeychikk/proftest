@@ -1,0 +1,71 @@
+.progress {
+  margin: 20px 10px;
+  text-align: center;
+
+  *, *:after, *:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .wrap {
+    display: inline-block;
+    background: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    border: 1px solid #d5d5da;
+  }
+
+  .circle {
+    @extend .wrap;
+
+    .label {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      border-radius: 32px;
+      margin-top: 3px;
+      color: #b5b5ba;
+      font-size: 17px;
+    }
+  }
+
+  .bar {
+    @extend .wrap;
+
+    position: relative;
+    width: 40px;
+    height: 7px;
+    margin-left: -5px;
+    margin-right: -1px;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+
+  .bar.done {
+    background: #eee;
+  }
+
+  .circle.done {
+    background: #eee;
+
+    .label {
+      color: #FFF;
+      background: #8bc435;
+      box-shadow: inset 0 0 2px rgba(0,0,0,.2);
+    }
+  }
+
+  .bar.active {
+    background: linear-gradient(to right, #EEE 40%, #FFF 60%);
+  }
+
+  .circle.active .label {
+    color: #FFF;
+    background: #0c95be;
+    box-shadow: inset 0 0 2px rgba(0,0,0,.2);
+  }
+}

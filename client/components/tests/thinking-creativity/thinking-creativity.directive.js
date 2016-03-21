@@ -9,7 +9,8 @@
                 templateUrl: 'components/tests/thinking-creativity/thinking-creativity.html',
                 scope: {
                     id: '@testId',
-                    data: '=data'
+                    data: '=data',
+                    index: '='
                 },
                 controllerAs: 'vm',
                 bindToController: true,
@@ -26,24 +27,24 @@
             questionIndexKey = testKey + 'questionIndex',
             answers = JSON.parse(localStorageService.get(testKey)) || [];
 
-        vm.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
+        vm.index.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
 
-        vm.getCurrentQuestion = () => vm.data.questions[vm.currentQuestionIndex];
+        vm.getCurrentQuestion = () => vm.data.questions[vm.index.currentQuestionIndex];
 
         vm.nextQuestion = () => {
-            vm.currentQuestionIndex++;
-            localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
-            return vm.currentQuestionIndex;
+            vm.index.currentQuestionIndex++;
+            localStorageService.set(questionIndexKey, vm.index.currentQuestionIndex);
+            return vm.index.currentQuestionIndex;
         };
 
         vm.prevQuestion = () => {
-            vm.currentQuestionIndex--;
-            localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
-            return vm.currentQuestionIndex;
+            vm.index.currentQuestionIndex--;
+            localStorageService.set(questionIndexKey, vm.index.currentQuestionIndex);
+            return vm.index.currentQuestionIndex;
         };
 
         vm.answer = (value) => {
-            answers[vm.currentQuestionIndex] = value;
+            answers[vm.index.currentQuestionIndex] = value;
             localStorageService.set(testKey, JSON.stringify(answers));
 
             vm.nextQuestion();

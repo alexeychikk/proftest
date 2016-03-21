@@ -24,7 +24,7 @@
                 this.test.instruction = response.instruction;
 
                 localStorageService.remove(this.$routeParams.id, this.$routeParams.id + 'questionIndex',
-                    this.$routeParams.id + 'categoryIndex');
+                    this.$routeParams.id + 'categoryIndex', 'countersSum');
             });
         }
     }

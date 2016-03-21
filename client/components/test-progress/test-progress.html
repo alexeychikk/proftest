@@ -1,0 +1,43 @@
+<div layout="row" layout-align="center center" flex class="progress">
+    <span ng-repeat="i in vm.range track by $index" ng-init="index = $index * (vm.divider ? vm.divider : 1)">
+        <span ng-style="{'margin-right': (vm.divider && !$last ? -5 : 0) + 'px'}">
+            <span class="circle" ng-class="{'active': index === vm.counter, 'done': index < vm.counter}">
+                <span class="label" ng-if="index >= vm.counter">{{index + 1}}</span>
+                <span class="label" ng-if="index < vm.counter">
+                    <i class="mdi mdi-check"></i>
+                </span>
+            </span>
+            <span ng-if="!$last && vm.divider" class="bar"
+                  ng-class="{'active': index < vm.counter && index + vm.divider > vm.counter, 'done': index + vm.divider <= vm.counter}">
+            </span>
+            <span ng-if="!$last && !vm.divider" class="bar"
+                  ng-class="{'active': index === vm.counter - 1, 'done': index < vm.counter}">
+            </span>
+        </span>
+
+        <span ng-if="vm.divider">
+            <span ng-if="!$last" class="circle"
+                  ng-class="{'active': index !== vm.counter && index < vm.counter && index + vm.divider > vm.counter,
+                    'done': index + vm.divider <= vm.counter}">
+                <span class="label" ng-if="index + vm.divider > vm.counter">...</span>
+                <span class="label" ng-if="index + vm.divider <= vm.counter">
+                    <i class="mdi mdi-check"></i>
+                </span>
+            </span>
+            <span ng-if="$last" class="bar" style="margin-right: -5px;"
+                  ng-class="{'active': (index + vm.remainder - 1) >= vm.counter,
+                    'done': (index + vm.remainder - 1) < vm.counter}"></span>
+
+            <span ng-if="$last" class="circle"
+                  ng-class="{'active': (index + vm.remainder - 1) === vm.counter, 'done': (index + vm.remainder - 1) < vm.counter}">
+                <span class="label"
+                      ng-if="(index + vm.remainder - 1) >= vm.counter">{{vm.progress.questionsCount}}</span>
+                <span class="label" ng-if="(index + vm.remainder - 1) < vm.counter">
+                    <i class="mdi mdi-check"></i>
+                </span>
+            </span>
+            <span ng-if="!$last" class="bar"
+                  ng-class="{'active': index + vm.divider === vm.counter, 'done': index + vm.divider < vm.counter}"></span>
+        </span>
+    </span>
+</div>

@@ -9,7 +9,8 @@
                 templateUrl: 'components/tests/professional-readiness/professional-readiness.html',
                 scope: {
                     id: '@testId',
-                    data: '=data'
+                    data: '=data',
+                    index: '='
                 },
                 controllerAs: 'vm',
                 bindToController: true,
@@ -26,27 +27,27 @@
             statementIndexKey = testKey + 'questionIndex',
             answers = JSON.parse(localStorageService.get(testKey)) || [];
 
-        vm.currentStatementIndex = +localStorageService.get(statementIndexKey) || 0;
+        vm.index.currentQuestionIndex = +localStorageService.get(statementIndexKey) || 0;
 
-        vm.getCurrentStatement = () => vm.data.statement[vm.currentStatementIndex];
+        vm.getCurrentStatement = () => vm.data.statement[vm.index.currentQuestionIndex];
 
         vm.nextQuestion = () => {
-            vm.currentStatementIndex++;
-            localStorageService.set(statementIndexKey, vm.currentStatementIndex);
-            return vm.currentStatementIndex;
+            vm.index.currentQuestionIndex++;
+            localStorageService.set(statementIndexKey, vm.index.currentQuestionIndex);
+            return vm.index.currentQuestionIndex;
         };
 
         vm.prevQuestion = () => {
-            vm.currentStatementIndex--;
-            localStorageService.set(statementIndexKey, vm.currentStatementIndex);
-            return vm.currentStatementIndex;
+            vm.index.currentQuestionIndex--;
+            localStorageService.set(statementIndexKey, vm.index.currentQuestionIndex);
+            return vm.index.currentQuestionIndex;
         };
 
         vm.answer = (type, value) => {
-            answers[vm.currentStatementIndex] = answers[vm.currentStatementIndex] || {};
-            answers[vm.currentStatementIndex][type] = value;
+            answers[vm.index.currentQuestionIndex] = answers[vm.index.currentQuestionIndex] || {};
+            answers[vm.index.currentQuestionIndex][type] = value;
 
-            if (Object.keys(answers[vm.currentStatementIndex]).length === 3) {
+            if (Object.keys(answers[vm.index.currentQuestionIndex]).length === 3) {
                 vm.nextQuestion();
                 localStorageService.set(testKey, JSON.stringify(answers));
             }

@@ -9,7 +9,8 @@
                 templateUrl: 'components/tests/profession-choice/profession-choice.html',
                 scope: {
                     id: '@testId',
-                    data: '=data'
+                    data: '=data',
+                    index: '='
                 },
                 controllerAs: 'vm',
                 bindToController: true,
@@ -30,24 +31,24 @@
                     skills: []
                 };
 
-        vm.currentCategoryIndex = +localStorageService.get(categoryIndexKey) || 0;
-        vm.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
+        vm.index.currentCategoryIndex = +localStorageService.get(categoryIndexKey) || 0;
+        vm.index.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
 
         vm.answersBlock = [];
 
-        vm.getCurrentCategory = () => vm.data.categories[vm.currentCategoryIndex];
-        vm.getCurrentQuestion = () => vm.getCurrentCategory().questions[vm.currentQuestionIndex];
+        vm.getCurrentCategory = () => vm.data.categories[vm.index.currentCategoryIndex];
+        vm.getCurrentQuestion = () => vm.getCurrentCategory().questions[vm.index.currentQuestionIndex];
 
         vm.nextQuestion = () => {
-            vm.currentQuestionIndex++;
-            localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
-            return vm.currentQuestionIndex;
+            vm.index.currentQuestionIndex++;
+            localStorageService.set(questionIndexKey, vm.index.currentQuestionIndex);
+            return vm.index.currentQuestionIndex;
         };
 
         vm.prevQuestion = () => {
-            vm.currentQuestionIndex--;
-            localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
-            return vm.currentQuestionIndex;
+            vm.index.currentQuestionIndex--;
+            localStorageService.set(questionIndexKey, vm.index.currentQuestionIndex);
+            return vm.index.currentQuestionIndex;
         };
 
         vm.getAnswers = () => {
@@ -59,10 +60,10 @@
         };
 
         vm.answer = (values) => {
-            if (vm.currentCategoryIndex === 0) {
-                answers.interests[vm.currentQuestionIndex] = values;
+            if (vm.index.currentCategoryIndex === 0) {
+                answers.interests[vm.index.currentQuestionIndex] = values;
             } else {
-                answers.skills[vm.currentQuestionIndex] = values;
+                answers.skills[vm.index.currentQuestionIndex] = values;
             }
 
             localStorageService.set(testKey, JSON.stringify(answers));
@@ -71,11 +72,11 @@
             vm.nextQuestion();
 
             if (!vm.getCurrentQuestion()) {
-                if (vm.currentCategoryIndex === 0) {
-                    vm.currentCategoryIndex = 1;
-                    vm.currentQuestionIndex = 0;
-                    localStorageService.set(questionIndexKey, vm.currentQuestionIndex);
-                    localStorageService.set(categoryIndexKey, vm.currentCategoryIndex);
+                if (vm.index.currentCategoryIndex === 0) {
+                    vm.index.currentCategoryIndex = 1;
+                    vm.index.currentQuestionIndex = 0;
+                    localStorageService.set(questionIndexKey, vm.index.currentQuestionIndex);
+                    localStorageService.set(categoryIndexKey, vm.index.currentCategoryIndex);
                 } else {
                     User.putMyAnswers({}, {
                         testId: vm.id,
