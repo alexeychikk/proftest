@@ -60,7 +60,7 @@
         function reduceCount(count) {
             vm.particle = Math.ceil(window.innerWidth / 250);
             if (count > vm.particle) {
-				vm.divider = Math.round(count / vm.particle);
+				vm.divider = Math.ceil(count / vm.particle);
                 return {particle: vm.particle, remainder: count % vm.divider};
             } else {
                 return {particle: count};
