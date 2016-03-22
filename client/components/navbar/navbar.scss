@@ -1,0 +1,31 @@
+.admin {
+  font-size: 12px;
+  color: #E91E63;
+}
+
+.nickname {
+  margin: 0 0 0 5px;
+}
+
+a:hover .nickname {
+  color: #ffffff;
+}
+a:hover .nickname.admin {
+  color: #FFF9C4;
+}
+.nickname.admin {
+  color: #FFEB3B;
+}
+
+.admin-panel {
+  margin: 0 0 0 15px;
+}
+
+.logout-button {
+  margin: 0 0 0 15px;
+  padding: 0;
+  min-width: 0;
+  min-height: 0;
+  line-height: normal;
+}
+

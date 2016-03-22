@@ -15,6 +15,7 @@
                     name: 'logout',
                     referrer: '/',
                     template: '',
+					authenticate: true,
                     controller: function ($location, $route, Auth) {
                         var referrer = $route.current.params.referrer ||
                             $route.current.referrer ||

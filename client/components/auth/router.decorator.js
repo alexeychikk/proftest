@@ -3,10 +3,28 @@
 (function () {
 
     angular.module('proftestApp.auth')
-        .run(($rootScope, $location, Auth) => {
+        .run(($rootScope, $location, $route, Auth) => {
+
+			function fuzzyRedirect(event, next, current) {
+				return function(is) {
+					if (is && next.authenticate || !(is || next.authenticate)) {
+						return;
+					}
+
+					if (next.authenticate) {
+						if (!current || current.authenticate || !current.controller) return $location.path('/login');
+
+					}
+					else if (next.authenticate === false) {
+						if (!current) return $location.path('/');
+					}
+
+					event.preventDefault();
+				};
+			}
 
             // Redirect to login if route requires auth and the user is not logged in, or doesn't have required role
-            $rootScope.$on('$routeChangeStart', (event, next) => {
+            $rootScope.$on('$routeChangeStart', (event, next, current) => {
                 if (next.authenticate == null) {
                     return;
                 }
@@ -23,15 +41,11 @@
                         });
                     });
                 } else {
-                    Auth.isLoggedIn(_.noop).then(is => {
-                        if (is && next.authenticate || !(is || next.authenticate)) {
-                            return;
-                        }
-
-                        event.preventDefault();
-                        $location.path('/');
-                    });
-                }
+					let is = Auth.isLoggedIn();
+					if (!is && (!current || !current.controller)) Auth.isLoggedIn(_.noop)
+						.then(fuzzyRedirect(event, next, current));
+					else fuzzyRedirect(event, next, current)(is);
+				}
             });
         });
 

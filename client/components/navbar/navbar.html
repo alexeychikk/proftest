@@ -4,23 +4,30 @@
             <a href="/">ProfTest</a>
         </h2>
         <span flex></span>
-		<a href="/login">Login</a>
-        <div ng-if="isLoggedIn()" layout="row" layout-align="end center">
-            <a layout="row" layout-align="center center" ng-href="/users/{{getCurrentUser()._id}}">
-                <img class="avatar" ng-if="getCurrentUser().avatar" alt="{{getCurrentUser().firstName}}"
-                     ng-src="/avatars/{{getCurrentUser().avatar}}"
-                     ng-class="{admin: isAdmin()}">
-                <i class="mdi mdi-account-circle mdi-36" ng-if="!getCurrentUser().avatar"></i>
-                <h6 class="nickname" ng-class="{admin: isAdmin()}">{{getCurrentUser().firstName}}</h6>
+        <div ng-if="nav.isLoggedIn()" layout="row" layout-align="end center">
+            <a layout="row" layout-align="center center" ng-href="/user/{{nav.getCurrentUser()._id}}">
+                <img class="avatar" ng-if="nav.getCurrentUser().avatar" alt="{{nav.getCurrentUser().firstName}}"
+                     ng-src="/avatars/{{nav.getCurrentUser().avatar}}"
+                     ng-class="{admin: nav.isAdmin()}">
+                <i class="mdi mdi-account-circle mdi-36px" ng-if="!nav.getCurrentUser().avatar"></i>
+                <h6 class="nickname" ng-class="{admin: nav.isAdmin()}">{{nav.getCurrentUser().firstName}}</h6>
             </a>
-            <a ng-if="isAdmin()" class="admin-panel" href="/admin" hide>
+            <a ng-if="nav.isAdmin()" class="admin-panel" href="/admin">
                 <md-tooltip>Админпанель</md-tooltip>
-                <i class="mdi mdi-account-star mdi-24"></i>
+                <i class="mdi mdi-account-star mdi-24px"></i>
             </a>
             <a class="md-mini logout-button" href="/logout" aria-label="logout-btn">
                 <md-tooltip>Выйти</md-tooltip>
-                <i class="mdi mdi-exit-to-app mdi-24"></i>
+                <i class="mdi mdi-exit-to-app mdi-24px"></i>
             </a>
         </div>
+		<div ng-if="!nav.isLoggedIn()" layout="row" layout-align="end center">
+			<md-button class="md-raised md-primary md-hue-1" ng-href="/signup" aria-label="reg-btn">
+				Регистрация
+			</md-button>
+			<md-button class="md-raised" ng-href="/login" aria-label="login-btn">
+				Войти
+			</md-button>
+		</div>
     </div>
 </md-toolbar>
