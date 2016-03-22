@@ -1,0 +1,21 @@
+<md-card>
+	<md-card-content>
+		<div layout="row" layout-align="space-between center">
+			<div ng-repeat="figure in vm.data.figures">
+				<img ng-src="{{figure}}" alt="figure">
+			</div>
+		</div>
+		<div layout="row" layout-align="space-between center">
+			<md-input-container ng-repeat="figure in vm.data.figures">
+				<input type="text" aria-label="figure{{$index}}"
+					   ng-model="vm.answers[$index]" ng-init="vm.answers[$index] = $index">
+			</md-input-container>
+		</div>
+	</md-card-content>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button class="md-primary md-icon-button" ng-click="vm.answer()" aria-label="confirm">
+			<i class="mdi mdi-check mdi-24px"></i>
+			<md-tooltip md-direction="top">Подтвердить</md-tooltip>
+		</md-button>
+	</md-card-actions>
+</md-card>

@@ -118,7 +118,13 @@ module.exports = {
     longDesc: "",
     instruction: instruction,
     content: {
-        figures: ['assets/rectangle', 'assets/triangle', 'assets/circle', 'assets/square', 'assets/zigzag'],
+        figures: [
+			'assets/images/rectangle.png',
+			'assets/images/triangle.png',
+			'assets/images/circle.png',
+			'assets/images/square.png',
+			'assets/images/zigzag.png'
+		],
         description: {
             rectangle: rectangle,
             triangle: triangle,
