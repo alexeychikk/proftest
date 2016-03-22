@@ -1,26 +1,27 @@
 <md-toolbar>
-    <div class="md-toolbar-tools">
-        <h2>
-            <a href="/">ProfTest</a>
-        </h2>
-        <span flex></span>
-        <div ng-if="nav.isLoggedIn()" layout="row" layout-align="end center">
-            <a layout="row" layout-align="center center" ng-href="/user/{{nav.getCurrentUser()._id}}">
-                <img class="avatar" ng-if="nav.getCurrentUser().avatar" alt="{{nav.getCurrentUser().firstName}}"
-                     ng-src="/avatars/{{nav.getCurrentUser().avatar}}"
-                     ng-class="{admin: nav.isAdmin()}">
-                <i class="mdi mdi-account-circle mdi-36px" ng-if="!nav.getCurrentUser().avatar"></i>
-                <h6 class="nickname" ng-class="{admin: nav.isAdmin()}">{{nav.getCurrentUser().firstName}}</h6>
-            </a>
-            <a ng-if="nav.isAdmin()" class="admin-panel" href="/admin">
-                <md-tooltip>Админпанель</md-tooltip>
-                <i class="mdi mdi-account-star mdi-24px"></i>
-            </a>
-            <a class="md-mini logout-button" href="/logout" aria-label="logout-btn">
-                <md-tooltip>Выйти</md-tooltip>
-                <i class="mdi mdi-exit-to-app mdi-24px"></i>
-            </a>
-        </div>
+	<div class="md-toolbar-tools">
+		<resp-sides></resp-sides>
+		<h2>
+			<a href="/">ProfTest</a>
+		</h2>
+		<span flex></span>
+		<div ng-if="nav.isLoggedIn()" layout="row" layout-align="end center">
+			<a layout="row" layout-align="center center" ng-href="/user/{{nav.getCurrentUser()._id}}">
+				<img class="avatar" ng-if="nav.getCurrentUser().avatar" alt="{{nav.getCurrentUser().firstName}}"
+					 ng-src="/avatars/{{nav.getCurrentUser().avatar}}"
+					 ng-class="{admin: nav.isAdmin()}">
+				<i class="mdi mdi-account-circle mdi-36px" ng-if="!nav.getCurrentUser().avatar"></i>
+				<h6 class="nickname" ng-class="{admin: nav.isAdmin()}">{{nav.getCurrentUser().firstName}}</h6>
+			</a>
+			<a ng-if="nav.isAdmin()" class="admin-panel" href="/admin">
+				<md-tooltip>Админпанель</md-tooltip>
+				<i class="mdi mdi-account-star mdi-24px"></i>
+			</a>
+			<a class="md-mini logout-button" href="/logout" aria-label="logout-btn">
+				<md-tooltip>Выйти</md-tooltip>
+				<i class="mdi mdi-exit-to-app mdi-24px"></i>
+			</a>
+		</div>
 		<div ng-if="!nav.isLoggedIn()" layout="row" layout-align="end center">
 			<md-button class="md-raised md-primary md-hue-1" ng-href="/signup" aria-label="reg-btn">
 				Регистрация
@@ -29,5 +30,6 @@
 				Войти
 			</md-button>
 		</div>
-    </div>
+		<resp-sides></resp-sides>
+	</div>
 </md-toolbar>
