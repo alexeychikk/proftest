@@ -1,8 +1,19 @@
-<div>
-    <h2 ng-bind="vm.getCurrentCategory().name"></h2>
-    <div>
-        <md-checkbox ng-model="vm.answersBlock[key]" aria-label="answer{{key}}"
-                     ng-repeat="(key, value) in vm.getCurrentQuestion()">{{value}}</md-checkbox>
-    </div>
-    <button ng-click="vm.answer(vm.getAnswers())" ng-disabled="!vm.getAnswers().length">Next</button>
-</div>
+<md-card>
+	<md-card-title>
+		<span class="md-headline" ng-bind="vm.getCurrentCategory().name"></span>
+	</md-card-title>
+	<md-divider></md-divider>
+	<md-card-content class="card-content">
+		<div ng-repeat="(key, value) in vm.getCurrentQuestion()">
+			<md-checkbox ng-model="vm.answersBlock[key]" aria-label="answer{{key}}">{{value}}</md-checkbox>
+		</div>
+	</md-card-content>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button class="md-primary md-icon-button" aria-label="confirm"
+				   ng-click="vm.answer(vm.getAnswers())"
+				   ng-disabled="!vm.getAnswers().length">
+			<i class="mdi mdi-check mdi-24px"></i>
+			<md-tooltip md-direction="top">Подтвердить</md-tooltip>
+		</md-button>
+	</md-card-actions>
+</md-card>
