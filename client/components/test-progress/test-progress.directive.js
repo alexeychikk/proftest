@@ -12,14 +12,19 @@
                 },
                 controllerAs: 'vm',
                 bindToController: true,
-                controller: controller
+				link: link,
+				controller: controller
             };
 
 
         });
 
-    controller.$inject = ['$scope', 'localStorageService'];
-    function controller($scope, localStorageService) {
+	function link($scope, $element, $attrs, $vm) {
+		$vm.scrollToThis = (smoothScroll) => smoothScroll($element[0], { duration: 500 })
+	}
+
+	controller.$inject = ['$scope', 'localStorageService', 'smoothScroll'];
+    function controller($scope, localStorageService, smoothScroll) {
         let vm = this;
 
         vm.countersSum = +localStorageService.get('countersSum') || 0;
@@ -34,6 +39,7 @@
                 vm.savedIndex = index;
                 vm.counter++;
             }
+			vm.scrollToThis(smoothScroll);
         });
         $scope.$watch('vm.progress.currentCategoryIndex', function (index) {
             vm.oldCategoryIndex = index;

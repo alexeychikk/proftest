@@ -20,8 +20,8 @@
 
         });
 
-    controller.$inject = ['$scope', 'User', 'localStorageService', 'appConfig'];
-    function controller($scope, User, localStorageService, appConfig) {
+    controller.$inject = ['$scope', 'User', 'localStorageService'];
+    function controller($scope, User, localStorageService) {
         let vm = this,
             testKey = vm.id,
             statementIndexKey = testKey + 'questionIndex',
@@ -43,14 +43,11 @@
             return vm.index.currentQuestionIndex;
         };
 
-        vm.answer = (type, value) => {
-            answers[vm.index.currentQuestionIndex] = answers[vm.index.currentQuestionIndex] || {};
-            answers[vm.index.currentQuestionIndex][type] = value;
+        vm.answer = (values) => {
+            answers.push(angular.copy(values));
 
-            if (Object.keys(answers[vm.index.currentQuestionIndex]).length === 3) {
-                vm.nextQuestion();
-                localStorageService.set(testKey, JSON.stringify(answers));
-            }
+			vm.nextQuestion();
+			localStorageService.set(testKey, JSON.stringify(answers));
 
             if (!vm.getCurrentStatement()) {
                 User.putMyAnswers({}, {

@@ -3,7 +3,7 @@
 		<span class="md-headline" ng-bind="vm.getCurrentQuestion().name"></span>
 	</md-card-title>
 	<md-divider></md-divider>
-	<md-card-content class="kettel-card-content">
+	<md-card-content class="card-content">
 		<md-radio-group ng-model="vm.currentAnswer">
 			<md-radio-button ng-repeat="value in vm.getCurrentQuestion().variants"
 							 ng-value="$index" aria-label="answer{{$index}}">{{value}}
