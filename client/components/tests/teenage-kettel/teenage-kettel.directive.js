@@ -27,6 +27,8 @@
             questionIndexKey = testKey + 'questionIndex',
             answers = JSON.parse(localStorageService.get(testKey)) || [];
 
+		vm.currentAnswer = 0;
+
         vm.index.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
 
         vm.getCurrentQuestion = () => vm.data.questions[vm.index.currentQuestionIndex];
@@ -46,6 +48,7 @@
         vm.answer = (value) => {
             answers[vm.index.currentQuestionIndex] = value;
             localStorageService.set(testKey, JSON.stringify(answers));
+			vm.currentAnswer = 0;
 
             vm.nextQuestion();
 
