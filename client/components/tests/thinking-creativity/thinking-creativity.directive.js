@@ -54,8 +54,17 @@
                     testId: vm.id,
                     answers: answers
                 }).$promise.then((resp) => {
-                    localStorageService.remove(testKey, questionIndexKey);
-                    vm.result = resp;
+                    //localStorageService.remove(testKey, questionIndexKey);
+
+					vm.result = true;
+					vm.thinkingTypes = resp.result.map((item, index) => {
+						item.type = vm.data.thinkingTypes[index];
+						item.description = vm.data.description[index];
+						item.level = vm.data.levels[item.level];
+						return item;
+					});
+					vm.creativity = vm.thinkingTypes.pop();
+					vm.thinkingTypes.sort((a, b) => a.score < b.score);
                 })
             }
         };
