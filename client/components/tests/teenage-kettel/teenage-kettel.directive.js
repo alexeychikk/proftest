@@ -20,8 +20,8 @@
 
         });
 
-    controller.$inject = ['$scope', 'User', 'localStorageService', 'appConfig'];
-    function controller($scope, User, localStorageService, appConfig) {
+    controller.$inject = ['$scope', 'User', 'localStorageService'];
+    function controller($scope, User, localStorageService) {
         let vm = this,
             testKey = vm.id,
             questionIndexKey = testKey + 'questionIndex',

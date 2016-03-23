@@ -1,7 +1,7 @@
 <div layout="column" class="background">
-    <test-progress class="md-whiteframe-1dp" progress="vm.progress"></test-progress>
+    <test-progress class="md-whiteframe-1dp" progress="vm.progress" ng-if="vm.progress.questionsCount"></test-progress>
     <div layout="row">
-        <div flex="15"></div>
+        <resp-sides></resp-sides>
         <div flex>
             <profession-choice ng-if="vm.test.type === vm.testTypes.SYSTEM_PROF_CHOICE" test-id="{{vm.test._id}}"
                                data="vm.test.content" index="vm.progress"></profession-choice>
@@ -18,6 +18,6 @@
             <thinking-creativity ng-if="vm.test.type === vm.testTypes.THINKING_CREATIVITY" test-id="{{vm.test._id}}"
                                  data="vm.test.content" index="vm.progress"></thinking-creativity>
         </div>
-        <div flex="15"></div>
+        <resp-sides></resp-sides>
     </div>
 </div>
