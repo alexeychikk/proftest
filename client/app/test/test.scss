@@ -1,3 +1,6 @@
+$figureWidth: 200px;
+$figureHeight: 200px;
+
 .card-header {
   background-color: #8bc435;
   color: rgba(255, 255, 255, .87);
@@ -16,4 +19,41 @@
   md-radio-button, md-checkbox {
 	margin-left: 20px;
   }
+
+  .figure {
+	width: $figureWidth;
+	height: $figureHeight;
+	-webkit-transition: -webkit-transform 0.2s ease-in-out;
+  }
+
+  .figures-label {
+	text-align: center;
+	display: block;
+	width: $figureWidth;
+	margin-bottom: 20px;
+	font-size: 24px;
+	font-weight: 500;
+  }
+}
+
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: move;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+.dragged>span {
+  display: block;
+  width: $figureWidth - 30px !important;
+  height: $figureHeight - 30px !important;
+  opacity: .4;
+}
+
+.dragover {
+  border: 2px dashed #000;
 }

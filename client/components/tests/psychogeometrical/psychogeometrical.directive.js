@@ -23,10 +23,14 @@
 	function controller($scope, User) {
 		let vm = this;
 
-		vm.answer = (value) => {
+		$scope.$watch('vm.data.figures', function (figures) {
+			vm.figures = figures.map((item) => item.split('/').pop().split('.')[0]);
+		}, true);
+
+		vm.answer = () => {
 			User.putMyAnswers({}, {
 				testId: vm.id,
-				answers: value
+				answers: vm.figures
 			}).$promise.then((resp) => {
 				vm.result = resp;
 			});
