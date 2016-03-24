@@ -54,7 +54,7 @@
                     testId: vm.id,
                     answers: answers
                 }).$promise.then((resp) => {
-                    //localStorageService.remove(testKey, questionIndexKey);
+                    localStorageService.remove(testKey, questionIndexKey);
 
 					vm.result = true;
 					vm.thinkingTypes = resp.result.map((item, index) => {

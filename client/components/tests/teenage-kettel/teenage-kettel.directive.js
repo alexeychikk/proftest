@@ -58,7 +58,13 @@
                     answers: answers
                 }).$promise.then((resp) => {
                     localStorageService.remove(testKey, questionIndexKey);
-                    vm.result = resp;
+                    vm.result = resp.result;
+					for (let prop in vm.result) {
+						let item = vm.result[prop];
+						item.name = vm.data.factors[prop].name;
+						item.description = vm.data.factors[prop][item.level];
+						item.level = item.level === 'high' ? 'высокий' : 'низкий';
+					}
                 })
             }
         };

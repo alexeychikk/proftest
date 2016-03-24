@@ -1,9 +1,26 @@
 <md-card>
 	<md-card-title>
-		<span class="md-headline" ng-bind="vm.getCurrentQuestion().name"></span>
+		<span class="md-headline" ng-bind="vm.result ? 'Результат' : vm.getCurrentQuestion().name"></span>
 	</md-card-title>
 	<md-divider></md-divider>
-	<md-card-content class="card-content">
+	<md-card-content ng-if="vm.result">
+		<md-list flex>
+			<div ng-repeat="item in vm.result">
+				<md-subheader>
+					<div layout="row" layout-align="space-between" flex>
+						<span ng-bind="item.name"></span>
+						<span>уровень: {{item.level}} ({{item.diff | number : 1}})</span>
+					</div>
+				</md-subheader>
+
+				<md-list-item ng-class="{'result-list-item': !$last}" ng-if="item.description">
+					<p ng-bind="item.description"></p>
+				</md-list-item>
+				<md-divider ng-if="!$last"></md-divider>
+			</div>
+		</md-list>
+	</md-card-content>
+	<md-card-content ng-if="!vm.result" class="card-content">
 		<md-radio-group ng-model="vm.currentAnswer">
 			<md-radio-button ng-repeat="value in vm.getCurrentQuestion().variants"
 							 ng-value="$index" aria-label="answer{{$index}}">{{value}}
