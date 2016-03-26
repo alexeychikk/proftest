@@ -54,8 +54,13 @@
                     testId: vm.id,
                     answers: answers
                 }).$promise.then((resp) => {
-                    localStorageService.remove(testKey, statementIndexKey);
-                    vm.result = resp.data;
+                    //localStorageService.remove(testKey, statementIndexKey);
+                    vm.result = resp.result.likes.map((item) => {
+                        return {
+                            name: vm.data.likes[item],
+                            description: vm.data.description[item]
+                        }
+                    });
                 })
             }
         };

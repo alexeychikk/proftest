@@ -19,26 +19,28 @@
 			</div>
 		</md-list>
 	</md-card-content>
-	<md-card-content ng-if="!vm.result" class="card-content">
-		<div layout="row" layout-align="space-between center">
-			<div class="figures-label-wrap" ng-repeat="figure in vm.data.figures">
-				<label class="figures-label" ng-bind="$index + 1"></label>
-			</div>
-		</div>
-		<div layout="row" layout-align="space-between center" dnd data="vm.data.figures">
-			<div class="figure" layout="column" layout-align="center center"
-				 ng-repeat="figure in vm.data.figures" draggable="true" index="{{$index}}">
-				<div layout="column" layout-align="center center">
-					<img ng-src="{{figure}}" alt="figure">
+	<div ng-if="!vm.result">
+		<md-card-content class="card-content">
+			<div layout="row" layout-align="space-between center">
+				<div class="figures-label-wrap" ng-repeat="figure in vm.data.figures">
+					<label class="figures-label" ng-bind="$index + 1"></label>
 				</div>
 			</div>
-		</div>
-	</md-card-content>
-	<md-card-actions layout="row" layout-align="end center">
-		<md-button class="md-primary md-icon-button" ng-click="vm.answer()"
-				   aria-label="confirm">
-			<i class="mdi mdi-check mdi-24px"></i>
-			<md-tooltip md-direction="top">Подтвердить</md-tooltip>
-		</md-button>
-	</md-card-actions>
+			<div layout="row" layout-align="space-between center" dnd data="vm.data.figures">
+				<div class="figure" layout="column" layout-align="center center"
+					 ng-repeat="figure in vm.data.figures" draggable="true" index="{{$index}}">
+					<div layout="column" layout-align="center center">
+						<img ng-src="{{figure}}" alt="figure">
+					</div>
+				</div>
+			</div>
+		</md-card-content>
+		<md-card-actions layout="row" layout-align="end center">
+			<md-button class="md-primary md-icon-button" ng-click="vm.answer()"
+					   aria-label="confirm">
+				<i class="mdi mdi-check mdi-24px"></i>
+				<md-tooltip md-direction="top">Подтвердить</md-tooltip>
+			</md-button>
+		</md-card-actions>
+	</div>
 </md-card>

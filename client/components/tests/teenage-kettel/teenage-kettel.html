@@ -2,7 +2,6 @@
 	<md-card-title>
 		<span class="md-headline" ng-bind="vm.result ? 'Результат' : vm.getCurrentQuestion().name"></span>
 	</md-card-title>
-	<md-divider></md-divider>
 	<md-card-content ng-if="vm.result">
 		<md-list flex>
 			<div ng-repeat="item in vm.result">
@@ -20,17 +19,20 @@
 			</div>
 		</md-list>
 	</md-card-content>
-	<md-card-content ng-if="!vm.result" class="card-content">
-		<md-radio-group ng-model="vm.currentAnswer">
-			<md-radio-button ng-repeat="value in vm.getCurrentQuestion().variants"
-							 ng-value="$index" aria-label="answer{{$index}}">{{value}}
-			</md-radio-button>
-		</md-radio-group>
-	</md-card-content>
-	<md-card-actions layout="row" layout-align="end center">
-		<md-button class="md-primary md-icon-button" aria-label="confirm" ng-click="vm.answer(vm.currentAnswer)">
-			<i class="mdi mdi-check mdi-24px"></i>
-			<md-tooltip md-direction="top">Подтвердить</md-tooltip>
-		</md-button>
-	</md-card-actions>
+	<div ng-if="!vm.result">
+		<md-divider></md-divider>
+		<md-card-content class="card-content">
+			<md-radio-group ng-model="vm.currentAnswer">
+				<md-radio-button ng-repeat="value in vm.getCurrentQuestion().variants"
+								 ng-value="$index" aria-label="answer{{$index}}">{{value}}
+				</md-radio-button>
+			</md-radio-group>
+		</md-card-content>
+		<md-card-actions layout="row" layout-align="end center">
+			<md-button class="md-primary md-icon-button" aria-label="confirm" ng-click="vm.answer(vm.currentAnswer)">
+				<i class="mdi mdi-check mdi-24px"></i>
+				<md-tooltip md-direction="top">Подтвердить</md-tooltip>
+			</md-button>
+		</md-card-actions>
+	</div>
 </md-card>
