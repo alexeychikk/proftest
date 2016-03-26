@@ -82,11 +82,25 @@
                         testId: vm.id,
                         answers: answers
                     }).$promise.then((resp) => {
-                        localStorageService.remove(testKey, questionIndexKey, categoryIndexKey);
-                        vm.result = resp.data;
+                        localStorageService.remove(testKey, questionIndexKey, categoryIndexKey, 'countersSum');
+                        vm.result = {
+                            professions: resp.result
+                                .filter((item, index, array) => item.count === array[0].count || item.count === array[1].count)
+                                .map((item) => vm.data.professions[item.index]),
+                            skills: Object.keys(resp.skills).map((item) => vm.data.skills[item - 1]),
+                            interests: Object.keys(resp.interests).map((item) => vm.data.interests[item - 1])
+                        };
+
                     })
                 }
             }
         };
+
+        function filterProfessions(res) {
+
+            return res.filter((item) => {
+                return item.count === res[0].count || item.count === res[1].count;
+            });
+        }
     }
 })();

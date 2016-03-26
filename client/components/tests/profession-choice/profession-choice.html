@@ -1,19 +1,41 @@
 <md-card>
 	<md-card-title>
-		<span class="md-headline" ng-bind="vm.getCurrentCategory().name"></span>
+		<span class="md-headline" ng-bind="vm.result ? 'Результат' : vm.getCurrentCategory().name"></span>
 	</md-card-title>
-	<md-divider></md-divider>
-	<md-card-content class="card-content">
-		<div ng-repeat="(key, value) in vm.getCurrentQuestion()">
-			<md-checkbox ng-model="vm.answersBlock[key]" aria-label="answer{{key}}">{{value}}</md-checkbox>
-		</div>
+	<md-card-content class="result-content" ng-if="vm.result">
+		<md-list>
+			<md-subheader><span>Ваши интересы</span></md-subheader>
+			<md-list-item ng-repeat="interest in vm.result.interests">
+				<div class="md-avatar-background" ng-style="{'background-color': interest.color}"></div>
+				<span ng-bind="interest.name"></span>
+			</md-list-item>
+
+			<md-subheader><span>Ваши способности</span></md-subheader>
+			<md-list-item ng-repeat="skill in vm.result.skills">
+				<div class="md-avatar-background" ng-style="{'background-color': skill.color}"></div>
+				<span ng-bind="skill.name"></span>
+			</md-list-item>
+
+			<md-subheader><span>Наиболее подходящие вам профессии</span></md-subheader>
+			<md-list-item ng-repeat="profession in vm.result.professions">
+				<span ng-bind="profession"></span>
+			</md-list-item>
+		</md-list>
 	</md-card-content>
-	<md-card-actions layout="row" layout-align="end center">
-		<md-button class="md-primary md-icon-button" aria-label="confirm"
-				   ng-click="vm.answer(vm.getAnswers())"
-				   ng-disabled="!vm.getAnswers().length">
-			<i class="mdi mdi-check mdi-24px"></i>
-			<md-tooltip md-direction="top">Подтвердить</md-tooltip>
-		</md-button>
-	</md-card-actions>
+	<div ng-if="!vm.result">
+		<md-divider></md-divider>
+		<md-card-content class="card-content">
+			<div ng-repeat="(key, value) in vm.getCurrentQuestion()">
+				<md-checkbox ng-model="vm.answersBlock[key]" aria-label="answer{{key}}">{{value}}</md-checkbox>
+			</div>
+		</md-card-content>
+		<md-card-actions layout="row" layout-align="end center">
+			<md-button class="md-primary md-icon-button" aria-label="confirm"
+					   ng-click="vm.answer(vm.getAnswers())"
+					   ng-disabled="!vm.getAnswers().length">
+				<i class="mdi mdi-check mdi-24px"></i>
+				<md-tooltip md-direction="top">Подтвердить</md-tooltip>
+			</md-button>
+		</md-card-actions>
+	</div>
 </md-card>
