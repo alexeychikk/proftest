@@ -88,8 +88,6 @@ $background-light: #FAFAFA;
 // Component styles are injected through grunt
 // injector
 @import 'account/account';
-@import 'account/login/login';
-@import 'account/signup/signup';
 @import 'admin/admin';
 @import 'main/main';
 @import 'test/test';
