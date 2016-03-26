@@ -17,6 +17,8 @@ $ng-view-min-height-landscape: calc(100% - 84px);
 
 .ng-view {
   min-height: $ng-view-min-height;
+  height: 1px;
+  margin-bottom: 36px;
 }
 
 @media only screen and (max-width: 959px) and (min-width: 0) and (orientation: portrait) {
@@ -168,28 +170,8 @@ $ng-view-min-height-landscape: calc(100% - 84px);
 
 .background {
   background-color: $background-dark;
-
-  &.full-screen {
-    height: $ng-view-min-height;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 64px;
-  }
-}
-
-@media only screen and (max-width: 959px) and (min-width: 0) and (orientation: portrait) {
-  .background.full-screen {
-    top: 56px;
-    height: $ng-view-min-height-portrait;
-  }
-}
-
-@media only screen and (max-width: 959px) and (min-width: 0) and (orientation: landscape) {
-  .background.full-screen {
-    top: 48px;
-    height: $ng-view-min-height-landscape;
-  }
+  min-height: 100%;
+  margin-bottom: 36px;
 }
 
 .md-secondary-dark {

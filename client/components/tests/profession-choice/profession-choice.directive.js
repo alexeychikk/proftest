@@ -95,12 +95,5 @@
                 }
             }
         };
-
-        function filterProfessions(res) {
-
-            return res.filter((item) => {
-                return item.count === res[0].count || item.count === res[1].count;
-            });
-        }
     }
 })();
