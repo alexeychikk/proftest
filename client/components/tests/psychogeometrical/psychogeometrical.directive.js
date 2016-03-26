@@ -31,8 +31,13 @@
 			User.putMyAnswers({}, {
 				testId: vm.id,
 				answers: vm.figures
-			}).$promise.then((resp) => {
-				vm.result = resp;
+			}).$promise.then(() => {
+				vm.result = vm.figures.map((item) => {
+					return {
+						figure: item,
+						description: vm.data.description[item]
+					}
+				});
 			});
 		};
 	}

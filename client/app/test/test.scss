@@ -1,5 +1,5 @@
-$figureWidth: 200px;
-$figureHeight: 200px;
+$figureWidth: 19%;
+$figureHeight: 100%;
 
 .card-header {
   background-color: #8bc435;
@@ -23,16 +23,30 @@ $figureHeight: 200px;
   .figure {
 	width: $figureWidth;
 	height: $figureHeight;
-	-webkit-transition: -webkit-transform 0.2s ease-in-out;
+
+    //& div {
+    //  transition: all 2.2s ease-in-out;
+    //}
   }
 
-  .figures-label {
-	text-align: center;
-	display: block;
-	width: $figureWidth;
-	margin-bottom: 20px;
-	font-size: 24px;
-	font-weight: 500;
+  .figures-label-wrap {
+    width: $figureWidth;
+
+    .figures-label {
+      text-align: center;
+      display: block;
+      width: 100%;
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+  }
+}
+
+.result-content {
+  .md-avatar {
+    border-radius: unset;
+    height: unset;
   }
 }
 
@@ -47,11 +61,10 @@ $figureHeight: 200px;
   -webkit-user-drag: element;
 }
 
-.dragged>span {
-  display: block;
-  width: $figureWidth - 30px !important;
-  height: $figureHeight - 30px !important;
+.dragged div {
+  transform: scale(0.8);
   opacity: .4;
+  transition: transform 0.2s ease-in-out;
 }
 
 .dragover {
