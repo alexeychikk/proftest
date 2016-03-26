@@ -25,31 +25,28 @@
 
 	controller.$inject = ['$scope', 'localStorageService', 'smoothScroll'];
     function controller($scope, localStorageService, smoothScroll) {
-        let vm = this;
-
-        vm.countersSum = +localStorageService.get('countersSum') || 0;
-        var recuvered = !!vm.countersSum;
-
-        vm.oldCategoryIndex = 0;
+        let vm = this,
+            countersSum = +localStorageService.get('countersSum') || 0,
+            recovered = !!countersSum,
+            savedIndex = 0;
 
         $scope.$watch('vm.progress.currentQuestionIndex', function (index) {
-            if (vm.progress.currentCategoryIndex === vm.oldCategoryIndex) {
-                vm.counter = vm.oldCategoryIndex ? index + vm.countersSum : index;
-            } else {
-                vm.savedIndex = index;
-                vm.counter++;
-            }
+            vm.counter = vm.progress.currentCategoryIndex ? index + countersSum : index;
+            savedIndex = index || savedIndex;
 			vm.scrollToThis(smoothScroll);
         });
+
         $scope.$watch('vm.progress.currentCategoryIndex', function (index) {
-            vm.oldCategoryIndex = index;
             if (index) {
-                vm.countersSum = vm.counter;
-                vm.counter = (recuvered ? --vm.countersSum : vm.countersSum) + vm.savedIndex;
-                vm.savedIndex = 0;
-                localStorageService.set('countersSum', vm.countersSum);
+                if (!recovered) {
+                    let sum = savedIndex + countersSum + 1;
+                    localStorageService.set('countersSum', sum);
+                    vm.counter = countersSum = sum;
+                } else {
+                    recovered = false;
+                }
             }
-        }, true);
+        });
 
         $scope.$watch('vm.progress.questionsCount', getMaxCount);
 

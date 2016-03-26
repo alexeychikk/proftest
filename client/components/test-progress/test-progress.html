@@ -8,8 +8,8 @@
                 </span>
             </span>
             <span ng-if="vm.divider" class="bar"
-				  ng-class="{'active': index < vm.counter && index + ($last ? (vm.remainder - 1) : vm.divider) > vm.counter,
-                  	'done': index + ($last ? (vm.remainder - 1) : vm.divider) <= vm.counter}">
+				  ng-class="{'active': index < vm.counter && index + ($last ? ((vm.remainder || vm.divider) - 1) : vm.divider) > vm.counter,
+                  	'done': index + ($last ? ((vm.remainder || vm.divider) - 1) : vm.divider) <= vm.counter}">
             </span>
             <span ng-if="!$last && !vm.divider" class="bar"
 				  ng-class="{'active': index === vm.counter - 1, 'done': index < vm.counter}">
@@ -18,25 +18,25 @@
 
         <span ng-if="vm.divider" ng-style="{'margin-left': $last ? '-5px' : '0'}">
             <span class="circle"
-				  ng-class="{'active': index !== vm.counter && index < vm.counter && index + ($last ? (vm.remainder - 1) : vm.divider) > vm.counter,
-                    'done': index + ($last ? (vm.remainder - 1) : vm.divider) <= vm.counter}">
-                <span class="label" ng-if="index + ($last ? (vm.remainder - 1) : vm.divider) > vm.counter"
+				  ng-class="{'active': index !== vm.counter && index < vm.counter && index + ($last ? ((vm.remainder || vm.divider) - 1) : vm.divider) > vm.counter,
+                    'done': index + ($last ? ((vm.remainder || vm.divider) - 1) : vm.divider) <= vm.counter}">
+                <span class="label" ng-if="index + ($last ? ((vm.remainder || vm.divider) - 1) : vm.divider) > vm.counter"
 					  ng-bind="index !== vm.counter && index < vm.counter &&
-					  index + ($last ? (vm.remainder - 1) : vm.divider) > vm.counter ? vm.counter + 1 : '...'">
+					  index + ($last ? ((vm.remainder || vm.divider) - 1) : vm.divider) > vm.counter ? vm.counter + 1 : '...'">
 				</span>
-                <span class="label" ng-if="index + ($last ? (vm.remainder - 1) : vm.divider) <= vm.counter">
+                <span class="label" ng-if="index + ($last ? ((vm.remainder || vm.divider) - 1) : vm.divider) <= vm.counter">
                     <i class="mdi mdi-check"></i>
                 </span>
             </span>
             <span ng-if="$last" class="bar" style="margin-right: -5px;"
-				  ng-class="{'active': (index + vm.remainder - 1) === vm.counter,
-                    'done': (index + vm.remainder - 1) < vm.counter}"></span>
+				  ng-class="{'active': (index + (vm.remainder || vm.divider) - 1) === vm.counter,
+                    'done': (index + (vm.remainder || vm.divider) - 1) < vm.counter}"></span>
 
             <span ng-if="$last" class="circle"
-				  ng-class="{'active': (index + vm.remainder - 1) === vm.counter, 'done': (index + vm.remainder - 1) < vm.counter}">
+				  ng-class="{'active': (index + (vm.remainder || vm.divider) - 1) === vm.counter, 'done': (index + (vm.remainder || vm.divider) - 1) < vm.counter}">
                 <span class="label"
-					  ng-if="(index + vm.remainder - 1) >= vm.counter">{{vm.progress.questionsCount}}</span>
-                <span class="label" ng-if="(index + + vm.remainder - 1) < vm.counter">
+					  ng-if="(index + (vm.remainder || vm.divider) - 1) >= vm.counter">{{vm.progress.questionsCount}}</span>
+                <span class="label" ng-if="(index + (vm.remainder || vm.divider) - 1) < vm.counter">
                     <i class="mdi mdi-check"></i>
                 </span>
             </span>
