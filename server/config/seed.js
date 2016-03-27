@@ -34,6 +34,7 @@ Test.find({}).removeAsync()
 							result: {bad: 'result'}
 						}]
 					}, {
+						avatar: 'admin.jpg',
 						firstName: 'Admin',
 						lastName: 'Loh',
 						provider: 'local',
