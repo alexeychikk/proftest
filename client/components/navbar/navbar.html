@@ -8,7 +8,7 @@
 		<div ng-if="nav.isLoggedIn()" layout="row" layout-align="end center">
 			<a layout="row" layout-align="center center" ng-href="/user/{{nav.getCurrentUser()._id}}">
 				<img class="avatar" ng-if="nav.getCurrentUser().avatar" alt="{{nav.getCurrentUser().firstName}}"
-					 ng-src="/avatars/{{nav.getCurrentUser().avatar}}"
+					 ng-src="/resources/avatars/{{nav.getCurrentUser().avatar}}"
 					 ng-class="{admin: nav.isAdmin()}">
 				<i class="mdi mdi-account-circle mdi-36px" ng-if="!nav.getCurrentUser().avatar"></i>
 				<h6 class="nickname" ng-class="{admin: nav.isAdmin()}">{{nav.getCurrentUser().firstName}}</h6>
