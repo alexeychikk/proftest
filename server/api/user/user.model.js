@@ -44,11 +44,11 @@ var UserSchema = new Schema({
 		canUpdate: true
 	},
 	education: {
-		type: String,
+		type: {},
 		canUpdate: true
 	},
 	work: {
-		type: String,
+		type: {},
 		canUpdate: true
 	},
 	gender: {
