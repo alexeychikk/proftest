@@ -142,6 +142,7 @@ export function changePassword(req, res, next) {
 export function update(req, res, next) {
 	var userId = ((req.user._id == req.params.id || req.path == '/me') && req.user._id)
 		|| ((req.user.role == 'admin') && req.params.id);
+	console.log(userId);
 	if (!userId) {
 		return res.status(403).send('Forbidden');
 	}

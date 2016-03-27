@@ -1,2 +1,57 @@
 @import 'signup/signup';
 @import 'login/login';
+
+$avatar-width: 110px;
+$avatar-height: 110px;
+$profile-card-bot-height: 85px;
+$avatar-margin-left: $profile-card-bot-height - ($avatar-height / 2);
+
+.profile-card {
+  height: 280px;
+  margin-top: 30px;
+
+  .profile-card-top {
+	background-image: url('../assets/images/md-bg.jpg');
+
+	.name {
+	  margin-left: $avatar-width + $avatar-margin-left * 2;
+	  font-size: 32px;
+	  font-weight: 500;
+	  color: rgba(255, 255, 255, .87);
+	}
+  }
+
+  .profile-card-bot {
+	height: $profile-card-bot-height;
+
+	.avatar {
+	  min-width: $avatar-width;
+	  width: $avatar-width;
+	  height: $avatar-height;
+	  margin-top: -($avatar-height / 2);
+	  margin-left: $avatar-margin-left;
+	  border-radius: 50%;
+	  background-color: #fafafa;
+	  box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .15), 0 6px 12px 0 rgba(0, 0, 0, .15);
+	  overflow: hidden;
+
+	  .icon {
+		font-size: 110px;
+		color: rgba(0, 0, 0, .38);
+	  }
+
+	  .image {
+		max-width: 100%;
+		width: $avatar-width;
+		height: auto;
+	  }
+	}
+
+	.email {
+	  font-size: 20px;
+	  font-weight: 500;
+	  color: rgba(0, 0, 0, .38);
+	  margin-left: $avatar-margin-left;
+	}
+  }
+}

@@ -1,5 +1,8 @@
+$hue-color: #3D5AFE;
+
 .info-card {
-  background-color: #FAFAFA;
+  min-width: 315px;
+  background-color: $background-light;
   transition: all 0.3s ease-in-out;
   padding-bottom: 8px;
 
@@ -29,6 +32,11 @@
 	margin-left: 10px;
 	padding-top: 0;
 
+	.add-info {
+	  font-weight: 600;
+	  color: $hue-color;
+	}
+
 	.md-subhead {
 	  font-weight: 500;
 	  font-size: 14px;
@@ -44,6 +52,10 @@
 		font-size: 14px;
 		color: rgba(0, 0, 0, .54);
 	  }
+	}
+
+	md-divider {
+	  background-color: $hue-color;
 	}
   }
 }

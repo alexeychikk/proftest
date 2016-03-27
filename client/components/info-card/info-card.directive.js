@@ -10,10 +10,13 @@
 			controller: 'InfoCardController',
 			controllerAs: 'inf',
 			scope: {
-				ownProfile: '@?',
+				icon: '@',
+				name: '@',
+				ownProfile: '=?',
 				onEdit: '&?',
 				onSave: '&?',
-				onCancel: '&?'
+				onCancel: '&?',
+				canEdit: '@?'
 			},
 			transclude: true,
 			link: function(scope, el, attrs, ctrl, transclude) {

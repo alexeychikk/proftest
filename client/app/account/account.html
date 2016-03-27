@@ -1,1 +1,160 @@
-<!--todo: account page-->
+<div class="background" layout="row">
+	<resp-sides></resp-sides>
+	<div flex ng-if="!vm.user" layout="row" layout-align="center center"
+		 class="md-headline md-secondary-dark">Пользователь не найден</div>
+	<div flex ng-if="vm.user">
+		<md-card layout="column" class="profile-card">
+			<div flex class="profile-card-top" layout="column">
+				<div flex></div>
+				<div layout="row">
+					<div class="name" ng-bind="vm.user.firstName + ' ' + vm.user.lastName"></div>
+					<div flex></div>
+					<icon-button icon="mdi-pencil md-secondary-lightx" tooltip="Редактировать"></icon-button>
+				</div>
+			</div>
+			<div class="profile-card-bot" layout="row">
+				<div class="avatar">
+					<img ng-if="vm.user.avatar" class="image" ng-src='/resources/avatars/{{vm.user.avatar}}'>
+					<i ng-if="!vm.user.avatar" class="mdi mdi-account-circle icon"></i>
+				</div>
+				<div class="email" ng-bind="vm.user.email"></div>
+			</div>
+		</md-card>
+		<div layout="row" layout-xs="column">
+			<div layout="column" flex-lg="35" flex-md="40" flex-sm="45" flex-xs>
+				<info-card name="Общие сведения" icon="mdi-account-box-outline" own-profile="vm.ownProfile"
+						   ng-if="vm.user.gender || vm.user.birthDate || vm.editing.general">
+					<md-card-content ng-if="!vm.editing.general">
+						<div ng-if="vm.user.gender" class="md-subhead">Пол</div>
+						<div ng-if="vm.user.gender">
+							<i ng-if="vm.user.gender == 'M'" class="mdi mdi-gender-male md-hint-dark"></i>
+							<i ng-if="vm.user.gender == 'F'" class="mdi mdi-gender-female md-hint-dark"></i>
+							<span>{{vm.user.gender | gender}}</span>
+						</div>
+						<div ng-if="vm.user.birthDate" class="md-subhead">День рождения</div>
+						<div ng-if="vm.user.birthDate">
+							<i class="mdi mdi-cake-variant md-hint-dark"></i>
+							<span>{{vm.user.birthDate | date: 'dd MMMM yyyy'}} г.</span>
+						</div>
+					</md-card-content>
+					<md-card-content ng-if="vm.editing.general">
+						<div class="md-subhead">Пол</div>
+						<div layout="row" layout-align="start center">
+							<i ng-if="vm.info.gender == 'M'" class="mdi mdi-gender-male md-hint-dark"></i>
+							<i ng-if="vm.info.gender == 'F'" class="mdi mdi-gender-female md-hint-dark"></i>
+							<md-radio-group ng-model="vm.info.gender" style="margin-left: 8px;">
+								<div layout="row" layout-align="center center">
+									<md-radio-button style="margin: 0;" value="M" class="md-primary">Мужчина</md-radio-button>
+									<md-radio-button style="margin: 0 0 0 10px;" value="F" class="md-accent">Женщина</md-radio-button>
+								</div>
+							</md-radio-group>
+						</div>
+						<div class="md-subhead">День рождения</div>
+						<div layout="row" layout-align="start center">
+							<i class="mdi mdi-cake-variant md-hint-dark"></i>
+							<input type="date" ng-model="vm.info.birthDate" class="edit-date" style="margin-left: 8px;">
+						</div>
+					</md-card-content>
+				</info-card>
+				<info-card name="Образование" icon="mdi-school" own-profile="vm.ownProfile" can-edit
+						   ng-if="(vm.user.education && vm.user.education.length) || vm.editing.education"
+						   on-edit="vm.edit('education')" on-save="vm.save('education')" on-cancel="vm.cancel('education')">
+					<md-card-content ng-if="!vm.editing.education">
+						<div ng-repeat="ed in vm.user.education" class="list-item">
+							<div>{{ed.name}}</div>
+							<div class="secondary">{{ed.speciality}}<span ng-if="ed.speciality && (ed.startYear || ed.endYear)">,</span>
+								<span ng-if="ed.startYear"><span ng-if="!ed.endYear">с </span>{{ed.startYear}}</span>
+								<span ng-if="ed.startYear && ed.endYear">-</span>
+								<span ng-if="ed.endYear"><span ng-if="!ed.startYear">по </span>{{ed.endYear}}</span>
+							</div>
+						</div>
+					</md-card-content>
+					<md-card-content ng-if="vm.editing.education">
+						<div layout="row" layout-align="space-between center" style="margin: 16px 0;">
+							<span class="add-info" style="margin-left: 3px;">Учебное заведение</span>
+							<icon-button icon="mdi-plus add-info" tooltip="Добавить"
+										 ng-click="vm.addEducation()"></icon-button>
+						</div>
+						<div ng-repeat="ed in vm.info.education" class="list-item">
+							<div layout="row">
+								<div flex>
+									<md-input-container class="md-block no-margin-bottom">
+										<label>Название учебного заведения</label>
+										<input ng-model="ed.name">
+									</md-input-container>
+									<md-input-container class="md-block no-margin-bottom no-margin-top">
+										<label>Специальность</label>
+										<input ng-model="ed.speciality">
+									</md-input-container>
+									<div layout="row" layout-align="start center">
+										<md-input-container class="no-margin-top no-margin-bottom" flex>
+											<label>Год начала</label>
+											<input type="number" ng-model="ed.startYear" max="{{maxYear}}" min="{{minYear}}" step="1">
+										</md-input-container>
+										<md-input-container class="no-margin-top no-margin-bottom" flex>
+											<label>Год оконч.</label>
+											<input type="number" ng-model="ed.endYear" max="{{maxYear}}" min="{{minYear}}" step="1">
+										</md-input-container>
+									</div>
+								</div>
+								<icon-button icon="mdi-close-circle-outline md-secondary-dark" tooltip="Убрать"
+											 ng-click="vm.removeEducation($index)"></icon-button>
+							</div>
+							<md-divider ng-if="!$last"></md-divider>
+						</div>
+					</md-card-content>
+				</info-card>
+				<info-card name="Работа" icon="mdi-wallet-travel" own-profile="vm.ownProfile" can-edit
+						   ng-if="(vm.user.work && vm.user.work.length) || vm.editing.work"
+						   on-edit="vm.edit('work')" on-save="vm.save('work')" on-cancel="vm.cancel('work')">
+					<md-card-content ng-if="!vm.editing.work">
+						<div ng-repeat="wo in vm.user.work" class="list-item">
+							<div>{{wo.company}}</div>
+							<div class="secondary">{{wo.position}}<span ng-if="wo.position && (wo.startDate || wo.endDate)">,</span>
+								<span ng-if="wo.startDate"><span ng-if="!wo.endDate">с </span>{{wo.startDate | date: 'MMM yyyy'}}</span>
+								<span ng-if="wo.startDate && wo.endDate">-</span>
+								<span ng-if="wo.endDate"><span ng-if="!wo.startDate">по </span>{{wo.endDate | date: 'MMM yyyy'}}</span>
+							</div>
+						</div>
+					</md-card-content>
+					<md-card-content ng-if="vm.editing.work">
+						<div layout="row" layout-align="space-between center" style="margin: 16px 0;">
+							<span class="add-info" style="margin-left: 3px;">Компания</span>
+							<icon-button icon="mdi-plus add-info" tooltip="Добавить"
+										 ng-click="vm.addWork()"></icon-button>
+						</div>
+						<div ng-repeat="wo in vm.info.work" class="list-item">
+							<div layout="row">
+								<div flex>
+									<md-input-container class="md-block no-margin-bottom">
+										<label>Название компании</label>
+										<input ng-model="wo.company">
+									</md-input-container>
+									<md-input-container class="md-block no-margin-bottom no-margin-top">
+										<label>Должность</label>
+										<input ng-model="wo.position">
+									</md-input-container>
+									<div layout="row" layout-align="start center">
+										<md-input-container class="no-margin-top no-margin-bottom" flex>
+											<label>Дата начала</label>
+											<input type="date" ng-model="wo.startDate" class="edit-date">
+										</md-input-container>
+										<md-input-container class="no-margin-top no-margin-bottom" flex>
+											<label>Дата оконч.</label>
+											<input type="date" ng-model="wo.endDate" class="edit-date">
+										</md-input-container>
+									</div>
+								</div>
+								<icon-button icon="mdi-close-circle-outline md-secondary-dark" tooltip="Убрать"
+											 ng-click="vm.removeWork($index)"></icon-button>
+							</div>
+							<md-divider ng-if="!$last"></md-divider>
+						</div>
+					</md-card-content>
+				</info-card>
+			</div>
+			<div layout="column" flex></div>
+		</div>
+	</div>
+	<resp-sides></resp-sides>
+</div>

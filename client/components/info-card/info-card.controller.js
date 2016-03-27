@@ -4,6 +4,7 @@
 
 	class InfoCardController {
 		constructor($scope) {
+			this.canEdit = $scope.canEdit != undefined;
 			this.ownProfile = $scope.ownProfile;
 			this.onEdit = $scope.onEdit;
 			this.onSave = $scope.onSave;
@@ -16,8 +17,7 @@
 		}
 
 		save() {
-			this.editing = false;
-			this.onSave && this.onSave();
+			this.onSave && this.onSave().then(res => this.editing = !res);
 		}
 
 		cancel() {

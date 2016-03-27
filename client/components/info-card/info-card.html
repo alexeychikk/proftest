@@ -1,13 +1,13 @@
 <md-card class="info-card" ng-class="{'editing': inf.editing}">
 	<md-card-header>
 		<md-card-avatar layout="row" layout-align="center center">
-			<i class="mdi mdi-account-box-outline mdi-24px md-hint-dark"></i>
+			<i class="mdi {{this.icon}} mdi-24px md-hint-dark"></i>
 		</md-card-avatar>
 		<md-card-header-text layout="row" layout-align="start center">
-			<span class="md-title">Общие сведения</span>
+			<span class="md-title" ng-bind="this.name"></span>
 		</md-card-header-text>
 		<icon-button icon="md-secondary-dark mdi-pencil" tooltip="Редактировать"
-					 ng-if="inf.ownProfile && !inf.editing" ng-click="inf.edit()"></icon-button>
+					 ng-if="inf.canEdit && inf.ownProfile && !inf.editing" ng-click="inf.edit()"></icon-button>
 		<icon-button icon="md-secondary-dark mdi-content-save" tooltip="Сохранить"
 					 ng-if="inf.editing" ng-click="inf.save()"></icon-button>
 		<icon-button icon="md-secondary-dark mdi mdi-arrow-right-bold" tooltip="Отменить"

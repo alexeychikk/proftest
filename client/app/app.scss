@@ -88,10 +88,13 @@ $background-light: #FAFAFA;
 // Component styles are injected through grunt
 // injector
 @import 'account/account';
+@import 'account/login/login';
+@import 'account/signup/signup';
 @import 'admin/admin';
 @import 'main/main';
 @import 'test/test';
 @import '../components/footer/footer';
+@import '../components/info-card/info-card';
 @import '../components/navbar/navbar';
 @import '../components/oauth-buttons/oauth-buttons';
 @import '../components/test-progress/test-progress';
@@ -146,4 +149,28 @@ $background-light: #FAFAFA;
 
 .background {
   background-color: $background-dark;
+}
+
+.md-secondary-dark {
+  color: rgba(0, 0, 0, .54);
+}
+
+.md-secondary-lightx {
+  color: rgba(255, 255, 255, .87);
+}
+
+.md-secondary-light {
+  color: rgba(255, 255, 255, .7);
+}
+
+.md-hint-dark {
+  color: rgba(0, 0, 0, .38);
+}
+
+.no-margin-top {
+  margin-top: 0;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
 }
