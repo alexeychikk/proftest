@@ -1,0 +1,32 @@
+<md-card>
+    <md-card-title>
+        <span class="md-headline" ng-bind="vm.result ? 'Результат' : vm.getCurrentStatement()"></span>
+    </md-card-title>
+    <md-card-content ng-if="vm.result">
+        <md-subheader>
+            <span>Вы {{vm.result[0].name}}</span>
+        </md-subheader>
+        <p ng-bind="vm.result[0].description"></p>
+    </md-card-content>
+
+    <div ng-if="!vm.result">
+        <md-divider></md-divider>
+        <md-card-content class="card-content">
+            <div ng-repeat="question in vm.data.questions">
+                <h4 ng-bind="question.name"></h4>
+                <md-radio-group ng-model="vm.currentAnswer[question.type]" ng-init="vm.currentAnswer[question.type] = 2">
+                    <md-radio-button ng-repeat="value in question.variants"
+                                     ng-value="question.variants.length - $index - 1" aria-label="answer{{value}}">
+                        {{value}}
+                    </md-radio-button>
+                </md-radio-group>
+            </div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-primary md-icon-button" aria-label="confirm" ng-click="vm.answer(vm.currentAnswer)">
+                <i class="mdi mdi-check mdi-24px"></i>
+                <md-tooltip md-direction="top">Подтвердить</md-tooltip>
+            </md-button>
+        </md-card-actions>
+    </div>
+</md-card>

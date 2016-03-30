@@ -5,6 +5,12 @@
     angular.module('proftestApp.test')
         .config(($routeProvider) => {
             $routeProvider
+				.when('/result/:userId/:testId', {
+					templateUrl: 'app/test/result.html',
+					controller: 'ResultController',
+					controllerAs: 'vm',
+					authenticate: 'user'
+				})
                 .when('/test/:id/about', {
                     templateUrl: 'app/test/about.html',
                     controller: 'AboutController',

@@ -115,6 +115,12 @@ UserSchema
 		return age;
 	});
 
+UserSchema
+	.virtual('fullName')
+	.get(function () {
+		return this.firstName + ' ' + this.lastName;
+	});
+
 /**
  * Validations
  */

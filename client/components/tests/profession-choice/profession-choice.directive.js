@@ -20,12 +20,13 @@
 
         });
 
-    controller.$inject = ['$scope', 'User', 'localStorageService'];
-    function controller($scope, User, localStorageService) {
+    controller.$inject = ['$scope', 'localStorageService', 'Auth', 'User', '$location'];
+    function controller($scope, localStorageService, Auth, User, $location) {
         let vm = this,
             testKey = vm.id,
             questionIndexKey = testKey + 'questionIndex',
             categoryIndexKey = testKey + 'categoryIndex',
+			resultKey = testKey + 'result',
             answers = JSON.parse(localStorageService.get(testKey)) || {
                     interests: [],
                     skills: []
@@ -78,20 +79,22 @@
                     localStorageService.set(questionIndexKey, vm.index.currentQuestionIndex);
                     localStorageService.set(categoryIndexKey, vm.index.currentCategoryIndex);
                 } else {
-                    User.putMyAnswers({}, {
-                        testId: vm.id,
-                        answers: answers
-                    }).$promise.then((resp) => {
-                        localStorageService.remove(testKey, questionIndexKey, categoryIndexKey, 'countersSum');
-                        vm.result = {
-                            professions: resp.result
-                                .filter((item, index, array) => item.count === array[0].count || item.count === array[1].count)
-                                .map((item) => vm.data.professions[item.index]),
-                            skills: Object.keys(resp.skills).map((item) => vm.data.skills[item - 1]),
-                            interests: Object.keys(resp.interests).map((item) => vm.data.interests[item - 1])
-                        };
+					User.putMyAnswers({}, {
+						testId: testKey,
+						answers: answers
+					}).$promise.then((resp) => {
+						localStorageService.remove(questionIndexKey, categoryIndexKey, 'countersSum');
+						vm.result = {
+							professions: resp.result
+								.filter((item, index, array) => item.count === array[0].count || item.count === array[1].count)
+								.map((item) => vm.data.professions[item.index]),
+							skills: Object.keys(resp.skills).map((item) => vm.data.skills[item - 1]),
+							interests: Object.keys(resp.interests).map((item) => vm.data.interests[item - 1])
+						};
 
-                    })
+						localStorageService.set(resultKey, JSON.stringify(vm.result));
+						$location.url('/result/' + Auth.getCurrentUser()._id + '/' + vm.id);
+					});
                 }
             }
         };
