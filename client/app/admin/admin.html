@@ -1,12 +1,56 @@
-<div class="container">
-    <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
-    <ul class="list-group user-list">
-        <li class="list-group-item" ng-repeat="user in admin.users">
-            <div class="user-info">
-                <strong>{{user.name}}</strong><br>
-                <span class="text-muted">{{user.email}}</span>
-            </div>
-            <a ng-click="admin.remove(user)" class="trash"><span class="fa fa-trash fa-2x"></span></a>
-        </li>
-    </ul>
+<div class="background" layout="row" layout-padding>
+	<resp-sides></resp-sides>
+	<div flex>
+		<md-grid-list md-cols="4" md-row-height="5:6" md-gutter="8px">
+			<md-grid-tile ng-repeat="user in vm.users">
+				<md-card flex class="user-card" ng-click="vm.goToUserPage(user)">
+					<div flex layout="row" layout-align="center center">
+						<div class="avatar">
+							<img ng-if="user.avatar" class="md-card-image"
+								 ng-src="{{'/resources/avatars/' + user.avatar}}" alt="{{user.name}}">
+							<i ng-if="!user.avatar" class="mdi mdi-account-circle mdi-96px"></i>
+						</div>
+					</div>
+					<md-card-title>
+						<md-card-title-text>
+							<span class="md-headline" ng-bind="user.lastName + ' ' + user.firstName"></span>
+							<span class="md-subhead" ng-bind="user.email"></span>
+						</md-card-title-text>
+					</md-card-title>
+					<md-card-actions layout="row" layout-align="space-between center">
+						<md-menu ng-if="user.tests && user.tests.length" md-offset="-28 -20">
+							<button class="md-accent md-hue-3 md-icon-button md-button md-ink-ripple"
+									ng-click="vm.openMenu($mdOpenMenu, $event)" aria-label="test-results">
+								<i md-menu-origin class="mdi mdi-clipboard-check mdi-24px"></i>
+								<md-tooltip class="menu-tooltip">
+									<div ng-bind="'Тестов пройдено: ' + user.tests.length"></div>
+								</md-tooltip>
+							</button>
+							<md-menu-content width="4">
+								<md-menu-item class="clickable" ng-repeat="test in user.tests" layout="row"
+											  ng-click="vm.goToResultPage(user, test, $event)"
+											  layout-align="space-between center">
+									<div ng-bind="test.name" md-menu-align-target></div>
+									<button class="show-on-hover md-icon-button md-button md-ink-ripple">
+										<i class="light-bg mdi mdi-open-in-new mdi-24px"></i>
+									</button>
+								</md-menu-item>
+							</md-menu-content>
+						</md-menu>
+						<div>
+							<md-button class="md-icon-button" ng-click="vm.remove(user, $event)" aria-label="user-remove">
+								<i class="light-bg mdi mdi-delete-forever mdi-24px"></i>
+								<md-tooltip>Удалить</md-tooltip>
+							</md-button>
+							<md-button class="md-primary md-icon-button" ng-click="vm.sendEmail(user, $event)" aria-label="user-email">
+								<i class="mdi mdi-email mdi-24px"></i>
+								<md-tooltip>Отправить сообщение</md-tooltip>
+							</md-button>
+						</div>
+					</md-card-actions>
+				</md-card>
+			</md-grid-tile>
+		</md-grid-list>
+	</div>
+	<resp-sides></resp-sides>
 </div>

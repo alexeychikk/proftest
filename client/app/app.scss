@@ -15,10 +15,36 @@ $ng-view-min-height-landscape: calc(100% - 84px);
   padding: 0.2em 0;
 }
 
+i.light-bg {
+  color: rgba(0, 0, 0, .54);
+}
+i.dark-bg {
+  color: rgba(255, 255, 255, .54);
+}
+
 .ng-view {
   min-height: $ng-view-min-height;
   height: 1px;
   margin-bottom: 36px;
+}
+
+.mdi-96px {
+  font-size: 96px;
+}
+
+md-menu-item {
+  .show-on-hover {
+	opacity: 0;
+	transition: opacity .2s ease-in-out;
+  }
+
+  &:hover .show-on-hover {
+	opacity: 1;
+  }
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 959px) and (min-width: 0) and (orientation: portrait) {

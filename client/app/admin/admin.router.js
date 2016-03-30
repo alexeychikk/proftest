@@ -8,7 +8,7 @@
                 .when('/admin', {
                     templateUrl: 'app/admin/admin.html',
                     controller: 'AdminController',
-                    controllerAs: 'admin',
+                    controllerAs: 'vm',
                     authenticate: 'admin'
                 });
         });
