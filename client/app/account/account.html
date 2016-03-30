@@ -1,15 +1,19 @@
 <div class="background" layout="row">
 	<resp-sides></resp-sides>
-	<div flex ng-if="!vm.user" layout="row" layout-align="center center"
+	<div flex ng-if="!vm.loaded" layout="row" layout-align="center center">
+		<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+	</div>
+	<div flex ng-if="!vm.user && vm.loaded" layout="row" layout-align="center center"
 		 class="md-headline md-secondary-dark">Пользователь не найден</div>
-	<div flex ng-if="vm.user">
+	<div flex ng-if="vm.user && vm.loaded">
 		<md-card layout="column" class="profile-card">
 			<div flex class="profile-card-top" layout="column">
 				<div flex></div>
 				<div layout="row">
 					<div class="name" ng-bind="vm.user.firstName + ' ' + vm.user.lastName"></div>
 					<div flex></div>
-					<icon-button icon="mdi-pencil md-secondary-lightx" tooltip="Редактировать"></icon-button>
+					<icon-button icon="mdi-pencil md-secondary-lightx" tooltip="Редактировать" ng-if="vm.ownProfile"
+								 ng-click="vm.edit('name')"></icon-button>
 				</div>
 			</div>
 			<div class="profile-card-bot" layout="row">

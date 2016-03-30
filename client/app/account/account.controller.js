@@ -9,6 +9,7 @@
 			this.$http = $http;
 			this.User = User;
 			this.editing = {};
+			this.loaded = false;
 
 			Auth.getCurrentUser(_.noop).then(user => {
 				this.ownProfile = $routeParams.id == user._id;
@@ -17,14 +18,14 @@
 			}).then(user => {
 				this.user = user.toJSON();
 
-				for (var i in this.user.education) {
+				for (let i in this.user.education) {
 					if (this.user.education[i].startYear)
 						this.user.education[i].startYear = +this.user.education[i].startYear;
 					if (this.user.education[i].endYear)
 						this.user.education[i].endYear = +this.user.education[i].endYear;
 				}
 
-				for (var i in this.user.work) {
+				for (let i in this.user.work) {
 					if (typeof this.user.work[i].startDate == "string")
 						this.user.work[i].startDate = new Date(this.user.work[i].startDate);
 					if (typeof this.user.work[i].endDate == "string")
@@ -32,7 +33,9 @@
 				}
 
 				this.info = angular.copy(this.user);
-			});
+				this.loaded = true;
+			})
+			.catch(() => this.loaded = true);
         }
 
 		edit(category) {
