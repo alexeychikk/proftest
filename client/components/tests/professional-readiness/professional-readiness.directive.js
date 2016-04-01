@@ -20,11 +20,12 @@
 
         });
 
-    controller.$inject = ['$scope', 'User', 'localStorageService'];
-    function controller($scope, User, localStorageService) {
+	controller.$inject = ['$scope', 'localStorageService', 'Auth', 'User', '$location'];
+	function controller($scope, localStorageService, Auth, User, $location) {
         let vm = this,
             testKey = vm.id,
             statementIndexKey = testKey + 'questionIndex',
+			resultKey = testKey + 'result',
             answers = JSON.parse(localStorageService.get(testKey)) || [];
 
         vm.index.currentQuestionIndex = +localStorageService.get(statementIndexKey) || 0;
@@ -54,13 +55,18 @@
                     testId: vm.id,
                     answers: answers
                 }).$promise.then((resp) => {
-                    localStorageService.remove(testKey, statementIndexKey);
-                    vm.result = resp.result.likes.map((item) => {
+					var result;
+
+                    localStorageService.remove(statementIndexKey);
+                    result = resp.result.likes.map((item) => {
                         return {
                             name: vm.data.likes[item],
                             description: vm.data.description[item]
                         }
                     });
+
+					localStorageService.set(resultKey, JSON.stringify(result));
+					$location.url('/result/' + Auth.getCurrentUser()._id + '/' + vm.id);
                 })
             }
         };

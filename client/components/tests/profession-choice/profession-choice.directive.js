@@ -83,8 +83,10 @@
 						testId: testKey,
 						answers: answers
 					}).$promise.then((resp) => {
+						var result;
+
 						localStorageService.remove(questionIndexKey, categoryIndexKey, 'countersSum');
-						vm.result = {
+						result = {
 							professions: resp.result
 								.filter((item, index, array) => item.count === array[0].count || item.count === array[1].count)
 								.map((item) => vm.data.professions[item.index]),
@@ -92,7 +94,7 @@
 							interests: Object.keys(resp.interests).map((item) => vm.data.interests[item - 1])
 						};
 
-						localStorageService.set(resultKey, JSON.stringify(vm.result));
+						localStorageService.set(resultKey, JSON.stringify(result));
 						$location.url('/result/' + Auth.getCurrentUser()._id + '/' + vm.id);
 					});
                 }

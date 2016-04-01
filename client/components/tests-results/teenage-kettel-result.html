@@ -1,0 +1,25 @@
+<md-card>
+	<md-card-title layout="row" layout-align="space-between center">
+		<span class="md-headline" ng-bind="vm.admin ? 'Результат пользователя: ' + vm.name : 'Результат'"></span>
+		<span ng-if="vm.admin" class="md-headline" ng-bind="vm.passingDate | date: 'dd MMM yyyy'">
+			<md-tooltip>Дата прохождения</md-tooltip>
+		</span>
+	</md-card-title>
+	<md-card-content>
+		<md-list flex>
+			<div ng-repeat="item in vm.result">
+				<md-subheader>
+					<div layout="row" layout-align="space-between" flex>
+						<span ng-bind="item.name"></span>
+						<span>уровень: {{item.level}} ({{item.diff | number : 1}})</span>
+					</div>
+				</md-subheader>
+
+				<md-list-item ng-class="{'result-list-item': !$last}" ng-if="item.description">
+					<p ng-bind="item.description"></p>
+				</md-list-item>
+				<md-divider ng-if="!$last"></md-divider>
+			</div>
+		</md-list>
+	</md-card-content>
+</md-card>

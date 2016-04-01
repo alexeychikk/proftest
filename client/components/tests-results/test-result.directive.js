@@ -1,21 +1,26 @@
 "use strict";
 
 (function () {
-    angular.module('proftestApp.test')
-        .directive('professionChoiceResult', () => {
+	angular.module('proftestApp.test')
+		.directive('testResult', () => {
 
-            return {
-                restrict: 'E',
-                templateUrl: 'components/tests-results/profession-choice/profession-choice-result.html',
-                controllerAs: 'vm',
-                bindToController: true,
-                controller: controller
-            };
-        });
+			return {
+				restrict: 'E',
+				template: '<div ng-include="contentUrl"></div>',
+				controllerAs: 'vm',
+				bindToController: true,
+				link: function ($scope, $element, $attrs) {
+					$attrs.$observe('type', (type) => {
+						if (type) $scope.contentUrl = 'components/tests-results/' + type + '-result.html';
+					});
+				},
+				controller: controller
+			};
+		});
 
-    controller.$inject = ['$scope', 'User', '$routeParams', 'localStorageService'];
-    function controller($scope, User, $routeParams, localStorageService) {
-        let vm = this,
+	controller.$inject = ['$scope', 'User', '$routeParams', 'localStorageService'];
+	function controller($scope, User, $routeParams, localStorageService) {
+		let vm = this,
 			testKey = $routeParams.testId,
 			resultKey = testKey + 'result';
 
@@ -38,5 +43,5 @@
 				vm.passingDate = test.passingDate;
 			});
 		}
-    }
+	}
 })();

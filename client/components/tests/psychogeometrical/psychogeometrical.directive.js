@@ -19,8 +19,8 @@
 
 		});
 
-	controller.$inject = ['$scope', 'User'];
-	function controller($scope, User) {
+	controller.$inject = ['$scope', 'User', 'Auth', 'localStorageService', '$location'];
+	function controller($scope, User, Auth, localStorageService, $location) {
 		let vm = this;
 
 		$scope.$watch('vm.data.figures', function (figures) {
@@ -28,16 +28,23 @@
 		}, true);
 
 		vm.answer = () => {
+			localStorageService.set(vm.id, JSON.stringify(vm.figures));
+
 			User.putMyAnswers({}, {
 				testId: vm.id,
 				answers: vm.figures
 			}).$promise.then(() => {
-				vm.result = vm.figures.map((item) => {
+				var result;
+
+				result = vm.figures.map((item) => {
 					return {
 						figure: item,
 						description: vm.data.description[item]
 					}
 				});
+
+				localStorageService.set(vm.id + 'result', JSON.stringify(result));
+				$location.url('/result/' + Auth.getCurrentUser()._id + '/' + vm.id);
 			});
 		};
 	}

@@ -20,11 +20,12 @@
 
         });
 
-    controller.$inject = ['$scope', 'User', 'localStorageService'];
-    function controller($scope, User, localStorageService) {
+	controller.$inject = ['$scope', 'localStorageService', 'Auth', 'User', '$location'];
+	function controller($scope, localStorageService, Auth, User, $location) {
         let vm = this,
             testKey = vm.id,
             questionIndexKey = testKey + 'questionIndex',
+			resultKey = testKey + 'result',
             answers = JSON.parse(localStorageService.get(testKey)) || [];
 
         vm.index.currentQuestionIndex = +localStorageService.get(questionIndexKey) || 0;
@@ -54,17 +55,26 @@
                     testId: vm.id,
                     answers: answers
                 }).$promise.then((resp) => {
-                    localStorageService.remove(testKey, questionIndexKey);
+					var thinkingTypes, creativity, result;
 
-					vm.result = true;
-					vm.thinkingTypes = resp.result.map((item, index) => {
+                    localStorageService.remove(questionIndexKey);
+
+					thinkingTypes = resp.result.map((item, index) => {
 						item.type = vm.data.thinkingTypes[index];
 						item.description = vm.data.description[index];
 						item.level = vm.data.levels[item.level];
 						return item;
 					});
-					vm.creativity = vm.thinkingTypes.pop();
-					vm.thinkingTypes.sort((a, b) => a.score < b.score);
+					creativity = thinkingTypes.pop();
+					thinkingTypes.sort((a, b) => a.score < b.score);
+
+					result = {
+						creativity,
+						thinkingTypes
+					};
+
+					localStorageService.set(resultKey, JSON.stringify(result));
+					$location.url('/result/' + Auth.getCurrentUser()._id + '/' + vm.id);
                 })
             }
         };

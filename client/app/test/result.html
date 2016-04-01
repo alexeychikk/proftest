@@ -1,17 +1,7 @@
 <div layout="row" class="background">
 	<resp-sides></resp-sides>
 	<div flex>
-		<profession-choice-result ng-if="vm.test.type === vm.testTypes.SYSTEM_PROF_CHOICE"></profession-choice-result>
-
-		<!--<professional-readiness-result ng-if="vm.test.type === vm.testTypes.PROF_READINESS">-->
-		<!--</professional-readiness-result>-->
-
-		<!--<psychogeometrical-result ng-if="vm.test.type === vm.testTypes.PSYCHOGEOMETRICAL"></psychogeometrical-result>-->
-
-		<!--<teenage-kettel-result ng-if="vm.test.type === vm.testTypes.TEENAGE_KETTEL"></teenage-kettel-result>-->
-
-		<!--<thinking-creativity-result ng-if="vm.test.type === vm.testTypes.THINKING_CREATIVITY">-->
-		<!--</thinking-creativity-result>-->
+		<test-result type="{{ ctrl.getTestType(ctrl.test.type) }}"></test-result>
 	</div>
 	<resp-sides></resp-sides>
 </div>

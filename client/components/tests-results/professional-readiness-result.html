@@ -1,0 +1,14 @@
+<md-card>
+	<md-card-title layout="row" layout-align="space-between center">
+	<span class="md-headline" ng-bind="vm.admin ? 'Результат пользователя: ' + vm.name : 'Результат'"></span>
+		<span ng-if="vm.admin" class="md-headline" ng-bind="vm.passingDate | date: 'dd MMM yyyy'">
+			<md-tooltip>Дата прохождения</md-tooltip>
+		</span>
+</md-card-title>
+    <md-card-content>
+        <md-subheader>
+            <span>Вы {{vm.result[0].name}}</span>
+        </md-subheader>
+        <p ng-bind="vm.result[0].description"></p>
+    </md-card-content>
+</md-card>

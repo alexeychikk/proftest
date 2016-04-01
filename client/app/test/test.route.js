@@ -8,7 +8,7 @@
 				.when('/result/:userId/:testId', {
 					templateUrl: 'app/test/result.html',
 					controller: 'ResultController',
-					controllerAs: 'vm',
+					controllerAs: 'ctrl',
 					authenticate: 'user'
 				})
                 .when('/test/:id/about', {

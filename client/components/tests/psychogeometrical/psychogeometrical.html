@@ -1,46 +1,24 @@
 <md-card>
-	<md-card-title ng-if="vm.result">
-		<span class="md-headline">Результат</span>
-	</md-card-title>
-	<md-card-content class="result-content" ng-if="vm.result">
-		<md-list>
-			<div ng-repeat="item in vm.result">
-				<md-subheader>
-					<span ng-show="$first">Ваша основная фигура или субъективная форма. Она дает возможность
-						определить доминирующие черты характера и особенности поведения.</span>
-					<span ng-show="$index === 1">
-						Своеобразные модуляторы, которые окрашивают ведущую мелодию вашего поведения.</span>
-				</md-subheader>
-				<md-list-item ng-class="{'result-list-item': !$last}">
-					<img class="md-avatar" ng-src="{{'assets/images/' + item.figure + '.png'}}" alt="{{item.figure}}">
-					<p ng-bind="item.description"></p>
-					<md-divider ng-if="!$last"></md-divider>
-				</md-list-item>
+	<md-card-content class="card-content">
+		<div layout="row" layout-align="space-between center">
+			<div class="figures-label-wrap" ng-repeat="figure in vm.data.figures">
+				<label class="figures-label" ng-bind="$index + 1"></label>
 			</div>
-		</md-list>
+		</div>
+		<div layout="row" layout-align="space-between center" dnd data="vm.data.figures">
+			<div class="figure" layout="column" layout-align="center center"
+				 ng-repeat="figure in vm.data.figures" draggable="true" index="{{$index}}">
+				<div layout="column" layout-align="center center">
+					<img ng-src="{{figure}}" alt="figure">
+				</div>
+			</div>
+		</div>
 	</md-card-content>
-	<div ng-if="!vm.result">
-		<md-card-content class="card-content">
-			<div layout="row" layout-align="space-between center">
-				<div class="figures-label-wrap" ng-repeat="figure in vm.data.figures">
-					<label class="figures-label" ng-bind="$index + 1"></label>
-				</div>
-			</div>
-			<div layout="row" layout-align="space-between center" dnd data="vm.data.figures">
-				<div class="figure" layout="column" layout-align="center center"
-					 ng-repeat="figure in vm.data.figures" draggable="true" index="{{$index}}">
-					<div layout="column" layout-align="center center">
-						<img ng-src="{{figure}}" alt="figure">
-					</div>
-				</div>
-			</div>
-		</md-card-content>
-		<md-card-actions layout="row" layout-align="end center">
-			<md-button class="md-primary md-icon-button" ng-click="vm.answer()"
-					   aria-label="confirm">
-				<i class="mdi mdi-check mdi-24px"></i>
-				<md-tooltip md-direction="top">Подтвердить</md-tooltip>
-			</md-button>
-		</md-card-actions>
-	</div>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button class="md-primary md-icon-button" ng-click="vm.answer()"
+				   aria-label="confirm">
+			<i class="mdi mdi-check mdi-24px"></i>
+			<md-tooltip md-direction="top">Подтвердить</md-tooltip>
+		</md-button>
+	</md-card-actions>
 </md-card>

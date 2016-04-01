@@ -1,28 +1,8 @@
 <md-card>
 	<md-card-title>
-		<span class="md-headline" ng-bind="vm.result ? 'Результат' : vm.getCurrentQuestion()"></span>
+		<span class="md-headline" ng-bind="vm.getCurrentQuestion()"></span>
 	</md-card-title>
-	<md-card-content ng-if="vm.result">
-		<div>
-			<md-subheader>
-				<div layout="row" layout-align="space-between" flex>
-					<span ng-bind="vm.creativity.type"></span>
-					<span>уровень: {{vm.creativity.level}}</span>
-				</div>
-			</md-subheader>
-			<p ng-bind="vm.creativity.description"></p>
-		</div>
-		<div ng-repeat="item in vm.thinkingTypes">
-			<md-subheader>
-				<div layout="row" layout-align="space-between" flex>
-					<span ng-bind="item.type"></span>
-					<span>уровень: {{item.level}}</span>
-				</div>
-			</md-subheader>
-			<p ng-bind="item.description"></p>
-		</div>
-	</md-card-content>
-	<md-card-actions ng-if="!vm.result" layout="row" layout-align="end center">
+	<md-card-actions layout="row" layout-align="end center">
 		<md-button class="md-primary md-icon-button" ng-click="vm.answer(true)"  aria-label="answer-true">
 			<i class="mdi mdi-check mdi-24px"></i>
 			<md-tooltip md-direction="top">Да</md-tooltip>

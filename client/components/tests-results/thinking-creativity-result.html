@@ -1,0 +1,28 @@
+<md-card>
+	<md-card-title layout="row" layout-align="space-between center">
+		<span class="md-headline" ng-bind="vm.admin ? 'Результат пользователя: ' + vm.name : 'Результат'"></span>
+		<span ng-if="vm.admin" class="md-headline" ng-bind="vm.passingDate | date: 'dd MMM yyyy'">
+			<md-tooltip>Дата прохождения</md-tooltip>
+		</span>
+	</md-card-title>
+	<md-card-content>
+		<div>
+			<md-subheader>
+				<div layout="row" layout-align="space-between" flex>
+					<span ng-bind="vm.result.creativity.type"></span>
+					<span>уровень: {{vm.result.creativity.level}}</span>
+				</div>
+			</md-subheader>
+			<p ng-bind="vm.result.creativity.description"></p>
+		</div>
+		<div ng-repeat="item in vm.result.thinkingTypes">
+			<md-subheader>
+				<div layout="row" layout-align="space-between" flex>
+					<span ng-bind="item.type"></span>
+					<span>уровень: {{item.level}}</span>
+				</div>
+			</md-subheader>
+			<p ng-bind="item.description"></p>
+		</div>
+	</md-card-content>
+</md-card>
