@@ -14,10 +14,24 @@ $avatar-margin-left: $profile-card-bot-height - ($avatar-height / 2);
 	background-image: url('../assets/images/md-bg.jpg');
 
 	.name {
-	  margin-left: $avatar-width + $avatar-margin-left * 2;
 	  font-size: 32px;
+	}
+	.name, .fname-input {
+	  margin-left: $avatar-width + $avatar-margin-left * 2;
+	}
+	.name, .fname-input, .lname-input {
 	  font-weight: 500;
-	  color: rgba(255, 255, 255, .87);
+	  color: rgba(255, 255, 255, .87) !important;
+	}
+	.fname-input, .lname-input {
+	  height: 38px !important;
+	  input {
+		font-size: 24px !important;
+	  }
+	  input, label {
+		font-weight: 500 !important;
+		color: rgba(255, 255, 255, .87) !important;
+	  }
 	}
   }
 

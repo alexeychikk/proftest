@@ -39,7 +39,11 @@
         }
 
 		edit(category) {
-			if (category === 'general') {
+			if (category === 'name') {
+				this.info.firstName = this.user.firstName;
+				this.info.lastName = this.user.lastName;
+			}
+			else if (category === 'general') {
 				this.info.gender = this.user.gender;
 				this.info.birthDate = new Date(this.user.birthDate);
 			}
@@ -70,7 +74,13 @@
 		save(category) {
 			return this.$q((resolve, reject) => {
 				var fields = {};
-				if (category === 'general') {
+				if (category === 'name') {
+					var firstName = this.info.firstName.trim(),
+						lastName = this.info.lastName.trim();
+					if (firstName != this.user.firstName.trim()) fields.firstName = firstName;
+					if (lastName != this.user.lastName.trim()) fields.lastName = lastName;
+				}
+				else if (category === 'general') {
 					if (this.user.birthDate.getTime() != this.info.birthDate.getTime())
 						fields.birthDate = this.info.birthDate;
 					if (this.user.gender != this.info.gender) fields.gender = this.info.gender;
@@ -95,7 +105,11 @@
 				}
 				this.$http.put(`/api/users/${this.user._id}`, fields)
 					.then(res => {
-						this.user[category] = this.info[category];
+						if (category === 'name') {
+							this.user.firstName = firstName;
+							this.user.lastName = lastName;
+						}
+						else this.user[category] = this.info[category];
 						this.editing[category] = false;
 						resolve(true);
 					})

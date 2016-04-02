@@ -9,11 +9,23 @@
 		<md-card layout="column" class="profile-card">
 			<div flex class="profile-card-top" layout="column">
 				<div flex></div>
-				<div layout="row">
-					<div class="name" ng-bind="vm.user.firstName + ' ' + vm.user.lastName"></div>
+				<div layout="row" layout-align="start end">
+					<div class="name" ng-if="!vm.editing.name" ng-bind="vm.user.firstName + ' ' + vm.user.lastName"></div>
+					<md-input-container ng-if="vm.editing.name" class="fname-input no-margin-bottom">
+						<label>Имя</label>
+						<input ng-model="vm.info.firstName">
+					</md-input-container>
+					<md-input-container ng-if="vm.editing.name" class="lname-input no-margin-bottom">
+						<label>Фамилия</label>
+						<input ng-model="vm.info.lastName">
+					</md-input-container>
 					<div flex></div>
-					<icon-button icon="mdi-pencil md-secondary-lightx" tooltip="Редактировать" ng-if="vm.ownProfile"
-								 ng-click="vm.edit('name')"></icon-button>
+					<icon-button icon="mdi-pencil md-secondary-lightx" tooltip="Редактировать"
+								 ng-if="vm.ownProfile && !vm.editing.name" ng-click="vm.edit('name')"></icon-button>
+					<icon-button icon="mdi-content-save md-secondary-lightx" tooltip="Сохранить"
+								 ng-if="vm.editing.name" ng-click="vm.save('name')"></icon-button>
+					<icon-button icon="mdi-arrow-right-bold md-secondary-lightx" tooltip="Отменить"
+								 ng-if="vm.editing.name" ng-click="vm.cancel('name')"></icon-button>
 				</div>
 			</div>
 			<div class="profile-card-bot" layout="row">
