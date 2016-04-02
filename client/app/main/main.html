@@ -7,7 +7,7 @@
 					<md-card-header layout="row" layout-align="space-between start">
 						<span class="md-headline" ng-bind="test.name"></span>
 						<md-button class="md-icon-button md-accent"
-								   ng-click="vm.$location.path('/' + vm.getCurrentUser()._id)"
+								   ng-click="vm.$location.path('/result/' + vm.getCurrentUser()._id + '/' + test._id)"
 								   ng-if="vm.isTestPassed(test._id)" aria-label="result">
 							<i class="mdi mdi-check mdi-24px"></i>
 							<md-tooltip>Результат</md-tooltip>

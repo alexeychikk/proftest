@@ -25,7 +25,6 @@ i.dark-bg {
 .ng-view {
   min-height: $ng-view-min-height;
   height: 1px;
-  margin-bottom: 36px;
 }
 
 .mdi-96px {
@@ -197,7 +196,7 @@ md-menu-item {
 .background {
   background-color: $background-dark;
   min-height: 100%;
-  margin-bottom: 36px;
+  padding-bottom: 72px;
 }
 
 .md-secondary-dark {
