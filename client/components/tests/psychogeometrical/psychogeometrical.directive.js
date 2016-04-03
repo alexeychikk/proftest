@@ -23,8 +23,8 @@
 	function controller($scope, User, Auth, localStorageService, $location) {
 		let vm = this;
 
-		$scope.$watch('vm.data.figures', function (figures) {
-			vm.figures = figures.map(item => item.split('/').pop().split('.')[0]);
+		$scope.$watch('vm.data.figures', (figures) =>  {
+			vm.figures = figures.map(item => item.split('.')[0]);
 		}, true);
 
 		vm.answer = () => {
