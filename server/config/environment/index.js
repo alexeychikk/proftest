@@ -19,7 +19,7 @@ var all = {
     root: path.normalize(__dirname + '/../../..'),
 
 	//Path to resources
-	resources: path.normalize(__dirname + '/../../../resources'),
+	resources: process.env.RESOURCES || path.normalize(__dirname + '/../../../resources'),
 
     // Server port
     port: process.env.PORT || 9000,

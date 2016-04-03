@@ -10,6 +10,7 @@ mongoose.Promise = require('bluebird');
 import config from './config/environment';
 import http from 'http';
 import Tests from '../tests';
+import Test from './api/test/test.model';
 
 // Connect to MongoDB
 mongoose.connect(config.mongo.uri, config.mongo.options);
@@ -22,7 +23,12 @@ mongoose.connection.on('error', function (err) {
 if (config.seedDB) {
     require('./config/seed');
 }
-else Tests.loadAll();
+else {
+	Test.countAsync({}).then(res => {
+		if (!res) require('./config/seed');
+		else Tests.loadAll();
+	});
+}
 
 
 // Setup server

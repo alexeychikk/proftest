@@ -49,7 +49,6 @@
 					else for (let test of this.user.tests) {
 						test.name = tests.find(t => t._id == test._id).name;
 					}
-					console.log(this.user.tests);
 				}
 				this.loaded = true;
 			})

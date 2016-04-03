@@ -21,6 +21,7 @@ var config;
 
 const clientPath = require('./bower.json').appPath || 'client';
 const serverPath = 'server';
+const testsPath = 'tests';
 const paths = {
     client: {
         assets: `${clientPath}/assets/**/*`,
@@ -38,13 +39,14 @@ const paths = {
         bower: `${clientPath}/bower_components/`
     },
     server: {
-        scripts: [`${serverPath}/**/!(*.spec|*.integration).js`, 'tests/**/*'],
+        scripts: [`${serverPath}/**/!(*.spec|*.integration).js`],
         json: [`${serverPath}/**/*.json`],
         test: {
             integration: [`${serverPath}/**/*.integration.js`, 'mocha.global.js'],
             unit: [`${serverPath}/**/*.spec.js`, 'mocha.global.js']
         }
     },
+	tests: 'tests/**/*',
     karma: 'karma.conf.js',
     dist: 'dist'
 };
@@ -133,6 +135,13 @@ let transpileClient = lazypipe()
     })
     .pipe(plugins.sourcemaps.write, '.');
 
+let transpileTests = lazypipe()
+	.pipe(plugins.sourcemaps.init)
+	.pipe(plugins.babel, {
+		optional: ['runtime']
+	})
+	.pipe(plugins.sourcemaps.write, '.');
+
 let transpileServer = lazypipe()
     .pipe(plugins.sourcemaps.init)
     .pipe(plugins.babel, {
@@ -180,25 +189,20 @@ gulp.task('env:all', () => {
         vars: localConfig
     });
 });
-gulp.task('env:dist', () => {
-  let localConfig;
-  try {
-    localConfig = require(`./${serverPath}/config/local.env.dist`);
-  } catch (e) {
-    localConfig = {};
-  }
-  plugins.env({
-    vars: localConfig
-  });
-});
 gulp.task('env:test', () => {
     plugins.env({
         vars: {NODE_ENV: 'test'}
     });
 });
 gulp.task('env:prod', () => {
+	let localConfig;
+	try {
+		localConfig = require(`./${serverPath}/config/local.env.dist`);
+	} catch (e) {
+		localConfig = {};
+	}
     plugins.env({
-        vars: {NODE_ENV: 'production'}
+        vars: Object.assign({NODE_ENV: 'production'}, localConfig)
     });
 });
 
@@ -266,6 +270,12 @@ gulp.task('transpile:client', () => {
     return gulp.src(paths.client.scripts)
         .pipe(transpileClient())
         .pipe(gulp.dest('.tmp'));
+});
+
+gulp.task('transpile:tests', () => {
+	return gulp.src(paths.tests)
+		.pipe(transpileTests())
+		.pipe(gulp.dest(`${paths.dist}/${testsPath}`));
 });
 
 gulp.task('transpile:server', () => {
@@ -374,7 +384,6 @@ gulp.task('serve', cb => {
 gulp.task('serve:dist', cb => {
     runSequence(
         'build',
-        'env:dist',
         'env:prod',
         ['start:server:prod', 'start:client'],
         cb);
@@ -418,7 +427,7 @@ gulp.task('wiredep:client', () => {
             exclude: [
                 /json3/,
                 /es5-shim/,
-				/materialdesignicons.css/
+				/mdi/
             ],
             ignorePath: clientPath
         }))
@@ -431,11 +440,16 @@ gulp.task('wiredep:test', () => {
             exclude: [
                 '/json3/',
                 '/es5-shim/',
-				/materialdesignicons.css/
+				/mdi/
             ],
             devDependencies: true
         }))
         .pipe(gulp.dest('./'));
+});
+
+gulp.task('mdi', () => {
+	return gulp.src(`${paths.client.bower}mdi/**/*`)
+		.pipe(gulp.dest(`${paths.dist}/${clientPath}/bower_components/mdi`));
 });
 
 /********************
@@ -453,10 +467,12 @@ gulp.task('build', cb => {
             'build:images',
             'copy:extras',
             'copy:assets',
+			'transpile:tests',
             'copy:server',
             'transpile:server',
             'build:client'
         ],
+		'mdi',
         cb);
 });
 

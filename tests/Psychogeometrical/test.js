@@ -113,17 +113,17 @@ var instruction = "Выберите из этих фигурку, о котор�
 module.exports = {
     name: "Психогеометрический",
     type: require('../types').PSYCHOGEOMETRICAL,
-    icon: 'assets/images/yeoman.png',
+    icon: 'yeoman.png',
     shortDesc: "",
     longDesc: "",
     instruction: instruction,
     content: {
         figures: [
-			'assets/images/rectangle.png',
-			'assets/images/triangle.png',
-			'assets/images/circle.png',
-			'assets/images/square.png',
-			'assets/images/zigzag.png'
+			'rectangle.png',
+			'triangle.png',
+			'circle.png',
+			'square.png',
+			'zigzag.png'
 		],
         description: {
             rectangle: rectangle,
