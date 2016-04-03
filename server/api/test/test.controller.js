@@ -87,7 +87,7 @@ function setPassCount(fields) {
 // Gets a list of Tests
 export function index(req, res) {
 	let fields = req.query.fields && JSON.parse(req.query.fields);
-    Test.findAsync({}, fields)
+    Test.findAsync(req.query.ids && {'_id': { $in: req.query.ids}} || {}, fields)
 		.then(setPassCount(fields))
         .then(respondWithResult(res))
         .catch(handleError(res));

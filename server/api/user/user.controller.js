@@ -45,7 +45,7 @@ function parseFields(fields) {
 export function index(req, res) {
 	req.query.fields = parseFields(req.query.fields);
 
-    User.findAsync({}, req.query.fields)
+    User.findAsync(req.query.ids && {'_id': { $in: req.query.ids}} || {}, req.query.fields)
         .then(users => {
             res.status(200).json(users);
         })

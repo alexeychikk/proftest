@@ -1,4 +1,4 @@
-<div class="background" layout="row">
+<div class="account-page background" layout="row">
 	<resp-sides></resp-sides>
 	<div flex ng-if="!vm.loaded" layout="row" layout-align="center center">
 		<md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -169,7 +169,29 @@
 					</md-card-content>
 				</info-card>
 			</div>
-			<div layout="column" flex></div>
+			<div class="tests" layout="column" flex>
+				<div ng-if="!vm.user.tests.length" class="empty md-headline">
+					Здесь будут показываться пройденные тесты
+				</div>
+				<div ng-if="vm.user.tests.length">
+					<div class="md-headline md-secondary-dark passed">
+						Пройденные тесты
+					</div>
+					<md-card ng-repeat="test in vm.user.tests">
+						<md-card-title class="test">
+							<md-card-title-text layout="row" layout-align="center center">
+								<div flex>
+									<div class="md-headline name" ng-bind="test.name"></div>
+									<div class="md-subhead date" ng-bind="(test.passingDate | date: 'd MMMM y') + ' г.'"></div>
+								</div>
+								<icon-button icon="mdi-forward md-secondary-dark"
+											 tooltip="Посмотреть результат"
+											 ng-click="vm.$location.path('/result/' + vm.user._id + '/' + test._id)"></icon-button>
+							</md-card-title-text>
+						</md-card-title>
+					</md-card>
+				</div>
+			</div>
 		</div>
 	</div>
 	<resp-sides></resp-sides>

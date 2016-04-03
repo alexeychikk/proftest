@@ -4,10 +4,12 @@
 
     class AccountController {
 
-        constructor(Auth, User, $q, $http, $routeParams) {
+        constructor(Auth, User, Test, $q, $http, $routeParams, $location) {
 			this.$q = $q;
 			this.$http = $http;
+			this.$location = $location;
 			this.User = User;
+
 			this.editing = {};
 			this.loaded = false;
 
@@ -33,6 +35,22 @@
 				}
 
 				this.info = angular.copy(this.user);
+
+				if (this.user.tests.length) {
+					let testsIds = this.user.tests.map(test => test._id);
+					return Test[testsIds.length == 1 ? 'get' : 'query']
+						({[testsIds.length == 1 ? 'id' : 'ids']: testsIds, fields: {name: true}}).$promise;
+				}
+			}).then(tests => {
+				if (tests) {
+					if (this.user.tests.length == 1) {
+						this.user.tests[0].name = tests.name;
+					}
+					else for (let test of this.user.tests) {
+						test.name = tests.find(t => t._id == test._id).name;
+					}
+					console.log(this.user.tests);
+				}
 				this.loaded = true;
 			})
 			.catch(() => this.loaded = true);
