@@ -48,6 +48,10 @@ md-menu-item {
 
 .clickable {
   cursor: pointer;
+
+  &:hover.background-on-hover {
+    background-color: rgba(0, 0, 0, .12);
+  }
 }
 
 @media only screen and (max-width: 959px) and (min-width: 0) and (orientation: portrait) {

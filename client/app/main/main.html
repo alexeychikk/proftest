@@ -22,18 +22,18 @@
 						</md-content>
 					</md-card-title>
 					<md-card-actions layout="row" layout-align="space-between center">
-						<span>
-							<md-button class="md-icon-button" aria-label="go">
+						<span><!--todo: add logic-->
+							<md-button class="md-icon-button hide" aria-label="vk-like">
 								<i class="mdi mdi-vk-circle mdi-24px"></i>
 							</md-button>
-							<md-button class="md-icon-button" aria-label="go">
+							<md-button class="md-icon-button hide" aria-label="fb-like">
 								<i class="mdi mdi-facebook-box mdi-24px"></i>
 							</md-button>
 						</span>
 						<md-button class="md-icon-button md-primary"
-								   ng-click="vm.$location.path('/test/' + test._id + (test.shortDesc || test.longDesc ? '/about' : ''))"
+								   ng-click="vm.$location.path('/test/' + test._id + '/about')"
 								   aria-label="pass">
-							<i class="mdi mdi-fast-forward mdi-24px"></i>
+							<i class="mdi mdi-play mdi-24px"></i>
 							<md-tooltip>Пройти</md-tooltip>
 						</md-button>
 					</md-card-actions>

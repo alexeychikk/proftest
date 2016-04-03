@@ -17,12 +17,12 @@ $figureHeight: 100%;
 
 .card-content {
   md-radio-button, md-checkbox {
-	margin-left: 20px;
+    margin-left: 20px;
   }
 
   .figure {
-	width: $figureWidth;
-	height: $figureHeight;
+    width: $figureWidth;
+    height: $figureHeight;
 
     //& div {
     //  transition: all 2.2s ease-in-out;
@@ -44,16 +44,24 @@ $figureHeight: 100%;
 }
 
 .result-content {
-  .md-avatar {
-    border-radius: unset;
-    height: unset;
+  .md-avatar-wrap {
+    align-items: unset;
+
+    .md-avatar {
+      border-radius: unset;
+      width: unset;
+      margin-top: 4px;
+    }
   }
 
   .md-avatar-background {
     margin: 12px 8px 8px 16px;
     width: 20px;
     height: 20px;
+    border: 1px solid;
     border-radius: 50%;
+    color: rgba(255, 255, 255, .87);
+    background-color: rgba(0, 0, 0, .87);
   }
 }
 

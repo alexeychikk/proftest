@@ -5,22 +5,32 @@
 			<md-tooltip>Дата прохождения</md-tooltip>
 		</span>
 	</md-card-title>
+	<md-divider></md-divider>
 	<md-card-content class="result-content">
 		<md-list>
 			<md-subheader><span>Ваши интересы</span></md-subheader>
 			<md-list-item ng-repeat="interest in vm.result.interests">
-				<div class="md-avatar-background" ng-style="{'background-color': interest.color}"></div>
+				<div class="md-avatar-background" layout="row" layout-align="center start"
+					 ng-style="{'background-color': interest.color}">
+					<span ng-bind="$index + 1"></span>
+				</div>
 				<span ng-bind="interest.name"></span>
 			</md-list-item>
 
 			<md-subheader><span>Ваши способности</span></md-subheader>
-			<md-list-item ng-repeat="skill in vm.result.skills">
-				<div class="md-avatar-background" ng-style="{'background-color': skill.color}"></div>
+			<md-list-item class="md-avatar-background-wrap" ng-repeat="skill in vm.result.skills">
+				<div class="md-avatar-background" layout="row" layout-align="center start"
+					 ng-style="{'background-color': skill.color}">
+					<span ng-bind="$index + 1"></span>
+				</div>
 				<span ng-bind="skill.name"></span>
 			</md-list-item>
 
 			<md-subheader><span>Наиболее подходящие вам профессии</span></md-subheader>
 			<md-list-item ng-repeat="profession in vm.result.professions">
+				<div class="md-avatar-background" layout="row" layout-align="center start">
+					<span ng-bind="$index + 1"></span>
+				</div>
 				<span ng-bind="profession"></span>
 			</md-list-item>
 		</md-list>

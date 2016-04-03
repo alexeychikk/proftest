@@ -27,14 +27,7 @@ Test.find({}).removeAsync()
 							password: 'test',
 							birthDate: new Date('1995-13-02'),
 							gender: 'M',
-							tests: [
-								{
-									_id: test._id,
-									passingDate: new Date(),
-									answers: { bad: 'answer' },
-									result: { bad: 'result' }
-								}
-							]
+							tests: []
 						}, {
 							firstName: 'Test2',
 							lastName: 'User',
@@ -43,14 +36,7 @@ Test.find({}).removeAsync()
 							password: 'test',
 							birthDate: new Date('1995-13-02'),
 							gender: 'M',
-							tests: [
-								{
-									_id: test._id,
-									passingDate: new Date(),
-									answers: { bad: 'answer' },
-									result: { bad: 'result' }
-								}
-							]
+							tests: []
 						}, {
 							firstName: 'Test3',
 							lastName: 'User',
@@ -59,14 +45,7 @@ Test.find({}).removeAsync()
 							password: 'test',
 							birthDate: new Date('1995-13-02'),
 							gender: 'M',
-							tests: [
-								{
-									_id: test._id,
-									passingDate: new Date(),
-									answers: { bad: 'answer' },
-									result: { bad: 'result' }
-								}
-							]
+							tests: []
 						}, {
 							firstName: 'Test4',
 							lastName: 'User',
@@ -75,14 +54,7 @@ Test.find({}).removeAsync()
 							password: 'test',
 							birthDate: new Date('1995-13-02'),
 							gender: 'M',
-							tests: [
-								{
-									_id: test._id,
-									passingDate: new Date(),
-									answers: { bad: 'answer' },
-									result: { bad: 'result' }
-								}
-							]
+							tests: []
 						}, {
 							firstName: 'Test5',
 							lastName: 'User',
@@ -91,14 +63,7 @@ Test.find({}).removeAsync()
 							password: 'test',
 							birthDate: new Date('1995-13-02'),
 							gender: 'M',
-							tests: [
-								{
-									_id: test._id,
-									passingDate: new Date(),
-									answers: { bad: 'answer' },
-									result: { bad: 'result' }
-								}
-							]
+							tests: []
 						}, {
 							firstName: 'Test6',
 							lastName: 'User',
@@ -107,14 +72,7 @@ Test.find({}).removeAsync()
 							password: 'test',
 							birthDate: new Date('1995-13-02'),
 							gender: 'M',
-							tests: [
-								{
-									_id: test._id,
-									passingDate: new Date(),
-									answers: { bad: 'answer' },
-									result: { bad: 'result' }
-								}
-							]
+							tests: []
 						}, {
 							avatar: 'admin.jpg',
 							firstName: 'Admin',

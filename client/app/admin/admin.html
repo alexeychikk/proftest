@@ -18,8 +18,9 @@
 						</md-card-title-text>
 					</md-card-title>
 					<md-card-actions layout="row" layout-align="space-between center">
-						<md-menu ng-if="user.tests && user.tests.length" md-offset="-28 -20">
+						<md-menu md-offset="-28 -20">
 							<button class="md-accent md-hue-3 md-icon-button md-button md-ink-ripple"
+									ng-disabled="!(user.tests && user.tests.length)"
 									ng-click="vm.openMenu($mdOpenMenu, $event)" aria-label="test-results">
 								<i md-menu-origin class="mdi mdi-clipboard-check mdi-24px"></i>
 								<md-tooltip class="menu-tooltip">
@@ -27,13 +28,10 @@
 								</md-tooltip>
 							</button>
 							<md-menu-content width="4">
-								<md-menu-item class="clickable" ng-repeat="test in user.tests" layout="row"
+								<md-menu-item class="clickable background-on-hover" ng-repeat="test in user.tests" layout="row"
 											  ng-click="vm.goToResultPage(user, test, $event)"
 											  layout-align="space-between center">
 									<div ng-bind="test.name" md-menu-align-target></div>
-									<button class="show-on-hover md-icon-button md-button md-ink-ripple">
-										<i class="light-bg mdi mdi-open-in-new mdi-24px"></i>
-									</button>
 								</md-menu-item>
 							</md-menu-content>
 						</md-menu>

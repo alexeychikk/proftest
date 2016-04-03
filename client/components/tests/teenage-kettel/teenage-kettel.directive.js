@@ -63,8 +63,8 @@
                     localStorageService.remove(questionIndexKey);
 
 					result = resp.result;
-					for (let prop in vm.result) {
-						let item = vm.result[prop];
+					for (let prop in result) {
+						let item = result[prop];
 						item.name = vm.data.factors[prop].name;
 						item.description = vm.data.factors[prop][item.level];
 						item.level = item.level === 'high' ? 'высокий' : 'низкий';

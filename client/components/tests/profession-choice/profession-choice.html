@@ -1,6 +1,7 @@
 <md-card>
-	<md-card-title>
-		<span class="md-headline" ng-bind="vm.getCurrentCategory().name"></span>
+	<md-card-title ng-style="{'background-color': vm.currentCategoryIndex ? '#FFC400' : '#00E676', 'color': 'white'}">
+		<span class="md-headline"
+			  ng-bind="vm.getCurrentCategory().name"></span>
 	</md-card-title>
 	<md-divider></md-divider>
 	<md-card-content class="card-content">
@@ -12,8 +13,8 @@
 		<md-button class="md-primary md-icon-button" aria-label="confirm"
 				   ng-click="vm.answer(vm.getAnswers())"
 				   ng-disabled="!vm.getAnswers().length">
-			<i class="mdi mdi-check mdi-24px"></i>
-			<md-tooltip md-direction="top">Подтвердить</md-tooltip>
+			<i class="mdi mdi-forward mdi-24px"></i>
+			<md-tooltip md-direction="top">Далее</md-tooltip>
 		</md-button>
 	</md-card-actions>
 </md-card>
