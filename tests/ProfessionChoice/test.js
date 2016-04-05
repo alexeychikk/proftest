@@ -321,8 +321,10 @@ module.exports = {
 
 		function categoryMaxes(catName) {
 			let counts = {};
-			for (let block of answers[catName]) {
-				for (let opt of block) {
+			for (let catIndex in answers[catName]) {
+				let block = answers[catName][catIndex];
+				for (let index in block) {
+					let opt = block[index]
 					if (counts[opt]) counts[opt]++;
 					else counts[opt] = 1;
 				}
@@ -339,7 +341,8 @@ module.exports = {
 				else if (count > counts[max2[0]]) max2 = [i];
 			}
 			max = max1.length > 1 ? max1 : max1.concat(max2);
-			for (let key of max) {
+			for (let prop in max) {
+				let key = max[prop];
 				res[catName][key] = counts[key];
 			}
 		}
@@ -352,10 +355,14 @@ module.exports = {
 			let interests = this.content.map[i][0], skills = this.content.map[i][1];
 			temp.push({index: 0, count: 0});
 			temp[i].index = i;
-			for (let inter of interests)
+			for (let index in interests) {
+				let inter = interests[index];
 				if (res.interests[inter]) temp[i].count++;
-			for (let skill of skills)
+			}
+			for (let index in skills){
+				let skill = skills[index];
 				if (res.skills[skill]) temp[i].count++;
+			}
 		}
 		res.result = temp.sort((el1, el2) => el2.count - el1.count);
 		return res;

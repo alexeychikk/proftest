@@ -31,7 +31,7 @@ class Tests {
 	load(test) {
 		return new Promise((resolve, reject) => {
 			try {
-				let testObj = test.toObject;
+				let testObj = test.toObject();
 				if (testObj.func) testObj.func = (new Function('return ' + testObj.func))();
 				this[testObj._id] = testObj;
 				resolve(test);

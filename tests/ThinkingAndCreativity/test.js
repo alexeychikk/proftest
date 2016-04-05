@@ -134,8 +134,8 @@ module.exports = {
             answersSums[i % 5] += answers[i] ? 1 : 0;
         }
 
-        for (let score of answersSums) {
-            let level;
+        for (let index in answersSums) {
+            let level, score = answersSums[index];
 
             if (score <= 5) level = 'low';
             else if (score <= 9) level = 'medium';
