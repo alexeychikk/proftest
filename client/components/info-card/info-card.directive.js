@@ -16,7 +16,8 @@
 				onEdit: '&?',
 				onSave: '&?',
 				onCancel: '&?',
-				canEdit: '@?'
+				canEdit: '@?',
+				editing: '=?'
 			},
 			transclude: true,
 			link: function(scope, el, attrs, ctrl, transclude) {

@@ -92,4 +92,10 @@ $avatar-margin-left: $profile-card-bot-height - ($avatar-height / 2);
 	  }
 	}
   }
+
+  .add-info-btn {
+	position: fixed;
+	bottom: 36px;
+	right: 36px;
+  }
 }

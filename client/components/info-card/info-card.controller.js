@@ -9,6 +9,8 @@
 			this.onEdit = $scope.onEdit;
 			this.onSave = $scope.onSave;
 			this.onCancel = $scope.onCancel;
+
+			$scope.$watch('editing', val => { this.editing = val });
 		}
 
 		edit() {

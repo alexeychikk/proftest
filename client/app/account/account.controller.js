@@ -4,10 +4,11 @@
 
     class AccountController {
 
-        constructor(Auth, User, Test, $q, $http, $routeParams, $location) {
+        constructor(Auth, User, Test, $q, $http, $routeParams, $location, $mdDialog) {
 			this.$q = $q;
 			this.$http = $http;
 			this.$location = $location;
+			this.$mdDialog = $mdDialog;
 			this.User = User;
 
 			this.editing = {};
@@ -20,6 +21,7 @@
 			}).then(user => {
 				this.user = user.toJSON();
 
+				this.user.education = this.user.education || [];
 				for (let i in this.user.education) {
 					if (this.user.education[i].startYear)
 						this.user.education[i].startYear = +this.user.education[i].startYear;
@@ -27,6 +29,7 @@
 						this.user.education[i].endYear = +this.user.education[i].endYear;
 				}
 
+				this.user.work = this.user.work || [];
 				for (let i in this.user.work) {
 					if (typeof this.user.work[i].startDate == "string")
 						this.user.work[i].startDate = new Date(this.user.work[i].startDate);
@@ -139,6 +142,25 @@
 		cancel(category) {
 			this.editing[category] = false;
 		}
+
+		showAddInfoDialog(ev) {
+			var self = this;
+			self.$mdDialog.show({
+				controller: 'AddInfoDialogController',
+				templateUrl: 'app/account/add-info-dialog/add-info-dialog.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose: true,
+				locals: { user: self.user }
+			}).then(answer => {
+				if (answer) {
+					self.editing[answer] = true;
+					if (answer == 'education' || answer == 'work') {
+						if (!self.info[answer].length) self.info[answer].push({});
+					}
+				}
+			});
+		};
 	}
 
     angular.module('proftestApp.account')

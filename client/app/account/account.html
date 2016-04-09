@@ -72,7 +72,7 @@
 						</div>
 					</md-card-content>
 				</info-card>
-				<info-card name="Образование" icon="mdi-school" own-profile="vm.ownProfile" can-edit
+				<info-card name="Образование" icon="mdi-school" own-profile="vm.ownProfile" can-edit editing="vm.editing.education"
 						   ng-if="(vm.user.education && vm.user.education.length) || vm.editing.education"
 						   on-edit="vm.edit('education')" on-save="vm.save('education')" on-cancel="vm.cancel('education')">
 					<md-card-content ng-if="!vm.editing.education">
@@ -121,7 +121,7 @@
 					</md-card-content>
 				</info-card>
 				<info-card name="Работа" icon="mdi-wallet-travel" own-profile="vm.ownProfile" can-edit
-						   ng-if="(vm.user.work && vm.user.work.length) || vm.editing.work"
+						   ng-if="(vm.user.work && vm.user.work.length) || vm.editing.work" editing="vm.editing.work"
 						   on-edit="vm.edit('work')" on-save="vm.save('work')" on-cancel="vm.cancel('work')">
 					<md-card-content ng-if="!vm.editing.work">
 						<div ng-repeat="wo in vm.user.work" class="list-item">
@@ -193,6 +193,10 @@
 				</div>
 			</div>
 		</div>
+		<md-button class="md-fab md-accent add-info-btn" ng-click="vm.showAddInfoDialog($event)" ng-if="vm.ownProfile">
+			<md-tooltip>Добавить сведения</md-tooltip>
+			<div layout="row" layout-align="center center"><i class="mdi mdi-plus mdi-24px"></i></div>
+		</md-button>
 	</div>
 	<resp-sides></resp-sides>
 </div>
