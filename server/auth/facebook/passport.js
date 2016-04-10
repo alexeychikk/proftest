@@ -57,7 +57,8 @@ export function setup(User, config) {
             clientSecret: config.facebook.clientSecret,
             callbackURL: config.facebook.callbackURL,
             profileFields: [
-				'email', 'first_name', 'last_name', 'gender', 'birthday', 'education', 'work'
+				'email', 'first_name', 'last_name', 'gender', 'birthday',
+				'education', 'work'
             ]
         },
         function (accessToken, refreshToken, profile, done) {

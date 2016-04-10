@@ -48,7 +48,13 @@ var all = {
         clientID: process.env.FACEBOOK_ID || 'id',
         clientSecret: process.env.FACEBOOK_SECRET || 'secret',
         callbackURL: (process.env.DOMAIN || '') + '/auth/facebook/callback'
-    }
+    },
+
+	vk: {
+		clientID: process.env.VK_ID || 'id',
+		clientSecret: process.env.VK_SECRET || 'secret',
+		callbackURL: (process.env.DOMAIN || '') + '/auth/vk/callback'
+	}
 };
 
 // Export the config object based on the NODE_ENV
