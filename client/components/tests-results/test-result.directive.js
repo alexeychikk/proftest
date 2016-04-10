@@ -13,7 +13,6 @@
                     $attrs.$observe('type', (type) => {
                         if (type) {
                             $scope.contentUrl = 'components/tests-results/' + type + '-result.html';
-                            $scope.vm.type = type;
                         }
                     });
                 },
@@ -21,53 +20,53 @@
             };
         });
 
-    controller.$inject = ['$scope', 'User', 'Test', '$routeParams', 'localStorageService'];
-    function controller($scope, User, Test, $routeParams, localStorageService) {
-        let vm = this,
-            testKey = $routeParams.testId,
-            resultKey = testKey + 'result';
+    controller.$inject = ['$scope', 'User', 'Auth', 'Test', '$routeParams', 'localStorageService', 'appConfig'];
+    function controller($scope, User, Auth, Test, $routeParams, localStorageService, appConfig) {
+        let testKey = $routeParams.testId,
+            resultKey = testKey + 'result',
+            testTypes = appConfig.testTypes;
 
-        vm.answers = JSON.parse(localStorageService.get(testKey));
-        vm.result = {};
+        this.answers = JSON.parse(localStorageService.get(testKey));
+        this.result = {};
 
-        if (vm.answers) {
-            vm.result = JSON.parse(localStorageService.get(resultKey));
+        if (this.answers) {
+            this.result = JSON.parse(localStorageService.get(resultKey));
             localStorageService.remove(testKey, resultKey);
         } else {
-            vm.admin = true;
+            this.admin = Auth.getCurrentUser()._id !== $routeParams.userId;
             User.get({
                 id: $routeParams.userId,
                 fields: {firstName: true, lastName: true, tests: true}
             }, (resp) => {
                 var test = resp.tests.find((item) => item._id == testKey);
-                parseResultAsync(test.result || test.answers, vm.type).then((result) => {
-                    vm.result = result;
+                parseResultAsync(test.result || test.answers).then((result) => {
+                    this.result = result;
                 });
-                vm.answers = test.result ? test.answers : undefined;
-                vm.name = resp.lastName + ' ' + resp.firstName;
-                vm.passingDate = test.passingDate;
+                this.answers = test.result ? test.answers : undefined;
+                this.name = resp.lastName + ' ' + resp.firstName;
+                this.passingDate = test.passingDate;
             });
         }
 
-        function parseResultAsync(result, type) {
-            return Test.get({id: testKey, fields: {content: true}})
+        function parseResultAsync(result) {
+            return Test.get({id: testKey, fields: {content: true, type: true}})
                 .$promise.then((resp) => {
-                    switch (type) {
-                        case 'professional-readiness':
+                    switch (resp.type) {
+                        case testTypes.PROF_READINESS:
                             return result.likes.map((item) => {
                                 return {
                                     name: resp.content.likes[item],
                                     description: resp.content.description[item]
                                 }
                             });
-                        case 'psychogeometrical':
+                        case testTypes.PSYCHOGEOMETRICAL:
                             return result.map((item) => {
                                 return {
                                     figure: item,
                                     description: resp.content.description[item]
                                 }
                             });
-                        case 'profession-choice':
+                        case testTypes.SYSTEM_PROF_CHOICE:
                             return {
                                 professions: result.result
                                     .filter((item, index, array) => item.count === array[0].count || item.count === array[1].count)
@@ -75,7 +74,7 @@
                                 skills: Object.keys(result.skills).map((item) => resp.content.skills[item - 1]),
                                 interests: Object.keys(result.interests).map((item) => resp.content.interests[item - 1])
                             };
-                        case 'teenage-kettel':
+                        case testTypes.TEENAGE_KETTEL:
                             var temp = result;
                             for (let prop in temp) {
                                 let item = temp[prop];
@@ -84,7 +83,7 @@
                                 item.level = item.level === 'high' ? 'высокий' : 'низкий';
                             }
                             return temp;
-                        case 'thinking-creativity':
+                        case testTypes.THINKING_CREATIVITY:
                             var thinkingTypes, creativity;
 
                             thinkingTypes = result.result.map((item, index) => {
