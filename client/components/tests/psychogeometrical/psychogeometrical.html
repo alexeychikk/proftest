@@ -15,10 +15,7 @@
 		</div>
 	</md-card-content>
 	<md-card-actions layout="row" layout-align="end center">
-		<md-button class="md-primary md-icon-button" ng-click="vm.answer()"
-				   aria-label="confirm">
-			<i class="mdi mdi-check-circle-outline mdi-24px"></i>
-			<md-tooltip md-direction="top">Подтвердить</md-tooltip>
-		</md-button>
+		<icon-button ng-click="vm.answer()" class-list="md-primary" tooltip-direction="top"
+					 icon="mdi-check-circle-outline" tooltip="Подтвердить" class-size="mdi-36px"></icon-button>
 	</md-card-actions>
 </md-card>

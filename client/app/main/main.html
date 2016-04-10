@@ -30,12 +30,8 @@
 								<i class="mdi mdi-facebook-box mdi-24px"></i>
 							</md-button>
 						</span>
-						<md-button class="md-icon-button md-primary"
-								   ng-click="vm.$location.path('/test/' + test._id + '/about')"
-								   aria-label="pass">
-							<i class="mdi mdi-play mdi-24px"></i>
-							<md-tooltip>Пройти</md-tooltip>
-						</md-button>
+						<icon-button ng-click="vm.$location.path('/test/' + test._id + '/about')" class-list="md-primary"
+									 icon="mdi-play" tooltip="Пройти" class-size="mdi-36px"></icon-button>
 					</md-card-actions>
 				</md-card>
 			</md-grid-tile>

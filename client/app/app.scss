@@ -148,6 +148,7 @@ md-menu-item {
 @import 'main/main';
 @import 'test/test';
 @import '../components/footer/footer';
+@import '../components/icon-button/icon-button';
 @import '../components/info-card/info-card';
 @import '../components/navbar/navbar';
 @import '../components/oauth-buttons/oauth-buttons';
@@ -194,11 +195,6 @@ md-menu-item {
 
 .link:hover {
   text-decoration: underline;
-}
-
-.icon-button {
-  width: 36px;
-  min-width: 0 !important;
 }
 
 .background {

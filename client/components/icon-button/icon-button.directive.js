@@ -8,7 +8,10 @@
 			restrict: 'E',
 			scope: {
 				icon: '@',
-				tooltip: '@'
+				tooltip: '@?',
+				classSize: '@?',
+				classList: '@?',
+				tooltipDirection: '@?'
 			}
 		}));
 

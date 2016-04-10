@@ -1,4 +1,5 @@
-<md-button class="md-icon-button" layout="row" layout-align="center center" aria-label="iconButton">
-	<i class="mdi mdi-24px {{this.icon}}"></i>
-	<md-tooltip>{{this.tooltip}}</md-tooltip>
+<md-button class="{{classList + ' ' + (classSize ? 'icon-button-' + classSize : 'md-icon-button')}}"
+		   layout="row" layout-align="center center" aria-label="iconButton">
+	<i class="mdi {{classSize || 'mdi-24px'}} {{icon}}"></i>
+	<md-tooltip ng-if="tooltip"  md-direction="{{tooltipDirection || 'bottom'}}">{{tooltip}}</md-tooltip>
 </md-button>

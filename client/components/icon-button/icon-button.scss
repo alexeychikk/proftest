@@ -1,0 +1,42 @@
+.icon-button {
+  margin: 0 6px;
+  min-width: 0;
+  line-height: 24px;
+  padding: 8px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+
+  &:last-of-type {
+    margin-right: 12px !important;
+  }
+
+  &:first-of-type {
+    margin-left: 12px !important;
+  }
+
+  & .md-ripple-container {
+    border-radius: 50% !important;
+  }
+}
+
+md-card md-card-actions:not(.layout-column) .icon-button {
+  margin-right: 6px !important;
+  margin-left: 6px !important;
+}
+
+.icon-button-mdi-36px {
+  line-height: 36px;
+  height: 50px;
+  width: 50px;
+
+  @extend .icon-button;
+}
+
+.icon-button-mdi-48px {
+  line-height: 48px;
+  height: 62px;
+  width: 62px;
+
+  @extend .icon-button;
+}
