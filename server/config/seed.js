@@ -83,14 +83,7 @@ Test.find({}).removeAsync()
 							password: 'admin',
 							birthDate: new Date('1998-01-01'),
 							gender: 'F',
-							tests: [
-								{
-									_id: test._id,
-									passingDate: new Date(),
-									answers: { bad: 'answer' },
-									result: { bad: 'result' }
-								}
-							]
+							tests: []
 						})
 						.then(() => {
 							console.log('finished populating users');
