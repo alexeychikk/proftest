@@ -19,7 +19,7 @@
 				if (this.ownProfile) return user;
 				return User.get({id: $routeParams.id}).$promise;
 			}).then(user => {
-				this.user = user.toJSON();
+				this.user = user;
 
 				this.user.education = this.user.education || [];
 				for (let i in this.user.education) {
@@ -37,7 +37,7 @@
 						this.user.work[i].endDate = new Date(this.user.work[i].endDate);
 				}
 
-				this.info = angular.copy(this.user);
+				this.info = angular.copy(this.user.toJSON());
 
 				if (this.user.tests.length) {
 					let testsIds = this.user.tests.map(test => test._id);
