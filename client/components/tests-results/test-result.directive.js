@@ -48,19 +48,19 @@
             });
         }
 
-        function parseResultAsync(result) {
+        function parseResultAsync(data) {
             return Test.get({id: testKey, fields: {content: true, type: true}})
                 .$promise.then((resp) => {
                     switch (resp.type) {
                         case testTypes.PROF_READINESS:
-                            return result.likes.map((item) => {
+                            return data.result.likes.map((item) => {
                                 return {
                                     name: resp.content.likes[item],
                                     description: resp.content.description[item]
                                 }
                             });
                         case testTypes.PSYCHOGEOMETRICAL:
-                            return result.map((item) => {
+                            return data.map((item) => {
                                 return {
                                     figure: item,
                                     description: resp.content.description[item]
@@ -68,14 +68,16 @@
                             });
                         case testTypes.SYSTEM_PROF_CHOICE:
                             return {
-                                professions: result.result
+                                professions: data.result && data.result
                                     .filter((item, index, array) => item.count === array[0].count || item.count === array[1].count)
                                     .map((item) => resp.content.professions[item.index]),
-                                skills: Object.keys(result.skills).map((item) => resp.content.skills[item - 1]),
-                                interests: Object.keys(result.interests).map((item) => resp.content.interests[item - 1])
+                                skills: data.skills &&
+									Object.keys(data.skills).map((item) => resp.content.skills[item - 1]),
+                                interests: data.interests &&
+									Object.keys(data.interests).map((item) => resp.content.interests[item - 1])
                             };
                         case testTypes.TEENAGE_KETTEL:
-                            var temp = result;
+                            var temp = data.result;
                             for (let prop in temp) {
                                 let item = temp[prop];
                                 item.name = resp.content.factors[prop].name;
@@ -86,7 +88,7 @@
                         case testTypes.THINKING_CREATIVITY:
                             var thinkingTypes, creativity;
 
-                            thinkingTypes = result.result.map((item, index) => {
+                            thinkingTypes = data.result.map((item, index) => {
                                 item.type = resp.content.thinkingTypes[index];
                                 item.description = resp.content.description[index];
                                 item.level = resp.content.levels[item.level];
