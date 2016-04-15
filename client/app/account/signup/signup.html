@@ -12,11 +12,16 @@
 					<div class="md-body-2">ИЛИ</div>
 				</div>
 				<md-card>
-					<md-card-title>
-						<md-card-title-text ng-if="vm.socialReg" style="text-align: center;">
+					<md-card-title ng-if="vm.socialReg">
+						<md-card-title-text ng-if="!vm.userDefined" style="text-align: center;">
 							<span class="md-headline">Недостаточно информации</span>
-							<span class="md-subhead">Ваш социальный профиль содержит недостаточно информации <br>для прохождения тестов.
-								Пожалуйста, заполните необходимые поля.</span>
+							<span class="md-subhead">Ваш социальный профиль содержит недостаточно информации<br>
+								для прохождения тестов. Пожалуйста, заполните необходимые поля.</span>
+						</md-card-title-text>
+						<md-card-title-text ng-if="vm.userDefined" style="text-align: center;">
+							<span class="md-headline">Email уже используется</span>
+							<span class="md-subhead">Ваш социальный профиль содержит email, на который<br>
+								уже зарегистрирован аккаун пользователя Proftest.</span>
 						</md-card-title-text>
 						<md-divider></md-divider>
 					</md-card-title>
@@ -85,10 +90,12 @@
 							</md-input-container>
 						</div>
 						<div layout="row" layout-align="center center">
-							<md-button ng-if="!vm.socialReg" class="md-raised md-primary" type="submit" aria-label="reg-btn">
+							<md-button ng-if="!vm.socialReg" class="md-raised md-primary" type="submit"
+									   aria-label="reg-btn" ng-disabled="!form.$valid">
 								Зарегистрироваться
 							</md-button>
-							<md-button ng-if="vm.socialReg" class="md-raised md-primary" ng-click="vm.complete()" aria-label="reg-btn">
+							<md-button ng-if="vm.socialReg" class="md-raised md-primary" ng-click="vm.complete()"
+									   aria-label="reg-btn" ng-disabled="!form.$valid">
 								Продолжить
 							</md-button>
 						</div>

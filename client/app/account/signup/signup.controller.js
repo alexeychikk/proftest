@@ -20,13 +20,25 @@
 			delete this.user._id;
 			this.errors = parsedParams.errors || {};
 
-			if (parsedParams.errors) this.socialReg = true;
+			if (parsedParams.errors) {
+				this.socialReg = true;
+				if (parsedParams.errors.email && parsedParams.errors.email.kind == 'user defined') {
+					this.userDefined = true;
+				}
+			}
 			var unwatch = $scope.$watch('form', form => {
 				if (form) {
-					for (let field in this.errors) {
-						form[field].$setTouched(true);
-						form[field].$setValidity(this.errors[field].kind, false);
-						form[field].$setDirty(true);
+					if (this.userDefined) {
+						form.email.$setTouched(true);
+						form.email.$setDirty(true);
+						form.email.$setValidity('mongoose', false);
+					}
+					else {
+						for (let field in this.errors) {
+							form[field].$setTouched(true);
+							form[field].$setValidity(this.errors[field].kind, false);
+							form[field].$setDirty(true);
+						}
 					}
 					this.form = form;
 					unwatch();

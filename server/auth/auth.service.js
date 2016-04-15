@@ -7,6 +7,8 @@ import expressJwt from 'express-jwt';
 import compose from 'composable-middleware';
 import User from '../api/user/user.model';
 
+var qs = require('qs');
+
 var validateJwt = expressJwt({
     secret: config.secrets.session
 });
@@ -78,4 +80,18 @@ export function setTokenCookie(req, res) {
     var token = signToken(req.user._id, req.user.role);
     res.cookie('token', token);
     res.redirect('/');
+}
+
+export function socialCallback(provider) {
+	return function (req, res, next) {
+		passport.authenticate(provider, function (err, user, info) {
+			if (err) {
+				res.redirect('/signup?' + qs.stringify(err));
+			}
+			else {
+				req.user = user;
+				setTokenCookie(req, res);
+			}
+		})(req, res, next);
+	};
 }

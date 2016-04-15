@@ -133,7 +133,7 @@ UserSchema
             return true;
         }
         return email.length;
-    }, 'Email cannot be blank');
+    }, 'Email не может быть пустым');
 
 // Validate empty password
 UserSchema
@@ -143,7 +143,7 @@ UserSchema
             return true;
         }
         return password.length;
-    }, 'Password cannot be blank');
+    }, 'Пароль не может быть пустым');
 
 // Validate email is not taken
 UserSchema
@@ -163,7 +163,7 @@ UserSchema
             .catch(function (err) {
                 throw err;
             });
-    }, 'The specified email address is already in use.');
+    }, 'Указанный email уже используется');
 
 var validatePresenceOf = function (value) {
     return value && value.length;
@@ -180,7 +180,7 @@ UserSchema
         }
 
         if (!validatePresenceOf(this.password) && authTypes.indexOf(this.provider) === -1) {
-            next(new Error('Invalid password'));
+            next(new Error('Неправильный пароль'));
         }
 
         // Make salt with a callback
