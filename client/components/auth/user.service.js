@@ -35,7 +35,8 @@
 						user.tests.push({
 							_id: response.config.data.testId,
 							answers: response.config.data.answers,
-							result: response.data.result || response.data
+							result: response.data.result || response.data,
+							passingDate: new Date()
 						});
 						return response.data;
 					}
